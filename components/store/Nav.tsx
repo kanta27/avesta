@@ -1,26 +1,29 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 
+// `/shop` is a real route; the rest are homepage sections, addressed as `/#…`
+// so they resolve from any page (e.g. while on /shop), not only the homepage.
 const LINKS = [
-  { href: "#concerns", label: "Shop by Concern" },
-  { href: "#shop", label: "Products" },
-  { href: "#science", label: "The Science" },
-  { href: "#reviews", label: "Reviews" },
-  { href: "#blog", label: "Blog" },
+  { href: "/#concerns", label: "Shop by Concern" },
+  { href: "/shop", label: "Products" },
+  { href: "/#science", label: "The Science" },
+  { href: "/#reviews", label: "Reviews" },
+  { href: "/#blog", label: "Blog" },
 ] as const;
 
 export function Nav() {
   return (
     <nav>
       <div className="wrap nav-in">
-        <a className="logo" href="#" aria-label="Avesta Health home">
+        <Link className="logo" href="/" aria-label="Avesta Health home">
           <span className="dot" aria-hidden />
           AVESTA&nbsp;HEALTH
-        </a>
+        </Link>
         <div className="nav-links">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href}>
+            <Link key={l.href} href={l.href}>
               {l.label}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="nav-cta">
@@ -29,7 +32,7 @@ export function Nav() {
             <span aria-hidden>🛒</span>
             <span aria-hidden>2</span>
           </div>
-          <Button variant="primary" href="#shop">
+          <Button variant="primary" href="/shop">
             Shop Now
           </Button>
         </div>
