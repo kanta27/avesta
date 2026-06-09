@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { serverEnv } from "@/lib/env.server";
 import type { Database } from "./types";
 
 /**
@@ -14,17 +15,13 @@ import type { Database } from "./types";
  * without re-validating it server-side first.
  */
 export function createAdminClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const env = serverEnv();
 
-  if (!url || !serviceRoleKey) {
-    throw new Error(
-      "Missing NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY. " +
-        "Set them in .env.local (service-role key is secret — never commit it).",
-    );
-  }
-
-  return createSupabaseClient<Database>(url, serviceRoleKey, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
+  return createSupabaseClient<Database>(
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.SUPABASE_SERVICE_ROLE_KEY,
+    {
+      auth: { autoRefreshToken: false, persistSession: false },
+    },
+  );
 }

@@ -1,4 +1,5 @@
 import { createBrowserClient } from "@supabase/ssr";
+import { publicEnv } from "@/lib/env";
 import type { Database } from "./types";
 
 /**
@@ -7,15 +8,8 @@ import type { Database } from "./types";
  * so this is safe to ship to the browser. Never put the service-role key here.
  */
 export function createClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!url || !key) {
-    throw new Error(
-      "Missing NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY. " +
-        "Copy .env.example to .env.local and fill them in.",
-    );
-  }
-
-  return createBrowserClient<Database>(url, key);
+  return createBrowserClient<Database>(
+    publicEnv.NEXT_PUBLIC_SUPABASE_URL,
+    publicEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  );
 }

@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
+import { publicEnv } from "@/lib/env";
 import type { Database } from "./types";
 
 /**
@@ -12,33 +13,27 @@ import type { Database } from "./types";
  * `./admin` (server-only) instead.
  */
 export async function createClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!url || !key) {
-    throw new Error(
-      "Missing NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY. " +
-        "Copy .env.example to .env.local and fill them in.",
-    );
-  }
-
   const cookieStore = await cookies();
 
-  return createServerClient<Database>(url, key, {
-    cookies: {
-      getAll() {
-        return cookieStore.getAll();
-      },
-      setAll(cookiesToSet) {
-        try {
-          for (const { name, value, options } of cookiesToSet) {
-            cookieStore.set(name, value, options);
+  return createServerClient<Database>(
+    publicEnv.NEXT_PUBLIC_SUPABASE_URL,
+    publicEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          try {
+            for (const { name, value, options } of cookiesToSet) {
+              cookieStore.set(name, value, options);
+            }
+          } catch {
+            // `setAll` is called from a Server Component where mutating cookies
+            // is not allowed. Safe to ignore when middleware refreshes sessions.
           }
-        } catch {
-          // `setAll` is called from a Server Component where mutating cookies
-          // is not allowed. Safe to ignore when middleware refreshes sessions.
-        }
+        },
       },
     },
-  });
+  );
 }
