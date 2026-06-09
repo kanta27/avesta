@@ -10,6 +10,8 @@ A D2C marketing site for **Avesta Health** (a consumer health/supplements brand 
 
 The original static demo (`avesthagen_d2c_homepage.html`) is kept as the **visual source of truth**; it was ported to React components in Foundation **A1**.
 
+The database schema lives in `supabase/migrations/` (applied to Supabase in Foundation **A2**) and the generated TypeScript types + typed clients (browser/server/service-role) live in `lib/supabase/` — regenerate types with `npm run db:types` after any migration.
+
 ## Running / previewing
 
 ```
