@@ -66,6 +66,26 @@ when done. This is not a one-time doc — keep it current.
       transactional provider (Resend / SES / Postmark / etc.) with a verified
       sender domain. Optionally customise the "Magic Link" email template.
 
+- [ ] **(Follow-up, not yet built) Switch the magic link to the token-hash verify
+      flow for robustness.** The current callback uses the PKCE `?code=` exchange
+      (`exchangeCodeForSession`), which stores a one-time `code_verifier` cookie and
+      therefore **fails if the link is opened in a different browser than it was
+      requested from, or if an email prefetcher/security scanner (Gmail, corporate
+      mail gateways) hits the link and consumes the one-time code first**. The
+      callback already degrades gracefully (redirects to `/admin/login?error=1`
+      with a "request a new link" message), so this is optional hardening — do it
+      if prefetch-consumption shows up in production.
+
+      The fix is the **token-hash flow**, which is tolerant of any browser/prefetcher:
+      - Change the email link template to point at a confirm route with
+        `token_hash` + `type=email` (e.g. `/admin/auth/confirm?token_hash={{ .TokenHash }}&type=email`)
+        instead of the `?code=` link. Configured in Supabase → Authentication →
+        Emails → Magic Link template (and `signInWithOtp`'s `emailRedirectTo`).
+      - Add an `app/admin/auth/confirm/route.ts` handler that calls
+        `supabase.auth.verifyOtp({ type: 'email', token_hash })`, then re-checks the
+        allow-list exactly as the current callback does, and redirects to `/admin`.
+      - Keep the existing `?code=` callback or retire it once the template is switched.
+
 - [ ] **Set `ADMIN_ALLOWED_EMAILS`** in Vercel (and confirm it's in `.env.local`
       for dev). Without it, the gate denies everyone (fails closed). Comma-separate
       multiple admins.
