@@ -1,0 +1,16 @@
+/* Brand design tokens — source of truth, ported from the homepage demo.
+   Color + radii live here as CSS variables; font variables are injected by
+   next/font on <html> (see app/layout.tsx). Tailwind utilities are mapped
+   from these in app/globals.css via @theme inline. */
+:root {
+  --ink: #0a3d3f;        /* deep clinical teal (primary) */
+  --ink-2: #0f5557;      /* secondary teal */
+  --paper: #fafbf8;      /* base background */
+  --paper-2: #f1f5f0;    /* alt section background */
+  --lime: #c8f04c;       /* electric accent / CTAs */
+  --lime-deep: #9ccb1f;  /* accent text */
+  --amber: #e8a24a;      /* stars / warm secondary */
+  --grey: #5c6b68;       /* body subtext */
+  --line: #dde5df;       /* borders */
+  --radius: 18px;        /* card radius */
+}

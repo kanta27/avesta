@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avesta Health — Medicine, rooted in science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A3D3F;          /* deep clinical teal */
+  --ink-2:#0F5557;
+  --paper:#FAFBF8;        /* off-white base */
+  --paper-2:#F1F5F0;
+  --lime:#C8F04C;         /* electric accent */
+  --lime-deep:#9CCB1F;
+  --amber:#E8A24A;        /* warm secondary */
+  --grey:#5C6B68;
+  --line:#DDE5DF;
+  --radius:18px;
+  --font-d:'Schibsted Grotesk',sans-serif;
+  --font-b:'Instrument Sans',sans-serif;
+  --font-m:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:inherit;text-decoration:none}
+.mono{font-family:var(--font-m)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:var(--font-d);line-height:1.08;letter-spacing:-0.02em}
+
+/* ---------- grain + molecule background ---------- */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(var(--line) 1px, transparent 1px);background-size:34px 34px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.5),transparent 40%);}
+main,header,footer{position:relative;z-index:1}
+
+/* ---------- announcement + nav ---------- */
+.announce{background:var(--ink);color:var(--lime);font-family:var(--font-m);font-size:12px;text-align:center;padding:8px 12px;letter-spacing:.06em}
+nav{position:sticky;top:0;z-index:50;background:rgba(250,251,248,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:var(--font-d);font-weight:800;font-size:21px;display:flex;align-items:center;gap:9px}
+.logo .dot{width:11px;height:11px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(200,240,76,.25)}
+.nav-links{display:flex;gap:30px;font-size:14.5px;font-weight:500}
+.nav-links a{position:relative;padding:4px 0}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--lime-deep);transition:width .25s}
+.nav-links a:hover::after{width:100%}
+.nav-cta{display:flex;align-items:center;gap:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:13px 24px;border-radius:999px;border:none;cursor:pointer;transition:transform .18s,box-shadow .18s;font-family:var(--font-b)}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--ink);color:#fff;box-shadow:0 8px 22px rgba(10,61,63,.22)}
+.btn-primary:hover{box-shadow:0 12px 28px rgba(10,61,63,.3)}
+.btn-lime{background:var(--lime);color:var(--ink)}
+.btn-ghost{background:transparent;border:1.5px solid var(--ink);color:var(--ink)}
+.cart-ic{position:relative;font-size:20px;cursor:pointer}
+.cart-ic span{position:absolute;top:-7px;right:-10px;background:var(--lime);color:var(--ink);font-family:var(--font-m);font-size:10px;font-weight:600;border-radius:50%;width:17px;height:17px;display:grid;place-items:center}
+
+/* ---------- hero ---------- */
+.hero{padding:84px 0 70px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.eyebrow{font-family:var(--font-m);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;padding:7px 14px;border-radius:999px;margin-bottom:26px}
+.eyebrow b{color:var(--lime-deep)}
+.hero h1{font-size:clamp(40px,5.4vw,66px);font-weight:800}
+.hero h1 em{font-style:normal;position:relative;white-space:nowrap}
+.hero h1 em::after{content:"";position:absolute;left:0;bottom:6px;width:100%;height:14px;background:var(--lime);z-index:-1;border-radius:3px}
+.hero p.lead{font-size:18px;color:var(--grey);max-width:520px;margin:24px 0 34px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.stats{display:flex;gap:42px;margin-top:52px;flex-wrap:wrap}
+.stat .num{font-family:var(--font-m);font-size:30px;font-weight:500;color:var(--ink)}
+.stat .lab{font-size:13px;color:var(--grey);margin-top:2px}
+
+/* hero visual */
+.hero-visual{position:relative;height:520px}
+.product-card-hero{position:absolute;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 24px 60px rgba(10,61,63,.12);padding:22px;width:250px}
+.product-card-hero .ph{height:170px;border-radius:12px;display:grid;place-items:center;font-size:54px;margin-bottom:14px}
+.pc1{top:24px;right:30px;transform:rotate(3deg);animation:float 7s ease-in-out infinite}
+.pc1 .ph{background:linear-gradient(145deg,#E3F4FB,#CBE9F4)}
+.pc2{bottom:10px;left:0;transform:rotate(-4deg);animation:float 8s ease-in-out 1.2s infinite}
+.pc2 .ph{background:linear-gradient(145deg,#FBEFE0,#F6E0C4)}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -14px}}
+.pch-name{font-family:var(--font-d);font-weight:700;font-size:16px}
+.pch-meta{font-family:var(--font-m);font-size:11px;color:var(--grey);margin-top:4px}
+.badge-float{position:absolute;background:var(--ink);color:#fff;font-family:var(--font-m);font-size:11px;padding:9px 14px;border-radius:999px;box-shadow:0 10px 26px rgba(10,61,63,.25)}
+.bf1{top:46%;left:34%;animation:float 6s ease-in-out .6s infinite}
+.bf1 b{color:var(--lime)}
+.helix{position:absolute;inset:-40px;z-index:-1;opacity:.55}
+
+/* ---------- trust strip ---------- */
+.trust{border-block:1px solid var(--line);background:#fff;overflow:hidden;padding:16px 0}
+.marquee{display:flex;gap:56px;width:max-content;animation:scroll 28s linear infinite;font-family:var(--font-m);font-size:13px;letter-spacing:.05em;color:var(--ink-2)}
+.marquee span{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.marquee i{font-style:normal;color:var(--lime-deep)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ---------- generic section ---------- */
+section{padding:88px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:46px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(28px,3.4vw,42px);font-weight:800;max-width:560px}
+.sec-head .kicker{font-family:var(--font-m);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-deep);display:block;margin-bottom:12px}
+.sec-head p{color:var(--grey);max-width:380px;font-size:15px}
+
+/* ---------- concerns ---------- */
+.concern-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.concern{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 18px;text-align:center;cursor:pointer;transition:all .22s;position:relative;overflow:hidden}
+.concern:hover{border-color:var(--ink);transform:translateY(-5px);box-shadow:0 16px 34px rgba(10,61,63,.1)}
+.concern .ic{font-size:30px;margin-bottom:12px}
+.concern h3{font-size:15px;font-weight:700}
+.concern p{font-family:var(--font-m);font-size:10.5px;color:var(--grey);margin-top:5px}
+
+/* ---------- products ---------- */
+#shop{background:var(--paper-2);border-block:1px solid var(--line)}
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.prod{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:all .22s;display:flex;flex-direction:column}
+.prod:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(10,61,63,.12)}
+.prod .img{height:200px;display:grid;place-items:center;font-size:64px;position:relative}
+.prod .tag{position:absolute;top:14px;left:14px;background:var(--ink);color:var(--lime);font-family:var(--font-m);font-size:10px;padding:5px 10px;border-radius:999px;letter-spacing:.05em}
+.prod .body{padding:20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.prod h3{font-size:17px;font-weight:700}
+.prod .sci{font-family:var(--font-m);font-size:11px;color:var(--grey)}
+.stars{color:var(--amber);font-size:13px}
+.stars small{color:var(--grey);font-family:var(--font-m);font-size:10.5px;margin-left:6px}
+.price-row{display:flex;align-items:baseline;gap:8px;margin-top:auto;padding-top:8px}
+.price{font-family:var(--font-d);font-weight:800;font-size:20px}
+.perday{font-family:var(--font-m);font-size:11px;color:var(--lime-deep);font-weight:500}
+.packs{display:flex;gap:6px;margin:6px 0 12px}
+.pack{font-family:var(--font-m);font-size:10.5px;border:1px solid var(--line);border-radius:8px;padding:5px 9px;cursor:pointer;transition:all .15s}
+.pack.on,.pack:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.add{width:100%;justify-content:center}
+
+/* ---------- science ---------- */
+.sci-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.sci-grid p{color:var(--grey);margin:18px 0;font-size:15.5px}
+.checks{display:grid;gap:13px;margin-top:26px}
+.checks li{list-style:none;display:flex;gap:12px;align-items:flex-start;font-size:15px}
+.checks .ck{flex:none;width:22px;height:22px;border-radius:50%;background:var(--lime);display:grid;place-items:center;font-size:12px;color:var(--ink);font-weight:700;margin-top:2px}
+.pipeline{background:var(--ink);border-radius:24px;padding:44px 38px;color:#fff;position:relative;overflow:hidden}
+.pipeline::after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,76,.18),transparent 70%);top:-80px;right:-80px}
+.pipeline h3{font-size:13px;font-family:var(--font-m);font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-bottom:30px}
+.step{display:flex;gap:18px;position:relative;padding-bottom:30px}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:17px;top:38px;bottom:0;width:2px;background:rgba(255,255,255,.16)}
+.step:last-child::before{display:none}
+.step .n{flex:none;width:36px;height:36px;border-radius:50%;border:2px solid var(--lime);display:grid;place-items:center;font-family:var(--font-m);font-size:13px;color:var(--lime);background:var(--ink);z-index:1}
+.step h4{font-family:var(--font-d);font-size:16px}
+.step p{font-size:13.5px;color:rgba(255,255,255,.65);margin-top:3px}
+
+/* ---------- testimonials ---------- */
+#reviews{background:var(--paper-2);border-block:1px solid var(--line)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.rev{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;gap:14px}
+.rev .q{font-size:15.5px;line-height:1.65}
+.rev .who{display:flex;align-items:center;gap:12px;margin-top:auto}
+.rev .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-d);font-weight:700;color:var(--ink);background:var(--lime)}
+.rev .who b{font-size:14px;display:block}
+.rev .who span{font-family:var(--font-m);font-size:11px;color:var(--grey)}
+.src{font-family:var(--font-m);font-size:10px;border:1px solid var(--line);padding:4px 9px;border-radius:999px;color:var(--grey);margin-left:auto}
+
+/* ---------- research ---------- */
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.res{border:1px solid var(--line);background:#fff;border-radius:var(--radius);padding:30px;transition:all .22s;cursor:pointer}
+.res:hover{background:var(--ink);color:#fff;transform:translateY(-5px)}
+.res:hover .res-k,.res:hover p{color:rgba(255,255,255,.7)}
+.res:hover .arrow{background:var(--lime);color:var(--ink)}
+.res-k{font-family:var(--font-m);font-size:11px;color:var(--lime-deep);letter-spacing:.1em;text-transform:uppercase}
+.res h3{font-size:18px;margin:14px 0 10px;font-weight:700}
+.res p{font-size:14px;color:var(--grey)}
+.arrow{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;margin-top:22px;transition:all .22s}
+
+/* ---------- quiz band ---------- */
+.quiz{background:var(--lime);border-radius:28px;padding:64px 56px;display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap;position:relative;overflow:hidden}
+.quiz::before{content:"";position:absolute;width:380px;height:380px;border:2px dashed rgba(10,61,63,.25);border-radius:50%;right:-110px;top:-110px;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.quiz h2{font-size:clamp(26px,3.2vw,38px);font-weight:800;max-width:520px}
+.quiz p{margin-top:10px;color:var(--ink-2);font-weight:500}
+
+/* ---------- blog ---------- */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.post{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:all .22s}
+.post:hover{transform:translateY(-5px);box-shadow:0 18px 38px rgba(10,61,63,.1)}
+.post .thumb{height:160px;display:grid;place-items:center;font-size:46px}
+.post .body{padding:22px}
+.post .meta{font-family:var(--font-m);font-size:10.5px;color:var(--grey);letter-spacing:.06em}
+.post h3{font-size:16.5px;margin-top:10px;font-weight:700;line-height:1.35}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:rgba(255,255,255,.78);padding:70px 0 36px;margin-top:60px}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:44px}
+.f-grid h4{color:#fff;font-family:var(--font-d);font-size:15px;margin-bottom:16px}
+.f-grid a{display:block;font-size:14px;margin-bottom:10px;opacity:.8}
+.f-grid a:hover{opacity:1;color:var(--lime)}
+.f-logo{font-family:var(--font-d);font-weight:800;font-size:22px;color:#fff;margin-bottom:14px}
+.f-grid p{font-size:13.5px;max-width:300px}
+.f-bottom{border-top:1px solid rgba(255,255,255,.14);margin-top:54px;padding-top:26px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-family:var(--font-m);font-size:11.5px;opacity:.65}
+.f-cert{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.f-cert span{font-family:var(--font-m);font-size:10.5px;border:1px solid rgba(255,255,255,.25);padding:6px 11px;border-radius:999px}
+
+/* ---------- popup ---------- */
+.overlay{position:fixed;inset:0;background:rgba(10,61,63,.45);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.overlay.show{display:flex;animation:fade .3s}
+@keyframes fade{from{opacity:0}}
+.popup{background:var(--paper);border-radius:24px;max-width:760px;width:100%;display:grid;grid-template-columns:1fr 1.1fr;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.3);animation:pop .35s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes pop{from{transform:translateY(26px) scale(.97);opacity:0}}
+.pop-left{background:var(--ink);color:#fff;padding:40px 34px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.pop-left::after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,76,.22),transparent 70%);bottom:-90px;left:-70px}
+.pop-left .off{font-family:var(--font-d);font-size:58px;font-weight:800;color:var(--lime);line-height:1}
+.pop-left h3{font-size:22px;margin-top:10px}
+.pop-left p{font-size:13.5px;color:rgba(255,255,255,.7);margin-top:10px}
+.pop-right{padding:40px 36px;position:relative}
+.pop-close{position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--grey)}
+.field{margin-bottom:14px}
+.field input{width:100%;padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;font-family:var(--font-b);font-size:14.5px;background:#fff;outline:none;transition:border .2s}
+.field input:focus{border-color:var(--ink)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--grey);margin:14px 0 18px}
+.consent input{margin-top:3px}
+.pop-note{font-family:var(--font-m);font-size:10.5px;color:var(--grey);margin-top:14px;text-align:center}
+
+/* ---------- whatsapp fab ---------- */
+.wa{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#25D366;display:grid;place-items:center;font-size:26px;box-shadow:0 12px 30px rgba(37,211,102,.4);cursor:pointer;z-index:60;transition:transform .2s}
+.wa:hover{transform:scale(1.08)}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:all .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:960px){
+  .nav-links{display:none}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-visual{height:420px;margin-top:10px}
+  .concern-grid{grid-template-columns:repeat(3,1fr)}
+  .prod-grid,.rev-grid,.res-grid,.blog-grid{grid-template-columns:repeat(2,1fr)}
+  .sci-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr 1fr}
+  .popup{grid-template-columns:1fr;max-width:420px;align-self:flex-end;border-radius:24px 24px 0 0}
+  .overlay{align-items:flex-end;padding:0}
+  .pop-left{padding:28px 30px}
+  .pop-left .off{font-size:42px}
+}
+@media(max-width:560px){
+  .concern-grid{grid-template-columns:repeat(2,1fr)}
+  .prod-grid,.rev-grid,.res-grid,.blog-grid{grid-template-columns:1fr}
+  section{padding:60px 0}
+  .quiz{padding:44px 28px}
+}
+</style>
+</head>
+<body>
+
+<div class="announce">FREE SHIPPING ON ORDERS ABOVE ₹999 &nbsp;·&nbsp; FSSAI LICENSED &nbsp;·&nbsp; SHIPS ACROSS INDIA</div>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="#"><span class="dot"></span>AVESTA&nbsp;HEALTH</a>
+    <div class="nav-links">
+      <a href="#concerns">Shop by Concern</a>
+      <a href="#shop">Products</a>
+      <a href="#science">The Science</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#blog">Blog</a>
+    </div>
+    <div class="nav-cta">
+      <div class="cart-ic">🛒<span>2</span></div>
+      <button class="btn btn-primary" onclick="document.getElementById('shop').scrollIntoView()">Shop Now</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><b>●</b> BY AVESTHAGEN · 25+ YEARS OF BIOSCIENCE</span>
+      <h1>Medicine, rooted in <em>science.</em><br>Made for every day.</h1>
+      <p class="lead">Clinically formulated hydration drinks and nutrient gummies — built on Avesthagen's research heritage. Prevention, Precaution and Cure, in a form you'll actually enjoy.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary" onclick="document.getElementById('concerns').scrollIntoView()">Shop by health concern →</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('science').scrollIntoView()">Explore the science</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="num" data-count="25" data-suffix="+">0</div><div class="lab">Years of research</div></div>
+        <div class="stat"><div class="num" data-count="7">0</div><div class="lab">Clinically tested formulas</div></div>
+        <div class="stat"><div class="num" data-count="100" data-suffix="%">0</div><div class="lab">FSSAI licensed</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg class="helix" viewBox="0 0 400 560" fill="none">
+        <path d="M80 0 C 200 70, 200 130, 80 200 C 200 270, 200 330, 80 400 C 200 470, 200 530, 80 600" stroke="#0A3D3F" stroke-opacity=".14" stroke-width="2"/>
+        <path d="M320 0 C 200 70, 200 130, 320 200 C 200 270, 200 330, 320 400 C 200 470, 200 530, 320 600" stroke="#9CCB1F" stroke-opacity=".3" stroke-width="2"/>
+        <g stroke="#0A3D3F" stroke-opacity=".12"><line x1="110" y1="60" x2="290" y2="60"/><line x1="100" y1="140" x2="300" y2="140"/><line x1="110" y1="260" x2="290" y2="260"/><line x1="100" y1="340" x2="300" y2="340"/><line x1="110" y1="460" x2="290" y2="460"/></g>
+      </svg>
+      <div class="product-card-hero pc1">
+        <div class="ph">🥤</div>
+        <div class="pch-name">HydraSci™ Electrolyte</div>
+        <div class="pch-meta">RAPID HYDRATION · 15-DAY PACK</div>
+      </div>
+      <div class="product-card-hero pc2">
+        <div class="ph">🍬</div>
+        <div class="pch-name">VitaGum™ Multivitamin</div>
+        <div class="pch-meta">DAILY NUTRITION · 30 GUMMIES</div>
+      </div>
+      <div class="badge-float bf1">CLINICALLY TESTED <b>✓</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust">
+  <div class="marquee" id="marquee">
+    <span><i>⚗</i> CLINICALLY VALIDATED</span><span><i>🧬</i> SCIENCE-BACKED FORMULAS</span><span><i>✓</i> FSSAI LICENSED</span><span><i>🔒</i> SECURE PREPAID CHECKOUT</span><span><i>🚚</i> PAN-INDIA DELIVERY</span><span><i>★</i> RATED 4.5 ON AMAZON</span>
+  </div>
+</div>
+
+<!-- CONCERNS -->
+<section id="concerns">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2><span class="kicker">01 — Start here</span>Shop by health concern</h2>
+      <p>Concern-first, not product-first. Tell us what your body needs — we'll match the formula.</p>
+    </div>
+    <div class="concern-grid reveal">
+      <div class="concern"><div class="ic">💧</div><h3>Hydration</h3><p>3 FORMULAS</p></div>
+      <div class="concern"><div class="ic">⚡</div><h3>Energy</h3><p>2 FORMULAS</p></div>
+      <div class="concern"><div class="ic">🛡️</div><h3>Immunity</h3><p>2 FORMULAS</p></div>
+      <div class="concern"><div class="ic">😴</div><h3>Sleep</h3><p>1 FORMULA</p></div>
+      <div class="concern"><div class="ic">✨</div><h3>Hair & Skin</h3><p>1 FORMULA</p></div>
+      <div class="concern"><div class="ic">🦴</div><h3>Daily Nutrition</h3><p>2 FORMULAS</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="shop">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2><span class="kicker">02 — The range</span>Seven formulas. Zero guesswork.</h2>
+      <p>Three hydration drinks. Four nutrient gummies. Every one clinically made and scientifically tested.</p>
+    </div>
+    <div class="prod-grid reveal">
+      <div class="prod">
+        <div class="img" style="background:linear-gradient(150deg,#E3F4FB,#CBE9F4)"><span class="tag">BESTSELLER</span>🥤</div>
+        <div class="body">
+          <h3>HydraSci™ Daily Electrolyte</h3>
+          <div class="sci">Na⁺ K⁺ Mg²⁺ · GLUCOSE-OPTIMIZED</div>
+          <div class="stars">★★★★★ <small>4.6 · AMAZON VERIFIED</small></div>
+          <div class="packs"><span class="pack">15-DAY</span><span class="pack on">30-DAY −10%</span><span class="pack">90-DAY −15%</span></div>
+          <div class="price-row"><span class="price">₹1,098</span><span class="perday">₹37/DAY</span></div>
+          <button class="btn btn-lime add">Add to cart</button>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="img" style="background:linear-gradient(150deg,#FFF0DC,#FBDFB6)">🥤</div>
+        <div class="body">
+          <h3>HydraSci™ Energy +</h3>
+          <div class="sci">B-COMPLEX · NATURAL CAFFEINE</div>
+          <div class="stars">★★★★☆ <small>4.4 · TATA 1MG</small></div>
+          <div class="packs"><span class="pack">15-DAY</span><span class="pack on">30-DAY −10%</span><span class="pack">90-DAY −15%</span></div>
+          <div class="price-row"><span class="price">₹1,198</span><span class="perday">₹40/DAY</span></div>
+          <button class="btn btn-lime add">Add to cart</button>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="img" style="background:linear-gradient(150deg,#F3E9FB,#E2D2F2)"><span class="tag">NEW</span>🍬</div>
+        <div class="body">
+          <h3>VitaGum™ Immunity</h3>
+          <div class="sci">VIT C + D3 + ZINC · 30 GUMMIES</div>
+          <div class="stars">★★★★★ <small>4.7 · AMAZON VERIFIED</small></div>
+          <div class="packs"><span class="pack">15-DAY</span><span class="pack on">30-DAY −10%</span><span class="pack">90-DAY −15%</span></div>
+          <div class="price-row"><span class="price">₹898</span><span class="perday">₹30/DAY</span></div>
+          <button class="btn btn-lime add">Add to cart</button>
+        </div>
+      </div>
+      <div class="prod">
+        <div class="img" style="background:linear-gradient(150deg,#E5F6E8,#CDEBD4)">🍬</div>
+        <div class="body">
+          <h3>VitaGum™ Hair & Skin</h3>
+          <div class="sci">BIOTIN · AMLA BIOACTIVES</div>
+          <div class="stars">★★★★☆ <small>4.5 · TATA 1MG</small></div>
+          <div class="packs"><span class="pack">15-DAY</span><span class="pack on">30-DAY −10%</span><span class="pack">90-DAY −15%</span></div>
+          <div class="price-row"><span class="price">₹998</span><span class="perday">₹33/DAY</span></div>
+          <button class="btn btn-lime add">Add to cart</button>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px"><button class="btn btn-ghost">View all 7 products + combo stacks →</button></div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section id="science">
+  <div class="wrap sci-grid">
+    <div class="reveal">
+      <span class="kicker" style="font-family:var(--font-m);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-deep)">03 — Why us</span>
+      <h2 style="font-size:clamp(28px,3.4vw,42px);font-weight:800;margin-top:12px">Built like a pharmaceutical. Enjoyed like a treat.</h2>
+      <p>Most supplement brands start with marketing. We start in the lab. Every Avesta Health formula comes out of Avesthagen's 25-year pipeline of pharma-grade discovery — combining validated plant bioactives with modern clinical standards.</p>
+      <ul class="checks">
+        <li><span class="ck">✓</span>Every ingredient scientifically tested, every batch FSSAI licensed</li>
+        <li><span class="ck">✓</span>Structure-function claims only — no miracle promises, just evidence</li>
+        <li><span class="ck">✓</span>Research lineage published and linked on every product page</li>
+        <li><span class="ck">✓</span>Designed as 15-day clinical-style courses, not random consumption</li>
+      </ul>
+      <div style="margin-top:30px"><button class="btn btn-primary">Read our research →</button></div>
+    </div>
+    <div class="pipeline reveal">
+      <h3>From molecule to medicine cabinet</h3>
+      <div class="step"><div class="n">01</div><div><h4>Research</h4><p>Bioactive discovery from Avesthagen's genomics & natural-molecules programs.</p></div></div>
+      <div class="step"><div class="n">02</div><div><h4>Formulation</h4><p>Dosage and delivery engineered for absorption — drink or gummy.</p></div></div>
+      <div class="step"><div class="n">03</div><div><h4>Clinical validation</h4><p>Scientifically tested to pharma-rigor standards before launch.</p></div></div>
+      <div class="step"><div class="n">04</div><div><h4>Your daily ritual</h4><p>Shipped fresh, pan-India. Tracked to your door, reminders on WhatsApp.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2><span class="kicker">04 — Proof</span>Trusted by people, verified by platforms</h2>
+      <p>Real reviews from verified buyers on Amazon and Tata 1mg — plus stories from our own customers.</p>
+    </div>
+    <div class="rev-grid reveal">
+      <div class="rev">
+        <div class="stars">★★★★★</div>
+        <p class="q">"I've tried every electrolyte powder out there. This is the first one where I could actually read the science behind it. The 90-day pack made it a habit."</p>
+        <div class="who"><div class="av">RS</div><div><b>Rahul S.</b><span>BENGALURU</span></div><span class="src">AMAZON ✓</span></div>
+      </div>
+      <div class="rev">
+        <div class="stars">★★★★★</div>
+        <p class="q">"The immunity gummies are part of my kids' routine now. Knowing it comes from a real research company — not just an Instagram brand — matters to me."</p>
+        <div class="who"><div class="av">PM</div><div><b>Priya M.</b><span>MUMBAI</span></div><span class="src">TATA 1MG ✓</span></div>
+      </div>
+      <div class="rev">
+        <div class="stars">★★★★☆</div>
+        <p class="q">"Ordered the hydration + gummy stack. Delivery was quick, and the WhatsApp tracking updates were a nice touch. Already reordered the monthly pack."</p>
+        <div class="who"><div class="av">AK</div><div><b>Arjun K.</b><span>DELHI</span></div><span class="src">DIRECT ✓</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2><span class="kicker">05 — The lab</span>Important research, made readable</h2>
+      <p>Highlights from Avesthagen's published work — summarized for humans, linked to the original papers.</p>
+    </div>
+    <div class="res-grid reveal">
+      <div class="res"><span class="res-k">Genomics</span><h3>What a landmark genome project teaches us about preventive health</h3><p>How population genetics shapes the future of personalized nutrition.</p><div class="arrow">→</div></div>
+      <div class="res"><span class="res-k">Bioactives</span><h3>Plant molecules, pharma rigor: our natural-discovery pipeline</h3><p>From traditional Indian medicine to clinically validated ingredients.</p><div class="arrow">→</div></div>
+      <div class="res"><span class="res-k">Nutrition Science</span><h3>Why hydration is more than water: the electrolyte evidence</h3><p>The clinical basis behind our glucose-optimized formulation.</p><div class="arrow">→</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section>
+  <div class="wrap">
+    <div class="quiz reveal">
+      <div>
+        <h2>Not sure where to start? Take the 60-second health quiz.</h2>
+        <p>Answer 5 quick questions → get your matched formula + 10% off your first order.</p>
+      </div>
+      <button class="btn btn-primary" style="font-size:16px;padding:16px 30px" onclick="openPopup()">Find my formula →</button>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2><span class="kicker">06 — Learn</span>From the journal</h2>
+      <button class="btn btn-ghost">All articles →</button>
+    </div>
+    <div class="blog-grid reveal">
+      <a class="post" href="#"><div class="thumb" style="background:linear-gradient(150deg,#E3F4FB,#CBE9F4)">💧</div><div class="body"><div class="meta">HYDRATION · 5 MIN READ</div><h3>Signs you're chronically under-hydrated (and don't know it)</h3></div></a>
+      <a class="post" href="#"><div class="thumb" style="background:linear-gradient(150deg,#E5F6E8,#CDEBD4)">🧬</div><div class="body"><div class="meta">SCIENCE · 7 MIN READ</div><h3>Gummies vs tablets: what absorption research actually says</h3></div></a>
+      <a class="post" href="#"><div class="thumb" style="background:linear-gradient(150deg,#FFF0DC,#FBDFB6)">🛡️</div><div class="body"><div class="meta">IMMUNITY · 4 MIN READ</div><h3>The Vitamin D deficiency most Indians live with</h3></div></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <div class="f-logo">● AVESTA HEALTH</div>
+        <p>Clinically formulated hydration & nutrition, built on Avesthagen's 25-year bioscience heritage. Prevention, Precaution and Cure.</p>
+        <div class="f-cert"><span>FSSAI LIC. NO. XXXXXXX</span><span>CLINICALLY TESTED</span><span>RAZORPAY SECURED</span></div>
+      </div>
+      <div><h4>Shop</h4><a href="#">Hydration Drinks</a><a href="#">Gummy Supplements</a><a href="#">Combo Stacks</a><a href="#">90-Day Courses</a></div>
+      <div><h4>Company</h4><a href="#">About Us</a><a href="#">The Science</a><a href="#">Blog</a><a href="#">For Doctors & Distributors</a><a href="https://avesthagen.com">Avesthagen.com ↗</a></div>
+      <div><h4>Support</h4><a href="#">Track Order</a><a href="#">Shipping Policy</a><a href="#">Refund & Replacement</a><a href="#">Privacy Policy</a><a href="#">Grievance Officer</a></div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 AVESTHAGEN LIMITED. ALL RIGHTS RESERVED.</span>
+      <span>THESE PRODUCTS ARE NOT INTENDED TO DIAGNOSE, TREAT, CURE OR PREVENT ANY DISEASE.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<div class="wa" title="Chat with us on WhatsApp">💬</div>
+
+<!-- LEAD CAPTURE POPUP -->
+<div class="overlay" id="overlay">
+  <div class="popup">
+    <div class="pop-left">
+      <div class="off">10% OFF</div>
+      <h3>your first order</h3>
+      <p>Join the Avesta Health circle — get your code instantly on WhatsApp, plus science-backed health tips.</p>
+    </div>
+    <div class="pop-right">
+      <button class="pop-close" onclick="closePopup()">✕</button>
+      <h3 style="font-family:var(--font-d);font-size:20px;margin-bottom:18px">Unlock your code</h3>
+      <div class="field"><input type="text" placeholder="Your name"></div>
+      <div class="field"><input type="tel" placeholder="Phone number (10 digits)" maxlength="10"></div>
+      <div class="field"><input type="email" placeholder="Email address"></div>
+      <label class="consent"><input type="checkbox"> Send me offers & health tips on WhatsApp. I agree to the <u>Privacy Policy</u>.</label>
+      <button class="btn btn-lime" style="width:100%;justify-content:center" onclick="submitLead()">Get my 10% code →</button>
+      <div class="pop-note">NO SPAM. ONE CODE, REAL SCIENCE, EASY OPT-OUT.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* duplicate marquee for seamless loop */
+const mq=document.getElementById('marquee');mq.innerHTML+=mq.innerHTML;
+
+/* scroll reveals */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* animated counters */
+const cio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;cio.unobserve(e.target);
+  const el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||'';let t0=null;
+  const step=ts=>{if(!t0)t0=ts;const p=Math.min((ts-t0)/1200,1);el.textContent=Math.floor(p*end)+suf;if(p<1)requestAnimationFrame(step)};
+  requestAnimationFrame(step);
+}),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+/* lead popup — demo: fires after 8s OR 45% scroll, suppressed after dismiss/submit */
+let popped=false;
+function openPopup(){if(document.getElementById('overlay').classList.contains('show'))return;document.getElementById('overlay').classList.add('show');popped=true;}
+function closePopup(){document.getElementById('overlay').classList.remove('show');popped=true;}
+function submitLead(){closePopup();alert('Demo: lead saved → code AVESTA10 sent via WhatsApp/email. (Production: stored in Supabase leads table with consent flag.)');}
+setTimeout(()=>{if(!popped)openPopup()},8000);
+addEventListener('scroll',()=>{
+  if(popped)return;
+  const sc=scrollY/(document.body.scrollHeight-innerHeight);
+  if(sc>0.45)openPopup();
+},{passive:true});
+document.getElementById('overlay').addEventListener('click',e=>{if(e.target.id==='overlay')closePopup()});
+
+/* pack selector toggle */
+document.querySelectorAll('.packs').forEach(g=>g.addEventListener('click',e=>{
+  if(!e.target.classList.contains('pack'))return;
+  g.querySelectorAll('.pack').forEach(p=>p.classList.remove('on'));e.target.classList.add('on');
+}));
+</script>
+</body>
+</html>
