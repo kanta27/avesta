@@ -572,6 +572,46 @@ section {
   justify-content: center;
 }
 
+/* ---------- shop page (catalog filters) ---------- */
+.shop-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 4px 0 28px;
+}
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.filter-group .filter-label {
+  font-family: var(--font-m);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--grey);
+  min-width: 70px;
+}
+/* Filter chips reuse the `.pack` pill styling; they are links, not buttons. */
+.filter-group .pack {
+  text-decoration: none;
+}
+.filter-count {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--grey);
+  margin-bottom: 18px;
+}
+.shop-empty {
+  color: var(--grey);
+  padding: 40px 0;
+}
+.shop-empty a {
+  color: var(--lime-deep);
+  font-weight: 600;
+}
+
 /* ---------- science ---------- */
 .sci-grid {
   display: grid;
