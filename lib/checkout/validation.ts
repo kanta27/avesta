@@ -22,7 +22,7 @@ const pincodeSchema = z
  * valid mobile (must start 6–9). The normalized value is what we store, so the
  * `customers.phone` unique key is stable regardless of how it was typed.
  */
-const phoneSchema = z
+export const phoneSchema = z
   .string()
   .trim()
   .transform((raw) => {

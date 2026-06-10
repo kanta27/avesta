@@ -117,12 +117,11 @@ export default async function OrderConfirmedPage({
               packed and shipped.
             </li>
             <li>
-              {/* Track-order is feature 7 — placeholder link until it ships. */}
               Track your order anytime from the{" "}
               <a className="order-confirmed-link" href="/track">
                 track-order page
               </a>{" "}
-              <span className="order-confirmed-soon mono">(coming soon)</span>.
+              using your order number and phone.
             </li>
           </ul>
         </div>
