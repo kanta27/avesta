@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { serverEnv } from "@/lib/env.server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { WELCOME_CODE } from "@/lib/leads/welcome-code";
-import { sendLeadFollowupWhatsApp } from "@/lib/whatsapp/lead";
+import { sendLeadFollowup } from "@/lib/whatsapp";
 import { sendLeadFollowupEmail } from "@/lib/email/lead-welcome";
 
 // Service-role reads/writes on the RLS-locked `leads` + `orders` tables.
@@ -129,13 +129,11 @@ export async function GET(request: Request) {
 
     if (claimError || !claimed || claimed.length === 0) continue;
 
-    // 4c. Exactly one reminder — stubs/dormant, both non-fatal (fire-and-forget).
+    // 4c. Exactly one reminder — WhatsApp via the lib/whatsapp facade (MARKETING;
+    //     consent already enforced by the consent_whatsapp filter above) + dormant
+    //     email. Both dormant until keys, non-fatal, fire-and-forget.
     if (lead.phone) {
-      void sendLeadFollowupWhatsApp({
-        phone: lead.phone,
-        name: lead.name,
-        code: WELCOME_CODE,
-      });
+      void sendLeadFollowup({ phone: lead.phone, code: WELCOME_CODE });
     }
     void sendLeadFollowupEmail({
       email: lead.email,

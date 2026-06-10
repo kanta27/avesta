@@ -1,6 +1,7 @@
 import "server-only";
 
 import { sendOrderReceiptEmail } from "@/lib/email/receipt";
+import { sendOrderConfirmation as sendOrderConfirmationWhatsApp } from "@/lib/whatsapp";
 import type { ConfirmationOrder } from "./types";
 
 /**
@@ -22,10 +23,15 @@ export async function sendOrderConfirmation(
     //    "skipped (no key)" and returns when no key is present.
     await sendOrderReceiptEmail(order);
 
-    // 2. WhatsApp confirmation — TODO(feature 10). Send NOTHING yet. When
-    //    feature 10 lands, call lib/whatsapp here with the approved
-    //    order-confirmation template (order number + delivery estimate). It must
-    //    stay non-fatal, exactly like the email send above.
+    // 2. WhatsApp confirmation (feature 10) — TRANSACTIONAL, fired regardless of
+    //    marketing consent (it's purchase-tied). DORMANT until WHATSAPP_API_KEY:
+    //    with no key it logs intent and returns non-fatally, exactly like the
+    //    email send above. Never throws, so it cannot fail the order.
+    await sendOrderConfirmationWhatsApp({
+      order_number: order.order_number,
+      total_paise: order.total_paise,
+      customer_phone: order.customer_phone,
+    });
   } catch (err) {
     // Defense in depth: the email path already swallows its own errors, but
     // guarantee the order flow can never be broken by a send.
