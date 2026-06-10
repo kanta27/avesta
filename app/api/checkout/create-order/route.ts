@@ -6,6 +6,7 @@ import { serverEnv } from "@/lib/env.server";
 import type { Json, TablesInsert } from "@/lib/supabase";
 import { checkoutRequestSchema } from "@/lib/checkout/validation";
 import { priceCart } from "@/lib/checkout/pricing";
+import { validateAndApply } from "@/lib/discounts";
 
 // Uses node:crypto (via the payment layer) and the service-role client — must run
 // on the Node.js runtime, never the edge.
@@ -60,6 +61,41 @@ export async function POST(request: Request) {
     );
   }
 
+  // 2b. Discount (feature 8). The code is recomputed from the DB server-side — a
+  //     client-sent discount amount is never read (it isn't even in the schema).
+  //     Policy: proceed-at-full-price. A rejected code does NOT block the order;
+  //     we create it with no discount and hand the reason back as a warning the
+  //     checkout UI can surface. Only a valid code reduces the server total and is
+  //     stored on the order. NOTHING is redeemed here — redemption happens only at
+  //     the paid transition.
+  let discountPaise = 0;
+  let freeShipping = false;
+  let appliedCode: string | null = null;
+  let discountWarning: string | null = null;
+
+  if (discountCode) {
+    const result = await validateAndApply({
+      code: discountCode,
+      phone: customer.phone,
+      subtotalPaise: cart.subtotalPaise,
+    });
+    if (result.ok) {
+      discountPaise = result.discount_paise;
+      freeShipping = result.free_shipping;
+      appliedCode = result.code; // normalized; stored on the order
+    } else {
+      discountWarning = result.reason;
+    }
+  }
+
+  // Final server-computed money. Shipping is zeroed by a free_shipping code; the
+  // total is floored at 0 so it can never go negative (overflow guard).
+  const shippingPaise = freeShipping ? 0 : cart.shippingPaise;
+  const totalPaise = Math.max(
+    0,
+    cart.subtotalPaise - discountPaise + shippingPaise,
+  );
+
   const admin = createAdminClient();
 
   // 3. Mint a unique order number (atomic per-year counter — see migration).
@@ -78,7 +114,7 @@ export async function POST(request: Request) {
   let providerOrderId: string;
   try {
     const result = await createPaymentOrder({
-      amountPaise: cart.totalPaise,
+      amountPaise: totalPaise,
       orderNumber,
       notes: { order_number: orderNumber, phone: customer.phone },
     });
@@ -115,11 +151,13 @@ export async function POST(request: Request) {
     email: customer.email ?? null,
     items: cart.items as unknown as Json,
     subtotal_paise: cart.subtotalPaise,
-    // discount_code is RECORDED only — no discount is applied yet (feature 8).
-    discount_code: discountCode ?? null,
-    discount_paise: cart.discountPaise, // 0 until feature 8
-    shipping_paise: cart.shippingPaise, // 0 (free, approved)
-    total_paise: cart.totalPaise,
+    // Only a code that VALIDATED is stored (null on no-code or a rejected code),
+    // alongside the server-computed discount it produced. Redemption is written
+    // later, only on paid.
+    discount_code: appliedCode,
+    discount_paise: discountPaise,
+    shipping_paise: shippingPaise, // 0 (free, approved) unless a code changes it
+    total_paise: totalPaise,
     status: "created",
     razorpay_order_id: providerOrderId,
     shipping_address: address as unknown as Json,
@@ -140,11 +178,23 @@ export async function POST(request: Request) {
     {
       orderNumber,
       providerOrderId,
-      amountPaise: cart.totalPaise,
+      amountPaise: totalPaise,
       providerName: getPaymentProvider().name,
       // Empty string (unset env) normalizes to null; providerName is the signal
       // the client actually uses to choose the mock vs. real pay path.
       keyId: env.RAZORPAY_KEY_ID || null,
+      // Discount outcome for the checkout UI: the applied discount (so it can show
+      // the reduced total) or, on proceed-at-full-price, the rejection reason.
+      discount: discountCode
+        ? appliedCode
+          ? {
+              applied: true as const,
+              code: appliedCode,
+              discountPaise,
+              freeShipping,
+            }
+          : { applied: false as const, reason: discountWarning }
+        : null,
     },
     { status: 201 },
   );

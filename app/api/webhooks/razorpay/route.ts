@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { verifyWebhookSignature } from "@/lib/payments";
 import { sendOrderConfirmation } from "@/lib/receipts/order-confirmation";
+import { redeemOnPaid } from "@/lib/discounts";
 import type { PricedItem } from "@/lib/checkout/pricing";
 
 // Uses node:crypto (via the payment layer) + the service-role client. Must run
@@ -86,7 +87,9 @@ export async function POST(request: Request) {
     .update({ status: "paid", razorpay_payment_id: paymentId })
     .eq("razorpay_order_id", providerOrderId)
     .eq("status", "created")
-    .select("id, order_number, name, email, items, total_paise, created_at");
+    .select(
+      "id, order_number, name, email, items, total_paise, created_at, discount_code, customer_phone",
+    );
 
   if (updateError) {
     // A transient DB error: 500 so Razorpay retries the delivery.
@@ -115,6 +118,18 @@ export async function POST(request: Request) {
       total_paise: order.total_paise,
       created_at: order.created_at,
     });
+
+    // Record the discount redemption — atomically and exactly once. Identical to
+    // /confirm: only the transition winner reaches here, so redemption runs once
+    // per paid order (incl. the closed-tab case where /confirm never ran).
+    // Non-fatal: a redemption failure never blocks acknowledging the webhook.
+    if (order.discount_code) {
+      await redeemOnPaid({
+        orderId: order.id,
+        code: order.discount_code,
+        phone: order.customer_phone,
+      });
+    }
 
     // TODO(production hardening): also verify `entity.amount` matches the
     // order's `total_paise` before marking paid, to reject underpayment.
