@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Button } from "@/components/ui/Button";
+import { AddToCartButton } from "@/components/store/cart/AddToCartButton";
 import { PRODUCT_PLACEHOLDER } from "@/lib/products/placeholder";
 import { CONCERN_OPTIONS } from "@/lib/products/types";
 import { formatPaiseINR } from "@/lib/format";
@@ -22,9 +22,6 @@ function concernLabel(concern: string): string {
  * no handler yet.
  */
 export function BundleCard({ bundle }: { bundle: BundleListItem }) {
-  // The cart payload feature 4 will send — a bundle ref only, never a price.
-  const cartRef = { bundleId: bundle.id, qty: 1 };
-
   return (
     <article className="bundle" aria-labelledby={`bundle-${bundle.id}`}>
       <div className="bundle-body">
@@ -85,14 +82,11 @@ export function BundleCard({ bundle }: { bundle: BundleListItem }) {
           </p>
         ) : null}
 
-        <Button
-          variant="lime"
-          className="add"
-          // Placeholder — feature 4 reads this ref to add the bundle to cart.
-          data-cart-ref={JSON.stringify(cartRef)}
-        >
-          Add bundle to cart
-        </Button>
+        <AddToCartButton
+          kind="bundle"
+          bundleId={bundle.id}
+          label="Add bundle to cart"
+        />
       </div>
     </article>
   );

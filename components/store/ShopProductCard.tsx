@@ -51,6 +51,7 @@ export function ShopProductCard({ product }: { product: ProductListItem }) {
           </div>
         ) : null}
         <PackPricing
+          productId={product.id}
           tiers={product.packTiers}
           defaultIndex={defaultTierIndex(product.packTiers)}
         />

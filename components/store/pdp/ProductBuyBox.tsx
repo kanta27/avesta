@@ -5,6 +5,7 @@ import { PackSelector } from "@/components/store/PackSelector";
 import { Button } from "@/components/ui/Button";
 import { formatPaiseINR } from "@/lib/format";
 import { packPillLabel, type PackTier } from "@/lib/products/types";
+import { useCart } from "@/lib/cart/store";
 
 /**
  * The buy area of the product detail page, plus a sticky add-to-cart bar that
@@ -13,8 +14,10 @@ import { packPillLabel, type PackTier } from "@/lib/products/types";
  * bar together.
  *
  * Reuses the existing `PackSelector` primitive (15/30/90, 30-day pre-selected
- * via `defaultIndex`). "Add to cart" is a layout-only PLACEHOLDER: cart wiring
- * arrives in feature 4, which will consume `{ productId, pack_key, qty }`.
+ * via `defaultIndex`). "Add to cart" adds the product at the selected tier (a
+ * ref only — `{ product_id, pack_key, qty }`) and opens the cart drawer; the
+ * in-page button and the mobile sticky bar share one pack state, so both add
+ * the currently-selected tier.
  */
 export function ProductBuyBox({
   productId,
@@ -30,12 +33,12 @@ export function ProductBuyBox({
   badges: string[];
 }) {
   const [index, setIndex] = useState(defaultIndex);
+  const addProduct = useCart((s) => s.addProduct);
   const tier = tiers[index] ?? tiers[0];
 
   if (!tier) return null;
 
-  // The cart payload feature 4 will send (item refs only — never prices).
-  const cartRef = { productId, pack_key: tier.key, qty: 1 };
+  const addToCart = () => addProduct(productId, tier.key);
 
   return (
     <div className="pdp-buy">
@@ -53,12 +56,7 @@ export function ProductBuyBox({
         ) : null}
       </div>
 
-      <Button
-        variant="lime"
-        className="add"
-        // Placeholder — feature 4 reads this ref to add to cart.
-        data-cart-ref={JSON.stringify(cartRef)}
-      >
+      <Button variant="lime" className="add" onClick={addToCart}>
         Add to cart
       </Button>
 
@@ -81,7 +79,7 @@ export function ProductBuyBox({
             <small> · {tier.label}</small>
           </span>
         </div>
-        <Button variant="lime" data-cart-ref={JSON.stringify(cartRef)}>
+        <Button variant="lime" onClick={addToCart}>
           Add to cart
         </Button>
       </div>

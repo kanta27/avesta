@@ -5,20 +5,26 @@ import { PackSelector } from "@/components/store/PackSelector";
 import { Button } from "@/components/ui/Button";
 import { formatPaiseINR } from "@/lib/format";
 import { packPillLabel, type PackTier } from "@/lib/products/types";
+import { useCart } from "@/lib/cart/store";
 
 /**
  * Client island for a Shop product card: the pack-tier selector plus the live
  * price / ₹-per-day, which recompute from the selected tier. The surrounding
- * card (image, name, rating) stays a server component.
+ * card (image, name, rating) stays a server component. "Add to cart" adds the
+ * product at the selected tier (a ref only — `{ product_id, pack_key, qty }`)
+ * and opens the cart drawer.
  */
 export function PackPricing({
+  productId,
   tiers,
   defaultIndex,
 }: {
+  productId: string;
   tiers: PackTier[];
   defaultIndex: number;
 }) {
   const [index, setIndex] = useState(defaultIndex);
+  const addProduct = useCart((s) => s.addProduct);
   const tier = tiers[index] ?? tiers[0];
 
   if (!tier) return null;
@@ -34,8 +40,11 @@ export function PackPricing({
         <span className="price">{formatPaiseINR(tier.price_paise)}</span>
         <span className="perday">{formatPaiseINR(tier.per_day_paise)}/DAY</span>
       </div>
-      {/* Cart wiring arrives in feature 4; placeholder for now. */}
-      <Button variant="lime" className="add">
+      <Button
+        variant="lime"
+        className="add"
+        onClick={() => addProduct(productId, tier.key)}
+      >
         Add to cart
       </Button>
     </>
