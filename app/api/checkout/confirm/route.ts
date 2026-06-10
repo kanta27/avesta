@@ -5,6 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { verifyPayment } from "@/lib/payments";
 import { sendOrderConfirmation } from "@/lib/receipts/order-confirmation";
 import { redeemOnPaid } from "@/lib/discounts";
+import { markLeadConverted } from "@/lib/leads/conversion";
 import type { PricedItem } from "@/lib/checkout/pricing";
 
 // Uses node:crypto (via the payment layer) + the service-role client.
@@ -102,6 +103,11 @@ export async function POST(request: Request) {
         phone: order.customer_phone,
       });
     }
+
+    // Flip any matching lead to converted (feature 9). Same single winner point
+    // as the receipt + redemption above, so it runs exactly once per paid order.
+    // Non-fatal: a tracking failure never fails the already-paid order.
+    await markLeadConverted({ orderId: order.id, phone: order.customer_phone });
 
     return NextResponse.json({
       id: order.id,

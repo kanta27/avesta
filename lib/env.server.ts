@@ -38,6 +38,9 @@ const serverSchema = z.object({
   ADMIN_ALLOWED_EMAILS: z.string().optional(),
   // Bearer token for the blog-automation endpoint (feature 16).
   AUTOMATION_API_TOKEN: z.string().optional(),
+  // Bearer secret protecting the cron routes (feature 9 lead follow-up). Without
+  // it set, the cron route refuses to run — fail closed, never publicly invocable.
+  CRON_SECRET: z.string().optional(),
 });
 
 function formatIssues(error: z.ZodError): string {
@@ -68,6 +71,7 @@ export function serverEnv(): ServerEnv {
     EMAIL_API_KEY: process.env.EMAIL_API_KEY,
     ADMIN_ALLOWED_EMAILS: process.env.ADMIN_ALLOWED_EMAILS,
     AUTOMATION_API_TOKEN: process.env.AUTOMATION_API_TOKEN,
+    CRON_SECRET: process.env.CRON_SECRET,
   });
 
   if (!parsed.success) {

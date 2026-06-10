@@ -18,6 +18,7 @@ when done. This is not a one-time doc — keep it current.
       | `SUPABASE_SERVICE_ROLE_KEY` | **Secret** | Use the `sb_secret_…` value. Server-only — set it as a secret/encrypted env var, never `NEXT_PUBLIC_*`. |
       | `WHATSAPP_PROVIDER` | Server | `interakt` (or `aisensy`). |
       | `AUTOMATION_API_TOKEN` | **Secret** | Bearer for the blog-automation endpoint. |
+      | `CRON_SECRET` | **Secret** | **(Feature 9)** Bearer protecting `/api/cron/*`. Vercel Cron sends it automatically as `Authorization: Bearer $CRON_SECRET`. If unset, the cron route returns 503 (fails closed). Generate a long random value. |
 
       | `ADMIN_ALLOWED_EMAILS` | Server | **(A6)** Comma-separated allow-list of admin emails. Server-only (not `NEXT_PUBLIC_*`). The admin gate denies everyone if this is empty/unset. |
 
@@ -94,7 +95,42 @@ when done. This is not a one-time doc — keep it current.
       `/admin/login`; a non-allow-listed email is denied; an allow-listed email
       reaches the dashboard.
 
+## Cron jobs (feature 9 — lead follow-up)
+
+> **The schedule is NOT wired automatically — it is deploy config you must add.**
+> The route + logic ship in the repo (`app/api/cron/lead-followup/route.ts`), but
+> Vercel only runs it on a schedule once the cron is declared in project config
+> and a deploy picks it up.
+
+- [ ] **Set `CRON_SECRET`** in Vercel (Secret scope) — see the env table above.
+      The route returns **503** until it is set, and **401** for any request whose
+      bearer doesn't match, so it is never publicly invocable.
+
+- [ ] **Declare the cron schedule.** Add it to the Vercel project config so the
+      `/api/cron/lead-followup` route fires automatically. The route is idempotent
+      (claims each lead before sending, sends at most one nudge), so the cadence
+      only affects how promptly a 48h-old lead is nudged — **once daily** is plenty:
+
+      ```json
+      // vercel.json (or the crons[] array in vercel.ts)
+      {
+        "crons": [
+          { "path": "/api/cron/lead-followup", "schedule": "0 4 * * *" }
+        ]
+      }
+      ```
+
+      Vercel automatically attaches `Authorization: Bearer $CRON_SECRET` to cron
+      invocations, which is exactly what the route checks. `0 4 * * *` = 04:00 UTC
+      daily (off-peak for IST). Adjust as desired.
+
+- [ ] **Verify after deploy:** `GET /api/cron/lead-followup` **without** the bearer
+      → 401/503 (rejected); the scheduled run (or a manual call **with** the bearer)
+      returns `{ scanned, nudged, reconciled }` and a nudged lead's `followup_sent_at`
+      is stamped so it is never nudged again.
+
 ## Per-feature gates (fill in as features land)
 
 - [ ] _A5 payments_ — Razorpay live keys swapped in (env change, not code); webhook secret set.
 - [ ] _Feature 10 WhatsApp_ — provider API key set; sends logged and non-fatal.
+- [ ] _Feature 9 lead follow-up_ — `CRON_SECRET` set; cron schedule declared (above); route rejects unauthenticated calls.
