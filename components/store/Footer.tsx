@@ -30,6 +30,8 @@ const COLUMNS = [
   },
 ] as const;
 
+import { NewsletterSignup } from "@/components/store/NewsletterSignup";
+
 function linkLabel(link: string | { label: string; href: string }) {
   return typeof link === "string" ? link : link.label;
 }
@@ -54,6 +56,7 @@ export function Footer() {
               <span>CLINICALLY TESTED</span>
               <span>RAZORPAY SECURED</span>
             </div>
+            <NewsletterSignup />
           </div>
           {COLUMNS.map((col) => (
             <div key={col.heading}>

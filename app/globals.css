@@ -1092,6 +1092,47 @@ footer {
   padding: 6px 11px;
   border-radius: 999px;
 }
+.f-news {
+  margin-top: 26px;
+}
+.f-news-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  max-width: 320px;
+}
+.f-news-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-family: var(--font-b);
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s;
+}
+.f-news-row input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.f-news-row input:focus {
+  border-color: var(--lime);
+}
+.f-news-row .btn {
+  flex-shrink: 0;
+}
+.f-news-done {
+  margin-top: 12px;
+  color: var(--lime);
+  font-size: 14px;
+}
+.f-news-err {
+  margin-top: 8px;
+  color: #ffb4ab;
+  font-size: 12.5px;
+}
 
 /* ---------- popup ---------- */
 .overlay {

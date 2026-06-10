@@ -322,6 +322,7 @@ export type Database = {
           converted_order_id: string | null
           created_at: string | null
           email: string | null
+          followup_sent_at: string | null
           id: string
           name: string | null
           phone: string | null
@@ -337,6 +338,7 @@ export type Database = {
           converted_order_id?: string | null
           created_at?: string | null
           email?: string | null
+          followup_sent_at?: string | null
           id?: string
           name?: string | null
           phone?: string | null
@@ -352,6 +354,7 @@ export type Database = {
           converted_order_id?: string | null
           created_at?: string | null
           email?: string | null
+          followup_sent_at?: string | null
           id?: string
           name?: string | null
           phone?: string | null
