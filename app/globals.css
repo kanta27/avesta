@@ -623,6 +623,108 @@ section {
   font-weight: 600;
 }
 
+/* ---------- bundles ---------- */
+#bundles {
+  background: var(--paper-2);
+  border-block: 1px solid var(--line);
+}
+.bundle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.bundle {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all 0.22s;
+  display: flex;
+  flex-direction: column;
+}
+.bundle:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 44px rgba(10, 61, 63, 0.12);
+}
+.bundle-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.bundle-concern {
+  align-self: flex-start;
+  background: var(--ink);
+  color: var(--lime);
+  font-size: 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.bundle-name {
+  font-family: var(--font-d);
+  font-weight: 800;
+  font-size: 20px;
+}
+.bundle-members {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 2px 0;
+  padding: 14px 0;
+  border-block: 1px solid var(--line);
+}
+.bundle-member {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.bundle-member-thumb {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+.bundle-member-name {
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+.bundle-member-name:hover {
+  text-decoration: underline;
+}
+.bundle-member-price {
+  margin-left: auto;
+  font-family: var(--font-m);
+  font-size: 12px;
+  color: var(--grey);
+}
+.bundle-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+.bundle-compare s {
+  font-family: var(--font-m);
+  font-size: 13px;
+  color: var(--grey);
+}
+.bundle-save {
+  font-size: 11px;
+  color: var(--lime-deep);
+  font-weight: 500;
+  margin-top: -4px;
+}
+
 /* ---------- science ---------- */
 .sci-grid {
   display: grid;
@@ -1520,6 +1622,9 @@ footer {
     grid-template-columns: repeat(2, 1fr);
   }
   .sci-grid {
+    grid-template-columns: 1fr;
+  }
+  .bundle-grid {
     grid-template-columns: 1fr;
   }
   .f-grid {

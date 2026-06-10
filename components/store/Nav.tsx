@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 
-// `/shop` is a real route; the rest are homepage sections, addressed as `/#…`
-// so they resolve from any page (e.g. while on /shop), not only the homepage.
+// `/shop` and `/bundles` are real routes; the rest are homepage sections,
+// addressed as `/#…` so they resolve from any page (e.g. while on /shop), not
+// only the homepage.
 const LINKS = [
   { href: "/#concerns", label: "Shop by Concern" },
   { href: "/shop", label: "Products" },
+  { href: "/bundles", label: "Bundles" },
   { href: "/#science", label: "The Science" },
   { href: "/#reviews", label: "Reviews" },
   { href: "/#blog", label: "Blog" },
