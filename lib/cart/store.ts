@@ -20,6 +20,8 @@ interface CartState {
 
   addProduct: (product_id: string, pack_key: string) => void;
   addBundle: (bundle_id: string) => void;
+  /** Bulk-add refs (e.g. reorder), merging dup keys by summing qty. Opens once. */
+  addMany: (lines: CartLine[]) => void;
   setQty: (key: string, qty: number) => void;
   updatePack: (key: string, newPackKey: string) => void;
   removeLine: (key: string) => void;
@@ -61,6 +63,27 @@ export const useCart = create<CartState>()(
                 lineKey(l) === key ? { ...l, qty: l.qty + 1 } : l,
               )
             : [...s.items, { kind: "bundle", bundle_id, qty: 1 } as CartLine];
+          return { items, isOpen: true };
+        }),
+
+      // Merge a batch of ref lines into the cart in one update. Existing lines
+      // gain the incoming qty; new keys are appended. Refs only — callers strip
+      // any price/display fields before this point (see reorder in /track).
+      addMany: (lines) =>
+        set((s) => {
+          if (lines.length === 0) return s;
+          const items = s.items.map((l) => ({ ...l }));
+          const indexByKey = new Map(items.map((l, i) => [lineKey(l), i]));
+          for (const incoming of lines) {
+            const key = lineKey(incoming);
+            const existing = indexByKey.get(key);
+            if (existing !== undefined) {
+              items[existing].qty += incoming.qty;
+            } else {
+              indexByKey.set(key, items.length);
+              items.push({ ...incoming });
+            }
+          }
           return { items, isOpen: true };
         }),
 
