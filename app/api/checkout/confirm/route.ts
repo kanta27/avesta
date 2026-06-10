@@ -4,6 +4,7 @@ import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { verifyPayment } from "@/lib/payments";
 import { sendOrderConfirmation } from "@/lib/receipts/order-confirmation";
+import { redeemOnPaid } from "@/lib/discounts";
 import type { PricedItem } from "@/lib/checkout/pricing";
 
 // Uses node:crypto (via the payment layer) + the service-role client.
@@ -59,7 +60,9 @@ export async function POST(request: Request) {
     .update({ status: "paid", razorpay_payment_id: paymentId })
     .eq("razorpay_order_id", providerOrderId)
     .eq("status", "created")
-    .select("id, order_number, name, email, items, total_paise, created_at");
+    .select(
+      "id, order_number, name, email, items, total_paise, created_at, discount_code, customer_phone",
+    );
 
   if (updateError) {
     return NextResponse.json(
@@ -87,6 +90,18 @@ export async function POST(request: Request) {
       total_paise: order.total_paise,
       created_at: order.created_at,
     });
+
+    // Record the discount redemption — atomically and exactly once. Only the
+    // transition winner reaches here, so this runs once per paid order (the same
+    // guarantee the receipt relies on). Non-fatal: a redemption failure never
+    // un-pays the order. Skipped when no code was applied.
+    if (order.discount_code) {
+      await redeemOnPaid({
+        orderId: order.id,
+        code: order.discount_code,
+        phone: order.customer_phone,
+      });
+    }
 
     return NextResponse.json({
       id: order.id,

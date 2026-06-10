@@ -40,10 +40,13 @@ export interface PricedItem {
 export interface PricedCart {
   items: PricedItem[];
   subtotalPaise: number;
-  /** Always 0 until feature 8 wires the discount engine (see below). */
+  /** Pre-discount: always 0 here. The create-order route applies any valid
+   *  discount code (feature 8, lib/discounts.ts) on top of this cart. */
   discountPaise: number;
   /** Always 0 — free shipping for now (approved), structured to change. */
   shippingPaise: number;
+  /** Pre-discount total (== subtotal here). The route recomputes the final total
+   *  after applying the discount code. */
   totalPaise: number;
 }
 
@@ -115,10 +118,10 @@ export async function priceCart(lines: CheckoutLine[]): Promise<PriceResult> {
 
   const subtotalPaise = items.reduce((sum, i) => sum + i.line_total_paise, 0);
 
-  // TODO(feature 8 — discount engine): when a `discountCode` is present, look it
-  // up in `discount_codes`, enforce min_order / usage_limit / per_phone_limit /
-  // validity window, and compute the discount here. Until then NO discount logic
-  // runs and NO `discount_redemptions` are written — discountPaise stays 0.
+  // The re-pricer is catalog-only: it produces the pre-discount cart. Discount
+  // codes are validated and applied by the create-order route via
+  // lib/discounts.ts (feature 8), which recomputes the final total from this
+  // subtotal. So discountPaise stays 0 in the priced cart itself.
   const discountPaise = 0;
 
   const shippingPaise = computeShippingPaise();
