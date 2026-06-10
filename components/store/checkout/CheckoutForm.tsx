@@ -145,7 +145,6 @@ export function CheckoutForm() {
     providerOrderId: string;
     paymentId: string;
     signature: string;
-    fallbackOrderNumber: string;
   }) {
     const res = await fetch("/api/checkout/confirm", {
       method: "POST",
@@ -162,12 +161,20 @@ export function CheckoutForm() {
       setBusy(false);
       return;
     }
-    // Payment confirmed — empty the cart and land on the success page. The
+    // Payment confirmed — empty the cart and land on the confirmation page. The
     // order is already 'paid' server-side; the webhook would reconcile it even
     // if this redirect never happened.
+    //
+    // We route by the order's non-guessable UUID (`id`), never the sequential
+    // order number — the confirmation page only accepts the UUID, so orders
+    // can't be enumerated. If the id is somehow missing, fall back to the
+    // shop rather than exposing a number-keyed page (there isn't one).
     clear();
-    const orderNumber = data.orderNumber ?? input.fallbackOrderNumber;
-    router.push(`/checkout/success?order=${encodeURIComponent(orderNumber)}`);
+    if (data.id) {
+      router.push(`/order/confirmed?id=${encodeURIComponent(data.id)}`);
+    } else {
+      router.push("/shop");
+    }
   }
 
   async function payWithRazorpay(order: CreateOrderResponse) {
@@ -194,7 +201,6 @@ export function CheckoutForm() {
           providerOrderId: response.razorpay_order_id,
           paymentId: response.razorpay_payment_id,
           signature: response.razorpay_signature,
-          fallbackOrderNumber: order.orderNumber,
         }),
       modal: {
         ondismiss: () => {
@@ -224,7 +230,6 @@ export function CheckoutForm() {
       providerOrderId: order.providerOrderId,
       paymentId: data.paymentId,
       signature: data.signature,
-      fallbackOrderNumber: order.orderNumber,
     });
   }
 

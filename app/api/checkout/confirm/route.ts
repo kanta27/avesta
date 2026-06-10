@@ -3,6 +3,8 @@ import { z } from "zod";
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import { verifyPayment } from "@/lib/payments";
+import { sendOrderConfirmation } from "@/lib/receipts/order-confirmation";
+import type { PricedItem } from "@/lib/checkout/pricing";
 
 // Uses node:crypto (via the payment layer) + the service-role client.
 export const runtime = "nodejs";
@@ -57,7 +59,7 @@ export async function POST(request: Request) {
     .update({ status: "paid", razorpay_payment_id: paymentId })
     .eq("razorpay_order_id", providerOrderId)
     .eq("status", "created")
-    .select("order_number");
+    .select("id, order_number, name, email, items, total_paise, created_at");
 
   if (updateError) {
     return NextResponse.json(
@@ -69,14 +71,26 @@ export async function POST(request: Request) {
   if (updated && updated.length > 0) {
     // We performed the transition (the winner). This is the ONE place the
     // browser path marks an order paid.
-    //
-    // TODO(feature 6/10): fire the WhatsApp + email order confirmation here.
+    const order = updated[0];
+
+    // Fire the order confirmation (email receipt now; WhatsApp in feature 10).
     // The webhook carries an identical hook for the closed-tab case. Only the
-    // path that actually transitions the order fires it, so the message is sent
-    // exactly once regardless of which of {confirm, webhook} wins. Nothing is
-    // sent yet.
+    // path that actually transitions the order reaches here, so the receipt is
+    // sent EXACTLY ONCE regardless of which of {confirm, webhook} wins. The send
+    // is non-fatal and never throws — it cannot fail the order.
+    await sendOrderConfirmation({
+      id: order.id,
+      order_number: order.order_number,
+      name: order.name,
+      email: order.email,
+      items: (order.items as unknown as PricedItem[]) ?? [],
+      total_paise: order.total_paise,
+      created_at: order.created_at,
+    });
+
     return NextResponse.json({
-      orderNumber: updated[0].order_number,
+      id: order.id,
+      orderNumber: order.order_number,
       status: "paid",
     });
   }
@@ -86,7 +100,7 @@ export async function POST(request: Request) {
   //    them apart and return a stable success for an already-paid order.
   const { data: existing } = await admin
     .from("orders")
-    .select("order_number, status")
+    .select("id, order_number, status")
     .eq("razorpay_order_id", providerOrderId)
     .maybeSingle();
 
@@ -95,8 +109,10 @@ export async function POST(request: Request) {
   }
 
   // Already paid (or beyond): idempotent success, no second state change and no
-  // duplicate confirmation message.
+  // duplicate confirmation message. We still return the UUID so the closed-tab
+  // / replayed-confirm client can land on the right confirmation page.
   return NextResponse.json({
+    id: existing.id,
     orderNumber: existing.order_number,
     status: existing.status,
   });

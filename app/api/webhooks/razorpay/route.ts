@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import { verifyWebhookSignature } from "@/lib/payments";
+import { sendOrderConfirmation } from "@/lib/receipts/order-confirmation";
+import type { PricedItem } from "@/lib/checkout/pricing";
 
 // Uses node:crypto (via the payment layer) + the service-role client. Must run
 // on Node.js so the RAW request body is available byte-for-byte.
@@ -84,7 +86,7 @@ export async function POST(request: Request) {
     .update({ status: "paid", razorpay_payment_id: paymentId })
     .eq("razorpay_order_id", providerOrderId)
     .eq("status", "created")
-    .select("order_number");
+    .select("id, order_number, name, email, items, total_paise, created_at");
 
   if (updateError) {
     // A transient DB error: 500 so Razorpay retries the delivery.
@@ -97,17 +99,28 @@ export async function POST(request: Request) {
   if (updated && updated.length > 0) {
     // This delivery performed the transition (the winner) — including the
     // closed-tab case where /confirm never ran.
-    //
-    // TODO(feature 6/10): fire the WhatsApp + email order confirmation here.
+    const order = updated[0];
+
+    // Fire the order confirmation (email receipt now; WhatsApp in feature 10).
     // /confirm carries an identical hook; only the path that actually
-    // transitions the order fires, so the message is sent exactly once
-    // regardless of which of {webhook, confirm} wins. Nothing is sent yet.
-    //
+    // transitions the order reaches here, so the receipt is sent EXACTLY ONCE
+    // regardless of which of {webhook, confirm} wins. Non-fatal: a send failure
+    // never throws and never blocks acknowledging the webhook.
+    await sendOrderConfirmation({
+      id: order.id,
+      order_number: order.order_number,
+      name: order.name,
+      email: order.email,
+      items: (order.items as unknown as PricedItem[]) ?? [],
+      total_paise: order.total_paise,
+      created_at: order.created_at,
+    });
+
     // TODO(production hardening): also verify `entity.amount` matches the
     // order's `total_paise` before marking paid, to reject underpayment.
     return NextResponse.json({
       received: true,
-      orderNumber: updated[0].order_number,
+      orderNumber: order.order_number,
       status: "paid",
     });
   }

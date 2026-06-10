@@ -1,48 +1,20 @@
-import type { Metadata } from "next";
-
-import { Button } from "@/components/ui/Button";
-
-export const metadata: Metadata = {
-  title: "Order confirmed",
-  description: "Your order has been placed.",
-  alternates: { canonical: "/checkout/success" },
-  robots: { index: false },
-};
+import { redirect } from "next/navigation";
 
 /**
- * Minimal post-payment landing page (feature 5). Shows the order number the
- * client was handed after a verified payment. The rich confirmation + receipt
- * (order details, tracking, re-order) is feature 6 — this is intentionally bare.
+ * Legacy post-payment landing (feature 5). Superseded by `/order/confirmed`
+ * (feature 6), which is keyed by the order's non-guessable UUID. Kept only as a
+ * redirect so any stale link still resolves — there is no second success page.
+ *
+ * The old `?order=<order_number>` param is intentionally NOT honored as a key:
+ * order numbers are enumerable, so we never look an order up by number. With an
+ * `?id=<uuid>` we forward to the real page; otherwise back to the shop.
  */
-export default async function CheckoutSuccessPage({
+export default async function CheckoutSuccessRedirect({
   searchParams,
 }: {
-  searchParams: Promise<{ order?: string }>;
+  searchParams: Promise<{ id?: string }>;
 }) {
-  const { order } = await searchParams;
-
-  return (
-    <section id="checkout-success">
-      <div className="wrap checkout-success-wrap">
-        <p className="checkout-success-emoji" aria-hidden>
-          ✅
-        </p>
-        <h1 className="checkout-success-title">Order confirmed</h1>
-        {order ? (
-          <p className="checkout-success-sub">
-            Thank you — your payment was successful. Your order number is{" "}
-            <strong className="mono">{order}</strong>. A confirmation will follow
-            shortly.
-          </p>
-        ) : (
-          <p className="checkout-success-sub">
-            Thank you — your payment was successful.
-          </p>
-        )}
-        <Button variant="lime" href="/shop">
-          Continue shopping
-        </Button>
-      </div>
-    </section>
-  );
+  const { id } = await searchParams;
+  if (id) redirect(`/order/confirmed?id=${encodeURIComponent(id)}`);
+  redirect("/shop");
 }
