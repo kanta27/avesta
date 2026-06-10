@@ -26,6 +26,53 @@ export interface ProductListItem {
   packTiers: PackTier[];
 }
 
+/** One row of the ingredients table (`products.ingredients` jsonb). */
+export interface Ingredient {
+  name: string;
+  amount?: string | number;
+  unit?: string;
+}
+
+/** One bioactive with its role and an optional evidence link (`products.bioactives` jsonb). */
+export interface Bioactive {
+  name: string;
+  role?: string;
+  evidence_url?: string;
+}
+
+/** One FAQ entry (`products.faqs` jsonb). */
+export interface Faq {
+  q: string;
+  a: string;
+}
+
+/**
+ * A single product shaped for the detail page: the catalog fields plus the
+ * richer PDP-only columns (jsonb narrowed to typed shapes). Any of the PDP
+ * fields may be empty — the page degrades each section to an empty state.
+ */
+export interface ProductDetail extends ProductListItem {
+  description: string | null;
+  ingredients: Ingredient[];
+  bioactives: Bioactive[];
+  scienceHtml: string | null;
+  faqs: Faq[];
+  whoFor: string | null;
+  whoNotFor: string | null;
+  badges: string[];
+}
+
+/** An approved review for the PDP reviews block (`reviews` row, app-facing). */
+export interface Review {
+  id: string;
+  authorName: string | null;
+  location: string | null;
+  rating: number | null;
+  body: string | null;
+  source: string | null;
+  createdAt: string | null;
+}
+
 export interface FilterOption {
   key: string;
   label: string;

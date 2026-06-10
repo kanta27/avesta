@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { ShopFilters } from "@/components/store/ShopFilters";
 import { ShopProductCard } from "@/components/store/ShopProductCard";
@@ -50,7 +51,7 @@ export default async function ShopPage({
         ) : (
           <p className="shop-empty">
             No products match these filters.{" "}
-            <a href="/shop">Clear filters</a>
+            <Link href="/shop">Clear filters</Link>
           </p>
         )}
       </div>

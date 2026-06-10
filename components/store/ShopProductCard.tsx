@@ -1,27 +1,18 @@
+import Link from "next/link";
 import { PackPricing } from "@/components/store/PackPricing";
+import { PRODUCT_PLACEHOLDER, starString } from "@/lib/products/placeholder";
 import { defaultTierIndex, type ProductListItem } from "@/lib/products/types";
-
-// Emoji + gradient placeholders by product type, matching the homepage demo
-// (real product imagery lands when assets are wired in — future work).
-const PLACEHOLDER: Record<ProductListItem["type"], { emoji: string; background: string }> = {
-  hydration: { emoji: "🥤", background: "linear-gradient(150deg,#E3F4FB,#CBE9F4)" },
-  gummy: { emoji: "🍬", background: "linear-gradient(150deg,#F3E9FB,#E2D2F2)" },
-};
-
-function starString(rating: number | null): string {
-  if (rating == null) return "";
-  const full = Math.max(0, Math.min(5, Math.round(rating)));
-  return "★".repeat(full) + "☆".repeat(5 - full);
-}
 
 /**
  * Catalog card for the Shop grid. Reuses the demo's `.prod` markup/CSS and the
  * `PackPricing` island (pack selector + live ₹/day). Server component; only the
- * pricing interaction is client-side.
+ * pricing interaction is client-side. The image + title link to the product
+ * detail page; the pricing controls below stay interactive (non-navigating).
  */
 export function ShopProductCard({ product }: { product: ProductListItem }) {
-  const placeholder = PLACEHOLDER[product.type];
+  const placeholder = PRODUCT_PLACEHOLDER[product.type];
   const image = product.images[0];
+  const href = `/shop/${product.slug}`;
   const ratingNote =
     product.ratingAvg != null
       ? `${product.ratingAvg.toFixed(1)}${
@@ -31,16 +22,27 @@ export function ShopProductCard({ product }: { product: ProductListItem }) {
 
   return (
     <div className="prod">
-      <div className="img" style={{ background: placeholder.background }}>
-        {image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={image.url} alt={image.alt ?? product.name} />
-        ) : (
-          <span aria-hidden>{placeholder.emoji}</span>
-        )}
-      </div>
+      <Link
+        href={href}
+        className="prod-link"
+        aria-label={`View ${product.name}`}
+        style={{ background: placeholder.background }}
+      >
+        <span className="img">
+          {image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={image.url} alt={image.alt ?? product.name} />
+          ) : (
+            <span aria-hidden>{placeholder.emoji}</span>
+          )}
+        </span>
+      </Link>
       <div className="body">
-        <h3>{product.name}</h3>
+        <h3>
+          <Link href={href} className="prod-title">
+            {product.name}
+          </Link>
+        </h3>
         {product.tagline ? <div className="sci">{product.tagline}</div> : null}
         {ratingNote ? (
           <div className="stars" aria-label={`Rated ${ratingNote}`}>

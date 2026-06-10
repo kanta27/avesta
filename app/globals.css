@@ -482,12 +482,23 @@ section {
   transform: translateY(-6px);
   box-shadow: 0 20px 44px rgba(10, 61, 63, 0.12);
 }
+.prod-link {
+  display: block;
+  text-decoration: none;
+}
 .prod .img {
   height: 200px;
   display: grid;
   place-items: center;
   font-size: 64px;
   position: relative;
+}
+.prod-title {
+  color: inherit;
+  text-decoration: none;
+}
+.prod-title:hover {
+  text-decoration: underline;
 }
 .prod .tag {
   position: absolute;
@@ -1104,6 +1115,341 @@ footer {
   text-align: center;
 }
 
+/* ---------- product detail (PDP) ---------- */
+#pdp {
+  padding: 34px 0 90px;
+}
+.bc {
+  font-size: 12px;
+  color: var(--grey);
+  margin-bottom: 22px;
+}
+.bc a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.bc a:hover {
+  text-decoration: underline;
+}
+.pdp-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.pdp-gallery {
+  position: sticky;
+  top: 92px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pdp-stage {
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: #fff;
+}
+.pdp-stage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pdp-stage--placeholder span {
+  font-size: 128px;
+}
+.pdp-thumbs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.pdp-thumb {
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 0;
+  cursor: pointer;
+  background: #fff;
+}
+.pdp-thumb.on {
+  border-color: var(--ink);
+}
+.pdp-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pdp-summary h1 {
+  font-family: var(--font-d);
+  font-weight: 800;
+  font-size: 34px;
+  line-height: 1.1;
+}
+.pdp-tagline {
+  font-family: var(--font-m);
+  font-size: 12px;
+  color: var(--grey);
+  margin-top: 8px;
+}
+.pdp-desc {
+  color: var(--grey);
+  margin: 14px 0;
+  line-height: 1.6;
+}
+.pdp-buy {
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  background: var(--paper-2);
+}
+.pdp-pack-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--grey);
+  margin-bottom: 8px;
+}
+.pdp-price-row {
+  margin: 4px 0 14px;
+  padding-top: 0;
+}
+.pdp-price-row .price {
+  font-size: 28px;
+}
+.pdp-save {
+  background: var(--lime);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 10px;
+}
+.pdp-badges {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 16px;
+  padding: 0;
+}
+.pdp-badge {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.pdp-badge span {
+  color: var(--lime-deep);
+}
+.placeholder-note {
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--grey);
+  background: #fff7e6;
+  border: 1px dashed var(--amber);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+.pdp-section {
+  margin-top: 56px;
+}
+.pdp-section > h2 {
+  font-family: var(--font-d);
+  font-weight: 800;
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+.pdp-section h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.who-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 48px;
+}
+.who-col {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  background: #fff;
+}
+.who-col h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+.who-for h3 span {
+  color: var(--lime-deep);
+}
+.who-not h3 span {
+  color: var(--amber);
+}
+.who-col p {
+  color: var(--grey);
+  line-height: 1.6;
+  font-size: 14px;
+}
+.science-tabs {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  background: #fff;
+}
+.science-tablist {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.science-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 8px 4px;
+  font-family: var(--font-m);
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--grey);
+}
+.science-tab.on {
+  color: var(--ink);
+  border-bottom-color: var(--lime-deep);
+}
+.science-prose p {
+  color: var(--grey);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.science-prose ul {
+  margin: 0 0 10px 18px;
+  color: var(--grey);
+  line-height: 1.7;
+}
+.research-list {
+  margin: 0 0 10px 18px;
+  line-height: 1.9;
+}
+.research-list a {
+  color: var(--ink);
+}
+.research-role {
+  color: var(--grey);
+}
+.research-note {
+  font-size: 11px;
+  color: var(--grey);
+}
+.pdp-tables-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.pdp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.pdp-table th {
+  text-align: left;
+  font-family: var(--font-m);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--grey);
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+}
+.pdp-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+.pdp-amount {
+  color: var(--grey);
+  white-space: nowrap;
+}
+.faq {
+  border-top: 1px solid var(--line);
+}
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+.faq-item summary {
+  cursor: pointer;
+  padding: 16px 0;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary::after {
+  content: "+";
+  color: var(--grey);
+}
+.faq-item[open] summary::after {
+  content: "−";
+}
+.faq-item p {
+  color: var(--grey);
+  padding-bottom: 16px;
+  line-height: 1.6;
+}
+.reviews-empty {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 36px;
+  text-align: center;
+  color: var(--ink);
+}
+.reviews-empty .mono {
+  color: var(--grey);
+  font-size: 12px;
+  margin-top: 6px;
+}
+.reviews-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+.review {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  background: #fff;
+}
+.review blockquote {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+.review figcaption {
+  font-size: 13px;
+  color: var(--grey);
+}
+.review-author {
+  color: var(--ink);
+  font-weight: 600;
+}
+/* sticky mobile add-to-cart — hidden on desktop, shown ≤960px */
+.sticky-cta {
+  display: none;
+}
+
 /* ---------- whatsapp fab ---------- */
 .wa {
   position: fixed;
@@ -1195,6 +1541,63 @@ footer {
   .pop-left .off {
     font-size: 42px;
   }
+  /* PDP: single column, release the sticky gallery, reveal mobile CTA */
+  .pdp-top {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .pdp-gallery {
+    position: static;
+  }
+  .who-grid,
+  .pdp-tables-grid,
+  .reviews-list {
+    grid-template-columns: 1fr;
+  }
+  #pdp {
+    padding-bottom: 96px;
+  }
+  .sticky-cta {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 55;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #fff;
+    border-top: 1px solid var(--line);
+    padding: 12px 16px;
+    box-shadow: 0 -8px 24px rgba(10, 61, 63, 0.08);
+  }
+  .sticky-cta-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+  .sticky-cta-name {
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .sticky-cta-price {
+    font-family: var(--font-d);
+    font-weight: 800;
+  }
+  .sticky-cta-price small {
+    font-family: var(--font-m);
+    font-weight: 400;
+    color: var(--grey);
+  }
+  .sticky-cta .btn {
+    flex-shrink: 0;
+  }
+  /* Lift the WhatsApp FAB above the PDP sticky add-to-cart bar on mobile. */
+  #pdp ~ .wa,
+  body:has(#pdp) .wa {
+    bottom: 88px;
+  }
 }
 @media (max-width: 560px) {
   .concern-grid {
@@ -1211,5 +1614,8 @@ footer {
   }
   .quiz {
     padding: 44px 28px;
+  }
+  .pdp-summary h1 {
+    font-size: 26px;
   }
 }
