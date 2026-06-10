@@ -2104,8 +2104,226 @@ a.cart-line-name:hover {
   height: 80px;
 }
 
+/* ---------- checkout (feature 5) ---------- */
+#checkout {
+  padding: 34px 0 90px;
+}
+.checkout-wrap {
+  max-width: 1000px;
+}
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-top: 28px;
+}
+.checkout-section-title {
+  font-family: var(--font-d);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+.checkout-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.checkout-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-bottom: 6px;
+}
+.checkout-optional {
+  font-weight: 400;
+  color: var(--grey);
+}
+.checkout-pincode {
+  max-width: 220px;
+}
+.checkout-error {
+  color: #b3261e;
+  font-size: 13.5px;
+  margin: 4px 0 12px;
+}
+.checkout-pay {
+  width: 100%;
+  justify-content: center;
+  margin-top: 8px;
+}
+.checkout-pay:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.checkout-secure {
+  font-size: 10.5px;
+  color: var(--grey);
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* summary card */
+.checkout-summary {
+  background: var(--paper-2);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  position: sticky;
+  top: 96px;
+}
+.checkout-lines {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.checkout-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.checkout-line-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  overflow: hidden;
+  flex: none;
+}
+.checkout-line-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.checkout-line-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.checkout-line-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+}
+.checkout-line-pack,
+.checkout-line-qty {
+  font-size: 11px;
+  color: var(--grey);
+}
+.checkout-line-price {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.checkout-discount {
+  margin: 4px 0 16px;
+  padding-top: 16px;
+  border-top: 1.5px solid var(--line);
+}
+.checkout-totals {
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1.5px solid var(--line);
+}
+.checkout-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--ink-2);
+  margin-bottom: 8px;
+}
+.checkout-total-row dt,
+.checkout-total-row dd {
+  margin: 0;
+}
+.checkout-total-grand {
+  font-family: var(--font-d);
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--ink);
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1.5px solid var(--line);
+}
+.checkout-back {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+.checkout-loading {
+  color: var(--grey);
+  padding: 40px 0;
+}
+.checkout-empty {
+  text-align: center;
+  padding: 56px 24px;
+}
+.checkout-empty-title {
+  font-family: var(--font-d);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+.checkout-empty-sub {
+  color: var(--grey);
+  font-size: 14px;
+  margin: 0 0 20px;
+}
+
+/* success page */
+#checkout-success {
+  padding: 80px 0 110px;
+}
+.checkout-success-wrap {
+  max-width: 560px;
+  text-align: center;
+}
+.checkout-success-emoji {
+  font-size: 46px;
+  margin: 0 0 10px;
+}
+.checkout-success-title {
+  font-family: var(--font-d);
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.checkout-success-sub {
+  color: var(--grey);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 26px;
+}
+
+@media (max-width: 960px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .checkout-summary {
+    position: static;
+    order: -1;
+  }
+}
+
 @media (max-width: 560px) {
   .cart-drawer {
     width: 100%;
+  }
+  .checkout-row {
+    grid-template-columns: 1fr;
   }
 }

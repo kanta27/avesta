@@ -106,15 +106,12 @@ export function CartContents({
           </p>
         </div>
 
-        {/* PLACEHOLDER — real checkout (pricing re-computed server-side from the
-            DB) lands in feature 5. */}
+        {/* Checkout re-prices everything server-side from the DB (feature 5). */}
         <Button
           variant="lime"
           className="cart-checkout"
-          aria-disabled
-          title="Checkout arrives in a later step"
-          href="/cart"
-          onClick={(e) => e.preventDefault()}
+          href="/checkout"
+          onClick={onNavigate}
         >
           Proceed to checkout →
         </Button>

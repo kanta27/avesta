@@ -367,6 +367,21 @@ export type Database = {
         }
         Relationships: []
       }
+      order_number_counters: {
+        Row: {
+          last_seq: number
+          year: number
+        }
+        Insert: {
+          last_seq?: number
+          year: number
+        }
+        Update: {
+          last_seq?: number
+          year?: number
+        }
+        Relationships: []
+      }
       orders: {
         Row: {
           courier: string | null
@@ -584,7 +599,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      next_order_number: { Args: never; Returns: string }
     }
     Enums: {
       [_ in never]: never
