@@ -115,6 +115,7 @@ export async function POST(request: Request) {
       order_number: order.order_number,
       name: order.name,
       email: order.email,
+      customer_phone: order.customer_phone,
       items: (order.items as unknown as PricedItem[]) ?? [],
       total_paise: order.total_paise,
       created_at: order.created_at,

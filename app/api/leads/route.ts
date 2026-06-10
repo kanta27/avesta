@@ -4,7 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { checkRateLimit, clientIpFrom } from "@/lib/track/rate-limit";
 import { leadRequestSchema } from "@/lib/leads/validation";
 import { WELCOME_CODE } from "@/lib/leads/welcome-code";
-import { sendLeadWelcomeWhatsApp } from "@/lib/whatsapp/lead";
+import { sendLeadWelcome } from "@/lib/whatsapp";
 import { sendLeadWelcomeEmail } from "@/lib/email/lead-welcome";
 
 // Writes the RLS-locked `leads` table via the service-role client — `leads` is
@@ -27,8 +27,9 @@ export const runtime = "nodejs";
  *   - Dedupe: a repeat submit from the same identity + source doesn't pile up rows
  *     — we still return the code so the UX is identical.
  *   - Instant WhatsApp/email are best-effort and NON-FATAL: a failed send must
- *     never fail the capture. WhatsApp is a forward stub (feature 10); email is
- *     dormant until EMAIL_API_KEY (feature 6 pattern).
+ *     never fail the capture. WhatsApp routes through the lib/whatsapp facade
+ *     (feature 10), dormant until WHATSAPP_API_KEY; email is dormant until
+ *     EMAIL_API_KEY (feature 6 pattern).
  *
  * Returns `{ code }` — the ONE shared WELCOME code, revealed on-screen.
  */
@@ -100,11 +101,12 @@ export async function POST(request: Request) {
   // 6. Instant delivery of the code — ONLY for the popup offer (the newsletter is
   //    a plain subscribe, not the 10%-code mechanic). Best-effort and NON-FATAL:
   //    a failed send never fails the capture. WhatsApp only when the visitor opted
-  //    in (the checkbox authorizes WhatsApp specifically); the email fulfils the
-  //    code they explicitly asked for. Both are stub/dormant today.
+  //    in (the checkbox authorizes WhatsApp specifically) — the consent gate for
+  //    the MARKETING send; the email fulfils the code they explicitly asked for.
+  //    Both are dormant today (no provider keys).
   if (lead.source_type === "popup") {
     if (lead.consent && phone) {
-      void sendLeadWelcomeWhatsApp({ phone, name, code: WELCOME_CODE });
+      void sendLeadWelcome({ phone, code: WELCOME_CODE });
     }
     void sendLeadWelcomeEmail({ email: lead.email, name, code: WELCOME_CODE });
   }

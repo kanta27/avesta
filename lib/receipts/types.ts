@@ -15,6 +15,8 @@ export interface ConfirmationOrder {
   order_number: string;
   name: string | null;
   email: string | null;
+  /** 10-digit normalized phone — the WhatsApp confirmation recipient (feature 10). */
+  customer_phone: string | null;
   items: PricedItem[];
   total_paise: number;
   /** ISO timestamp; used to compute the delivery estimate. */
