@@ -21,11 +21,12 @@ const COLUMNS = [
   {
     heading: "Support",
     links: [
-      "Track Order",
-      "Shipping Policy",
-      "Refund & Replacement",
-      "Privacy Policy",
-      "Grievance Officer",
+      { label: "Track Order", href: "/track" },
+      { label: "Shipping Policy", href: "/shipping" },
+      { label: "Refund & Replacement", href: "/refund" },
+      { label: "Terms & Conditions", href: "/terms" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Grievance Officer", href: "/grievance" },
     ],
   },
 ] as const;

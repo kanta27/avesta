@@ -134,3 +134,24 @@ when done. This is not a one-time doc — keep it current.
 - [ ] _A5 payments_ — Razorpay live keys swapped in (env change, not code); webhook secret set.
 - [ ] _Feature 10 WhatsApp_ — provider API key set; sends logged and non-fatal.
 - [ ] _Feature 9 lead follow-up_ — `CRON_SECRET` set; cron schedule declared (above); route rejects unauthenticated calls.
+
+## Feature 11 — policy pages, client inputs needed
+
+The five legal pages (`/shipping`, `/privacy`, `/terms`, `/refund`, `/grievance`) ship
+with every client-supplied value rendered as a clearly-marked `[[ … ]]` placeholder —
+**none are invented.** Before go-live, get these confirmed by Avesthagen / legal and
+replace each placeholder. Search `app/(content)/**` for `<Ph>` to find them all.
+
+- [ ] **Registered legal entity name** + **registered office address** — shipping, privacy, terms, grievance.
+- [ ] **Support email** — all five pages.
+- [ ] **Grievance officer**: name, email, phone — grievance (also referenced from privacy/terms).
+- [ ] **Shipping**: dispatch / handling time, delivery timeline, serviceable regions / pin-code coverage, free-shipping threshold / shipping charge.
+- [ ] **Governing-law jurisdiction / city** — terms.
+- [ ] **Privacy retention periods**: lead-data retention period, order-record retention period.
+- [ ] **Refund**: claim response time, refund processing time.
+- [ ] **Grievance SLAs**: acknowledgement SLA, resolution SLA.
+- [ ] **Free-shipping threshold (₹999)** — the homepage `AnnouncementBar` currently states
+      "FREE SHIPPING ON ORDERS ABOVE ₹999", likely a demo value. Confirm the real threshold
+      and apply the **same** number to both the announcement bar
+      (`components/store/AnnouncementBar`) and the shipping-policy placeholder above, so the
+      bar and the policy never disagree.

@@ -2205,6 +2205,21 @@ a.cart-line-name:hover {
   text-align: center;
   margin-top: 12px;
 }
+.checkout-policy-links {
+  font-size: 12px;
+  color: var(--grey);
+  text-align: center;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+.checkout-policy-links a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.checkout-policy-links a:hover {
+  color: var(--lime-deep);
+}
 
 /* summary card */
 .checkout-summary {
@@ -2807,5 +2822,145 @@ a.cart-line-name:hover {
   }
   .checkout-row {
     grid-template-columns: 1fr;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Policy / legal pages (feature 11)                                          */
+/* -------------------------------------------------------------------------- */
+.policy {
+  padding: 56px 0 100px;
+}
+.policy-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.policy-back {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--grey);
+  text-decoration: none;
+  margin: 0 0 22px;
+  transition: color 0.15s ease;
+}
+.policy-back:hover {
+  color: var(--ink);
+}
+.policy-title {
+  font-family: var(--font-d);
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+.policy-updated {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--grey);
+  margin: 0 0 32px;
+}
+.policy-body {
+  font-family: var(--font-b);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-2);
+}
+.policy-body h2 {
+  font-family: var(--font-d);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 36px 0 12px;
+}
+.policy-body h3 {
+  font-family: var(--font-d);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 24px 0 8px;
+}
+.policy-body p {
+  margin: 0 0 14px;
+}
+.policy-body ul,
+.policy-body ol {
+  margin: 0 0 14px;
+  padding-left: 22px;
+}
+.policy-body li {
+  margin: 0 0 8px;
+}
+.policy-body a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.policy-body a:hover {
+  color: var(--lime-deep);
+}
+.policy-body strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+/* Inline placeholder marker for client-supplied values, e.g. [[ legal entity ]] */
+.policy-ph {
+  font-family: var(--font-m);
+  font-size: 0.92em;
+  color: var(--lime-deep);
+  background: var(--paper-2);
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  padding: 0 5px;
+  white-space: nowrap;
+}
+/* Definition-style contact block (grievance officer, addresses) */
+.policy-contact {
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin: 0 0 18px;
+}
+.policy-contact dt {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--grey);
+  margin: 0 0 2px;
+}
+.policy-contact dd {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.policy-contact dd:last-child {
+  margin-bottom: 0;
+}
+/* Emphasis callout — e.g. the verbatim refund-policy statement */
+.policy-callout {
+  background: var(--paper-2);
+  border-left: 3px solid var(--lime-deep);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin: 0 0 22px;
+  font-weight: 500;
+  color: var(--ink);
+}
+/* Compliance disclaimer — matches the footer wording */
+.policy-disclaimer {
+  margin: 32px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--grey);
+}
+
+@media (max-width: 560px) {
+  .policy-title {
+    font-size: 27px;
   }
 }
