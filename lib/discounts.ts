@@ -2,6 +2,7 @@ import "server-only";
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import { formatPaiseINR } from "@/lib/format";
+import type { TablesInsert } from "@/lib/supabase";
 
 /**
  * Server-side discount engine (feature 8).
@@ -256,4 +257,127 @@ export async function redeemOnPaid(
     );
     return { redeemed: false };
   }
+}
+
+// =============================================================================
+// Admin CMS (feature 12, module 3) — create + list over `discount_codes`.
+//
+// Same server-only + service-role surface as the engine above; callers are the
+// admin server actions, which gate on requireAdmin() first. Creation reuses
+// `normalizeCode` so admin-created codes store identically to seeded ones and
+// match the validator's exact-match lookup.
+// =============================================================================
+
+/** The three discount kinds (matches the A2 check constraint). */
+export type DiscountKind = "percent" | "flat" | "free_shipping";
+
+/** A discount code row shaped for the admin list. */
+export interface DiscountCodeListItem {
+  id: string;
+  code: string;
+  kind: DiscountKind;
+  valuePct: number | null;
+  valuePaise: number | null;
+  minOrderPaise: number;
+  usageLimit: number | null;
+  usedCount: number;
+  perPhoneLimit: number | null;
+  startsAt: string | null;
+  expiresAt: string | null;
+  isActive: boolean;
+  createdAt: string | null;
+}
+
+/** All discount codes, newest first. */
+export async function listDiscountCodes(): Promise<DiscountCodeListItem[]> {
+  const admin = createAdminClient();
+  const { data, error } = await admin
+    .from("discount_codes")
+    .select(
+      "id, code, kind, value_pct, value_paise, min_order_paise, usage_limit, used_count, per_phone_limit, starts_at, expires_at, is_active, created_at",
+    )
+    .order("created_at", { ascending: false });
+
+  if (error) throw new Error(`Failed to list discount codes: ${error.message}`);
+
+  return (data ?? []).map((row) => ({
+    id: row.id,
+    code: row.code,
+    kind: row.kind as DiscountKind,
+    valuePct: row.value_pct,
+    valuePaise: row.value_paise,
+    minOrderPaise: row.min_order_paise ?? 0,
+    usageLimit: row.usage_limit,
+    usedCount: row.used_count ?? 0,
+    perPhoneLimit: row.per_phone_limit,
+    startsAt: row.starts_at,
+    expiresAt: row.expires_at,
+    isActive: row.is_active ?? true,
+    createdAt: row.created_at,
+  }));
+}
+
+/** The validated payload for creating a discount code (money in paise). */
+export interface CreateDiscountInput {
+  code: string;
+  kind: DiscountKind;
+  value_pct: number | null;
+  value_paise: number | null;
+  min_order_paise: number;
+  usage_limit: number | null;
+  per_phone_limit: number | null;
+  starts_at: string | null;
+  expires_at: string | null;
+  is_active: boolean;
+}
+
+/**
+ * Create a discount code. The code is normalized (trim + uppercase) so it stores
+ * exactly as the validator looks it up. Unique-violation on `code` surfaces as a
+ * Postgres 23505 for the action to translate.
+ */
+export async function createDiscountCode(
+  input: CreateDiscountInput,
+): Promise<{ id: string }> {
+  const admin = createAdminClient();
+
+  const row: TablesInsert<"discount_codes"> = {
+    code: normalizeCode(input.code),
+    kind: input.kind,
+    value_pct: input.kind === "percent" ? input.value_pct : null,
+    value_paise: input.kind === "flat" ? input.value_paise : null,
+    min_order_paise: input.min_order_paise,
+    usage_limit: input.usage_limit,
+    per_phone_limit: input.per_phone_limit,
+    starts_at: input.starts_at,
+    expires_at: input.expires_at,
+    is_active: input.is_active,
+  };
+
+  const { data, error } = await admin
+    .from("discount_codes")
+    .insert(row)
+    .select("id")
+    .single();
+
+  if (error) throw error;
+  return { id: data.id };
+}
+
+/**
+ * Activate / deactivate a discount code (the list's kill switch). Flips the
+ * existing `is_active` column — no schema change. A deactivated code fails the
+ * validator's `is_active === false` check, so it stops working immediately at
+ * checkout without being deleted.
+ */
+export async function setDiscountActive(
+  id: string,
+  isActive: boolean,
+): Promise<void> {
+  const admin = createAdminClient();
+  const { error } = await admin
+    .from("discount_codes")
+    .update({ is_active: isActive })
+    .eq("id", id);
+  if (error) throw error;
 }
