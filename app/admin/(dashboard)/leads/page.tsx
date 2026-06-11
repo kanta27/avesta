@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import {
@@ -116,46 +117,74 @@ export default async function AdminLeadsPage({
             </thead>
             <tbody className="divide-y divide-line">
               {leads.map((l) => (
-                <tr key={l.id} className="bg-white">
-                  <td className="px-4 py-3 text-grey">
-                    {formatDate(l.createdAt)}
-                  </td>
-                  <td className="px-4 py-3 text-ink">{l.name ?? "—"}</td>
-                  <td className="px-4 py-3">
-                    <div className="font-mono text-xs text-grey">
-                      {l.phone ?? "—"}
-                    </div>
-                    <div className="text-xs text-grey">{l.email ?? ""}</div>
-                  </td>
-                  <td className="px-4 py-3 capitalize text-grey">
-                    {l.sourceType}
-                  </td>
-                  <td className="px-4 py-3">
-                    {l.consentWhatsapp ? (
-                      <span className="text-xs text-ink">WhatsApp ✓</span>
-                    ) : (
-                      <span className="text-xs text-grey">—</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3">
-                    {l.converted ? (
-                      l.convertedOrderId ? (
-                        <Link
-                          href={`/admin/orders/${l.convertedOrderId}`}
-                          className="rounded-full bg-lime/40 px-2.5 py-0.5 text-xs font-medium text-ink hover:bg-lime/60"
-                        >
-                          Converted
-                        </Link>
+                <Fragment key={l.id}>
+                  <tr className="bg-white">
+                    <td className="px-4 py-3 text-grey">
+                      {formatDate(l.createdAt)}
+                    </td>
+                    <td className="px-4 py-3 text-ink">{l.name ?? "—"}</td>
+                    <td className="px-4 py-3">
+                      <div className="font-mono text-xs text-grey">
+                        {l.phone ?? "—"}
+                      </div>
+                      <div className="text-xs text-grey">{l.email ?? ""}</div>
+                    </td>
+                    <td className="px-4 py-3 capitalize text-grey">
+                      {l.sourceType}
+                    </td>
+                    <td className="px-4 py-3">
+                      {l.consentWhatsapp ? (
+                        <span className="text-xs text-ink">WhatsApp ✓</span>
                       ) : (
-                        <span className="rounded-full bg-lime/40 px-2.5 py-0.5 text-xs font-medium text-ink">
-                          Converted
-                        </span>
-                      )
-                    ) : (
-                      <span className="text-xs text-grey">No</span>
-                    )}
-                  </td>
-                </tr>
+                        <span className="text-xs text-grey">—</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">
+                      {l.converted ? (
+                        l.convertedOrderId ? (
+                          <Link
+                            href={`/admin/orders/${l.convertedOrderId}`}
+                            className="rounded-full bg-lime/40 px-2.5 py-0.5 text-xs font-medium text-ink hover:bg-lime/60"
+                          >
+                            Converted
+                          </Link>
+                        ) : (
+                          <span className="rounded-full bg-lime/40 px-2.5 py-0.5 text-xs font-medium text-ink">
+                            Converted
+                          </span>
+                        )
+                      ) : (
+                        <span className="text-xs text-grey">No</span>
+                      )}
+                    </td>
+                  </tr>
+                  {l.b2b && (
+                    <tr className="bg-paper-2/60">
+                      <td colSpan={6} className="px-4 pb-3 pt-0">
+                        <dl className="grid gap-x-6 gap-y-1 text-xs text-grey sm:grid-cols-[auto_1fr]">
+                          {l.b2b.orgType && (
+                            <>
+                              <dt className="font-mono uppercase tracking-wide">Org</dt>
+                              <dd className="capitalize text-ink">{l.b2b.orgType}</dd>
+                            </>
+                          )}
+                          {l.b2b.volume && (
+                            <>
+                              <dt className="font-mono uppercase tracking-wide">Volume</dt>
+                              <dd className="text-ink">{l.b2b.volume}</dd>
+                            </>
+                          )}
+                          {l.b2b.message && (
+                            <>
+                              <dt className="font-mono uppercase tracking-wide">Message</dt>
+                              <dd className="whitespace-pre-wrap text-ink">{l.b2b.message}</dd>
+                            </>
+                          )}
+                        </dl>
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
               ))}
             </tbody>
           </table>

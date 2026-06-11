@@ -26,6 +26,16 @@ when done. This is not a one-time doc — keep it current.
       `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`) as each feature ships —
       see `.env.example` for the full list.
 
+- [ ] **Feature 14 (SEO) depends on a correct production `NEXT_PUBLIC_SITE_URL`.**
+      Canonical tags, OpenGraph/Twitter URLs, the Organization/Product JSON-LD
+      `url`/`logo`, and the absolute `<loc>` entries in `/sitemap.xml` plus the
+      `Sitemap:` line in `/robots.txt` are all built from `NEXT_PUBLIC_SITE_URL`.
+      It is inlined at **build time**, so until it is set to the real deployed
+      origin in Vercel (and the project redeployed), every one of these emits
+      `http://localhost:3000` and is wrong for search engines. Set it per
+      environment (Production = the prod domain; Preview deploys shouldn't be
+      indexed, so pointing them at the prod origin is fine) and redeploy.
+
 - [ ] **Confirm the service-role key is NOT in the client bundle.** After a
       production build, grep the client output for the secret — it must be absent.
 
