@@ -116,13 +116,13 @@ when done. This is not a one-time doc — keep it current.
       The route returns **503** until it is set, and **401** for any request whose
       bearer doesn't match, so it is never publicly invocable.
 
-- [ ] **Declare the cron schedule.** Add it to the Vercel project config so the
-      `/api/cron/lead-followup` route fires automatically. The route is idempotent
-      (claims each lead before sending, sends at most one nudge), so the cadence
-      only affects how promptly a 48h-old lead is nudged — **once daily** is plenty:
+- [x] **Declare the cron schedule.** ✅ Done in `vercel.json` (repo root) — the
+      `/api/cron/lead-followup` route fires automatically once deployed. The route
+      is idempotent (claims each lead before sending, sends at most one nudge), so
+      the cadence only affects how promptly a 48h-old lead is nudged — **once daily**:
 
       ```json
-      // vercel.json (or the crons[] array in vercel.ts)
+      // vercel.json
       {
         "crons": [
           { "path": "/api/cron/lead-followup", "schedule": "0 4 * * *" }
@@ -132,7 +132,7 @@ when done. This is not a one-time doc — keep it current.
 
       Vercel automatically attaches `Authorization: Bearer $CRON_SECRET` to cron
       invocations, which is exactly what the route checks. `0 4 * * *` = 04:00 UTC
-      daily (off-peak for IST). Adjust as desired.
+      daily (off-peak for IST). Adjust the schedule in `vercel.json` as desired.
 
 - [ ] **Verify after deploy:** `GET /api/cron/lead-followup` **without** the bearer
       → 401/503 (rejected); the scheduled run (or a manual call **with** the bearer)
