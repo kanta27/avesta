@@ -414,6 +414,11 @@ export function CheckoutForm() {
         <p className="checkout-secure mono">
           Prepaid · secure payment. You won&apos;t be charged until you confirm.
         </p>
+        <p className="checkout-policy-links">
+          By paying you agree to our{" "}
+          <Link href="/terms">Terms &amp; Conditions</Link> and{" "}
+          <Link href="/refund">Refund &amp; Replacement Policy</Link>.
+        </p>
       </form>
 
       <aside className="checkout-summary" aria-label="Order summary">

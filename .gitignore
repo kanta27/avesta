@@ -44,6 +44,8 @@ next-env.d.ts
 # verification artifacts
 /.playwright-mcp
 /lh-*.json
+/policy-refund-page.png
+*.playwright.png
 
 # claude code local (per-machine) settings
 .claude/settings.local.json
