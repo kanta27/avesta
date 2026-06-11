@@ -15,6 +15,7 @@ const STATIC_PATHS = [
   { path: "/", priority: 1 },
   { path: "/shop", priority: 0.9 },
   { path: "/bundles", priority: 0.7 },
+  { path: "/for-professionals", priority: 0.5 },
   { path: "/privacy", priority: 0.3 },
   { path: "/terms", priority: 0.3 },
   { path: "/refund", priority: 0.3 },

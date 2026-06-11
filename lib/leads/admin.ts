@@ -32,6 +32,13 @@ export interface LeadFilter {
   converted?: boolean;
 }
 
+/** The B2B-only extras parked in the `quiz_answers` jsonb (feature 15). */
+export interface B2bExtras {
+  orgType: string | null;
+  volume: string | null;
+  message: string | null;
+}
+
 /** A lead row for the admin list. */
 export interface LeadListItem {
   id: string;
@@ -44,9 +51,27 @@ export interface LeadListItem {
   converted: boolean;
   convertedOrderId: string | null;
   createdAt: string | null;
+  /** Present for B2B leads — the org/volume/message from `quiz_answers`. */
+  b2b: B2bExtras | null;
 }
 
-/** The columns exported to CSV, in order. */
+/** Pull the B2B fields out of the loosely-typed `quiz_answers` jsonb. */
+function b2bExtrasFrom(quizAnswers: unknown): B2bExtras | null {
+  if (!quizAnswers || typeof quizAnswers !== "object") return null;
+  const a = quizAnswers as Record<string, unknown>;
+  const str = (v: unknown) => (typeof v === "string" && v.trim() ? v : null);
+  const extras: B2bExtras = {
+    orgType: str(a.org_type),
+    volume: str(a.volume),
+    message: str(a.message),
+  };
+  // Only treat it as B2B extras if at least one field is present.
+  return extras.orgType || extras.volume || extras.message ? extras : null;
+}
+
+/** The columns exported to CSV, in order. `quiz_answers` carries the B2B
+ *  org/volume/message (feature 15) — without it a B2B inquiry's actual ask is
+ *  unreadable in the export. */
 const EXPORT_COLUMNS = [
   "created_at",
   "name",
@@ -59,10 +84,11 @@ const EXPORT_COLUMNS = [
   "converted",
   "converted_order_id",
   "recommended_product_id",
+  "quiz_answers",
 ] as const;
 
 const LIST_SELECT =
-  "id, name, phone, email, source_type, source_page, consent_whatsapp, converted, converted_order_id, created_at";
+  "id, name, phone, email, source_type, source_page, consent_whatsapp, converted, converted_order_id, created_at, quiz_answers";
 
 /** List leads (newest first), optionally filtered by source type / conversion. */
 export async function listLeads(
@@ -94,13 +120,16 @@ export async function listLeads(
     converted: row.converted ?? false,
     convertedOrderId: row.converted_order_id,
     createdAt: row.created_at,
+    b2b: b2bExtrasFrom(row.quiz_answers),
   }));
 }
 
-/** Escape one CSV field (RFC 4180): wrap in quotes, double internal quotes. */
+/** Escape one CSV field (RFC 4180): wrap in quotes, double internal quotes.
+ *  Objects (the `quiz_answers` jsonb) are JSON-serialized so the B2B
+ *  org/volume/message survive the export instead of becoming "[object Object]". */
 function csvField(value: unknown): string {
   if (value === null || value === undefined) return "";
-  const s = String(value);
+  const s = typeof value === "object" ? JSON.stringify(value) : String(value);
   return `"${s.replace(/"/g, '""')}"`;
 }
 

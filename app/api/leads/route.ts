@@ -25,13 +25,17 @@ export const runtime = "nodejs";
  *   - DPDP: `consent_whatsapp` is stored exactly as sent (unticked → false), and
  *     `consent_at` is set ONLY when consent is true.
  *   - Dedupe: a repeat submit from the same identity + source doesn't pile up rows
- *     — we still return the code so the UX is identical.
+ *     — we still return the same success so the UX is identical.
  *   - Instant WhatsApp/email are best-effort and NON-FATAL: a failed send must
  *     never fail the capture. WhatsApp routes through the lib/whatsapp facade
  *     (feature 10), dormant until WHATSAPP_API_KEY; email is dormant until
  *     EMAIL_API_KEY (feature 6 pattern).
  *
- * Returns `{ code }` — the ONE shared WELCOME code, revealed on-screen.
+ * Consumer sources (popup/newsletter) return `{ code }` — the ONE shared WELCOME
+ * code, revealed on-screen. The B2B arm (feature 15) is NOT consumer acquisition:
+ * it reveals NO discount code and fires NO welcome send — it returns a plain ack
+ * (`{ ok, message }`) and parks the org/volume/message in the `quiz_answers` jsonb
+ * for the team to read in the admin Leads module.
  */
 export async function POST(request: Request) {
   // 1. Rate-limit before parsing or touching the DB.
@@ -77,6 +81,14 @@ export async function POST(request: Request) {
     : dupeQuery.eq("email", lead.email);
   const { data: existing } = await dupeQuery.maybeSingle();
 
+  // B2B extras (org type / volume / free-text message) ride along in the
+  // `quiz_answers` jsonb catch-all — no dedicated columns needed (A2). Null for
+  // every other source so the column stays meaningful.
+  const quizAnswers =
+    lead.source_type === "b2b"
+      ? { org_type: lead.org_type, volume: lead.volume, message: lead.message ?? null }
+      : null;
+
   if (!existing) {
     // 5. Insert. consent_at is meaningful only when consent was given.
     const { error: insertError } = await admin.from("leads").insert({
@@ -87,6 +99,7 @@ export async function POST(request: Request) {
       source_type: lead.source_type,
       consent_whatsapp: lead.consent,
       consent_at: lead.consent ? new Date().toISOString() : null,
+      quiz_answers: quizAnswers,
     });
 
     if (insertError) {
@@ -98,7 +111,17 @@ export async function POST(request: Request) {
     }
   }
 
-  // 6. Instant delivery of the code — ONLY for the popup offer (the newsletter is
+  // 6. B2B is a wholesale enquiry, not consumer acquisition (feature 15): reveal
+  //    NO discount code and fire NO welcome send. Acknowledge plainly — the team
+  //    follows up from the admin Leads module.
+  if (lead.source_type === "b2b") {
+    return NextResponse.json({
+      ok: true,
+      message: "Thanks — we've received your enquiry. Our team will be in touch.",
+    });
+  }
+
+  // 7. Instant delivery of the code — ONLY for the popup offer (the newsletter is
   //    a plain subscribe, not the 10%-code mechanic). Best-effort and NON-FATAL:
   //    a failed send never fails the capture. WhatsApp only when the visitor opted
   //    in (the checkbox authorizes WhatsApp specifically) — the consent gate for
@@ -111,6 +134,6 @@ export async function POST(request: Request) {
     void sendLeadWelcomeEmail({ email: lead.email, name, code: WELCOME_CODE });
   }
 
-  // 7. Reveal the shared code.
+  // 8. Reveal the shared code (popup + newsletter).
   return NextResponse.json({ code: WELCOME_CODE });
 }

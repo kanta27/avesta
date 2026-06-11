@@ -14,7 +14,7 @@ const COLUMNS = [
       { label: "About Us", href: "#" },
       { label: "The Science", href: "#science" },
       { label: "Blog", href: "#blog" },
-      { label: "For Doctors & Distributors", href: "#" },
+      { label: "For Doctors & Distributors", href: "/for-professionals" },
       { label: "Avesthagen.com ↗", href: "https://avesthagen.com" },
     ],
   },
