@@ -1,7 +1,10 @@
 import type { ReactNode } from "react";
 
 export const metadata = {
-  title: "Admin — Avesta Health",
+  // Pass-through template (`%s`) shields the admin subtree from the storefront's
+  // brand-suffix title template (set in the root layout), so admin titles render
+  // exactly as each page sets them.
+  title: { template: "%s", default: "Admin — Avesta Health" },
   // Keep the admin area out of search indexes regardless of auth state.
   robots: { index: false, follow: false },
 };

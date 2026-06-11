@@ -46,6 +46,13 @@ export async function generateMetadata({
       description,
       url: `${publicEnv.NEXT_PUBLIC_SITE_URL}${path}`,
       type: "website",
+      siteName: "Avesta Health",
+      locale: "en_IN",
+      // Setting `openGraph` here replaces the root's openGraph wholesale (Next
+      // does not deep-merge it), which drops the site-wide file-convention OG
+      // image. Re-attach the default branded card so PDP social shares still
+      // carry an image (per-PDP dynamic OG remains a future stretch).
+      images: ["/opengraph-image"],
     },
   };
 }

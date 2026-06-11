@@ -23,7 +23,14 @@ export function productJsonLd(product: ProductDetail, url: string) {
   };
 
   if (product.description) node.description = product.description;
-  if (product.images.length > 0) node.image = product.images.map((i) => i.url);
+  // `image` is a required property for Google Product rich results. Use the
+  // product's own photos when present; otherwise fall back to the site-wide
+  // branded OG card so the Product node stays rich-result eligible. Real photos
+  // take over automatically once product images are wired in.
+  node.image =
+    product.images.length > 0
+      ? product.images.map((i) => i.url)
+      : [`${new URL(url).origin}/opengraph-image`];
 
   if (product.ratingAvg != null) {
     node.aggregateRating = {
