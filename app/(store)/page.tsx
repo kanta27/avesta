@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { Hero } from "@/components/store/Hero";
 import { TrustStrip } from "@/components/store/TrustStrip";
 import { ConcernGrid } from "@/components/store/ConcernGrid";
@@ -10,6 +12,17 @@ import { BlogTeasers } from "@/components/store/BlogTeasers";
 import { LeadTriggerButton } from "@/components/store/LeadTriggerButton";
 import { Reveal } from "@/components/ui/Reveal";
 import type { Product } from "@/components/store/ProductCard";
+
+export const metadata: Metadata = {
+  // Homepage owns the site root: keep the brand default title (inherited from the
+  // root layout — no `%s` suffix here) and pin the canonical to "/".
+  title: {
+    absolute: "Avesta Health — Medicine, rooted in science",
+  },
+  description:
+    "Avesta Health makes clinically formulated hydration drinks and nutrient gummies, built on Avesthagen's 25-year bioscience heritage. Prevention, Precaution and Cure.",
+  alternates: { canonical: "/" },
+};
 
 // Sample homepage products for the A1 port. Replaced by the live catalog
 // (Supabase) in feature 1; the demo's placeholder branding is intentional.

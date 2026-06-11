@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Shop",
   description:
     "Browse Avesta's range of hydration drinks and nutrient gummies — filter by health concern and product type.",
+  alternates: { canonical: "/shop" },
 };
 
 type SearchParams = Promise<{ concern?: string; type?: string }>;
