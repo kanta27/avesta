@@ -1,9 +1,8 @@
 // Lead-capture request validation — pure (zod only), no DB access.
 //
 // One endpoint (`POST /api/leads`) serves every lead source that lands in the
-// shared `leads` table. Today that's the popup, the footer newsletter and the
-// B2B inquiry form (feature 15); the quiz (feature 20) will add its own
-// source_type later.
+// shared `leads` table: the popup, the footer newsletter, the B2B inquiry form
+// (feature 15) and the 60-second health quiz (feature 20).
 //
 // The shape requirements differ per source, so this is a discriminated union on
 // `source_type`:
@@ -11,6 +10,9 @@
 //   - newsletter → only email is required; name/phone are optional.
 //   - b2b        → name + phone + email all required, plus org type / volume /
 //                  free-text message (stored in the `quiz_answers` jsonb catch-all).
+//   - quiz       → email required, phone optional; carries the captured quiz
+//                  answers (jsonb) and the recommended product id. Like the popup
+//                  it's consumer acquisition, so it reveals the WELCOME code.
 //
 // Phone reuses the SAME normalizer as checkout so a lead's phone compares
 // byte-for-byte against `orders.customer_phone` for the conversion flip later.
@@ -84,11 +86,41 @@ const b2bSchema = z.object({
   ...baseFields,
 });
 
+/**
+ * One captured quiz answer: the question id and the chosen option id. Stored
+ * verbatim in the `quiz_answers` jsonb so the admin can read exactly what the
+ * visitor selected; the recommendation itself rides in `recommended_product_id`.
+ */
+const quizAnswerSchema = z.object({
+  question: z.string().trim().min(1).max(60),
+  option: z.string().trim().min(1).max(60),
+});
+
+const quizSchema = z.object({
+  source_type: z.literal("quiz"),
+  // The quiz only asks for contact at the result screen — email is the required
+  // identity, phone is optional (offered for the instant-WhatsApp send).
+  name: z.string().trim().max(120).optional(),
+  phone: optionalPhoneSchema,
+  email: requiredEmailSchema,
+  // The 5 concern-first answers, captured verbatim for the admin Leads module.
+  quiz_answers: z.array(quizAnswerSchema).min(1).max(20),
+  // The product the quiz matched — a uuid, or null when nothing matched and the
+  // result fell back to a browse-the-shop CTA. Validated as a uuid so a junk id
+  // can never be stored; the route re-resolves it against the live catalog.
+  recommended_product_id: z.preprocess(
+    (v) => (typeof v === "string" && v.trim() === "" ? undefined : v),
+    z.uuid().optional(),
+  ),
+  ...baseFields,
+});
+
 /** The full lead request — discriminated on `source_type`. Unknown keys stripped. */
 export const leadRequestSchema = z.discriminatedUnion("source_type", [
   popupSchema,
   newsletterSchema,
   b2bSchema,
+  quizSchema,
 ]);
 
 /** Parsed, normalized lead request. */

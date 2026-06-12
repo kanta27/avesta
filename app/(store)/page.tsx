@@ -9,7 +9,6 @@ import { Reviews } from "@/components/store/Reviews";
 import { ResearchCards } from "@/components/store/ResearchCards";
 import { QuizBand } from "@/components/store/QuizBand";
 import { BlogTeasers } from "@/components/store/BlogTeasers";
-import { LeadTriggerButton } from "@/components/store/LeadTriggerButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { getFeaturedReviews } from "@/lib/reviews/public";
 import type { Product } from "@/components/store/ProductCard";
@@ -105,13 +104,7 @@ export default async function Home() {
         <ResearchCards />
       </Reveal>
       <Reveal>
-        <QuizBand
-          cta={
-            <LeadTriggerButton style={{ fontSize: 16, padding: "16px 30px" }}>
-              Find my formula →
-            </LeadTriggerButton>
-          }
-        />
+        <QuizBand />
       </Reveal>
       <Reveal>
         <BlogTeasers />

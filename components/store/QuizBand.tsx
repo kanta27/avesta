@@ -2,9 +2,8 @@ import type { ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
 
 /**
- * The lime quiz call-to-action band. `cta` is a slot so the assembly can pass
- * a client trigger that opens the lead popup (wired in a later sub-step);
- * falls back to a static anchor.
+ * The lime quiz call-to-action band. `cta` is a slot for an override; by default
+ * it links to the 60-second health quiz at `/quiz` (feature 20).
  */
 export function QuizBand({ cta }: { cta?: ReactNode }) {
   return (
@@ -21,7 +20,7 @@ export function QuizBand({ cta }: { cta?: ReactNode }) {
           {cta ?? (
             <Button
               variant="primary"
-              href="#concerns"
+              href="/quiz"
               style={{ fontSize: 16, padding: "16px 30px" }}
             >
               Find my formula →

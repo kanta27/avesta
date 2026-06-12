@@ -31,8 +31,11 @@ export const runtime = "nodejs";
  *     (feature 10), dormant until WHATSAPP_API_KEY; email is dormant until
  *     EMAIL_API_KEY (feature 6 pattern).
  *
- * Consumer sources (popup/newsletter) return `{ code }` — the ONE shared WELCOME
- * code, revealed on-screen. The B2B arm (feature 15) is NOT consumer acquisition:
+ * Consumer sources (popup/newsletter/quiz) return `{ code }` — the ONE shared
+ * WELCOME code, revealed on-screen. The quiz (feature 20) mirrors the popup: it's
+ * consumer acquisition with a 10%-off offer, so it reveals the code and fires the
+ * welcome send, and parks its answers in `quiz_answers` plus the matched product in
+ * `recommended_product_id`. The B2B arm (feature 15) is NOT consumer acquisition:
  * it reveals NO discount code and fires NO welcome send — it returns a plain ack
  * (`{ ok, message }`) and parks the org/volume/message in the `quiz_answers` jsonb
  * for the team to read in the admin Leads module.
@@ -81,13 +84,21 @@ export async function POST(request: Request) {
     : dupeQuery.eq("email", lead.email);
   const { data: existing } = await dupeQuery.maybeSingle();
 
-  // B2B extras (org type / volume / free-text message) ride along in the
-  // `quiz_answers` jsonb catch-all — no dedicated columns needed (A2). Null for
-  // every other source so the column stays meaningful.
+  // The `quiz_answers` jsonb catch-all carries source-specific extras: the B2B
+  // org/volume/message (feature 15) or the quiz's captured answers (feature 20).
+  // Null for every other source so the column stays meaningful.
   const quizAnswers =
     lead.source_type === "b2b"
       ? { org_type: lead.org_type, volume: lead.volume, message: lead.message ?? null }
-      : null;
+      : lead.source_type === "quiz"
+        ? lead.quiz_answers
+        : null;
+
+  // The matched product is quiz-only; null elsewhere. It was validated as a uuid,
+  // but a stale/inactive id is harmless here — it's just an attribution pointer
+  // the admin resolves against the live catalog.
+  const recommendedProductId =
+    lead.source_type === "quiz" ? lead.recommended_product_id ?? null : null;
 
   if (!existing) {
     // 5. Insert. consent_at is meaningful only when consent was given.
@@ -100,6 +111,7 @@ export async function POST(request: Request) {
       consent_whatsapp: lead.consent,
       consent_at: lead.consent ? new Date().toISOString() : null,
       quiz_answers: quizAnswers,
+      recommended_product_id: recommendedProductId,
     });
 
     if (insertError) {
@@ -121,19 +133,20 @@ export async function POST(request: Request) {
     });
   }
 
-  // 7. Instant delivery of the code — ONLY for the popup offer (the newsletter is
-  //    a plain subscribe, not the 10%-code mechanic). Best-effort and NON-FATAL:
-  //    a failed send never fails the capture. WhatsApp only when the visitor opted
-  //    in (the checkbox authorizes WhatsApp specifically) — the consent gate for
-  //    the MARKETING send; the email fulfils the code they explicitly asked for.
-  //    Both are dormant today (no provider keys).
-  if (lead.source_type === "popup") {
+  // 7. Instant delivery of the code — for the offer sources (popup + quiz), which
+  //    both reveal the 10%-code. The newsletter is a plain subscribe, not the
+  //    code mechanic, so it sends nothing. Best-effort and NON-FATAL: a failed
+  //    send never fails the capture. WhatsApp only when the visitor opted in (the
+  //    checkbox authorizes WhatsApp specifically) AND we have a phone (optional on
+  //    the quiz) — the consent gate for the MARKETING send; the email fulfils the
+  //    code they explicitly asked for. Both are dormant today (no provider keys).
+  if (lead.source_type === "popup" || lead.source_type === "quiz") {
     if (lead.consent && phone) {
       void sendLeadWelcome({ phone, code: WELCOME_CODE });
     }
     void sendLeadWelcomeEmail({ email: lead.email, name, code: WELCOME_CODE });
   }
 
-  // 8. Reveal the shared code (popup + newsletter).
+  // 8. Reveal the shared code (popup + newsletter + quiz).
   return NextResponse.json({ code: WELCOME_CODE });
 }
