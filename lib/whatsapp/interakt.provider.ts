@@ -51,6 +51,8 @@ function bodyValuesFor(
         vars.courier ?? "",
         vars.tracking_url ?? "",
       ];
+    case "review_request":
+      return [vars.order_number ?? "", vars.review_url ?? ""];
     case "lead_welcome":
     case "lead_followup":
       return [vars.code ?? ""];

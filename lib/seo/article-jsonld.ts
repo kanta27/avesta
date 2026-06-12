@@ -2,7 +2,7 @@
 // live alongside product/organization here). Pure / client-safe.
 import type { BlogPostDetail } from "@/lib/blog/types";
 
-const BRAND = "Avesta Health";
+const BRAND = "Avesta Nordic";
 
 /**
  * schema.org Article node for a published blog post.

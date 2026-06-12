@@ -9,7 +9,7 @@ import {
 export const metadata: Metadata = {
   title: "Grievance Officer",
   description:
-    "Contact details for the Avesta Health Grievance Officer, what to include in a complaint, and our response timeline.",
+    "Contact details for the Avesta Nordic Grievance Officer, what to include in a complaint, and our response timeline.",
   alternates: { canonical: "/grievance" },
 };
 

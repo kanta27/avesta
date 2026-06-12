@@ -201,7 +201,7 @@ export function LeadPopup() {
           </div>
           <h3>your first order</h3>
           <p>
-            Join the Avesta Health circle — get your code instantly on WhatsApp,
+            Join the Avesta Nordic circle — get your code instantly on WhatsApp,
             plus science-backed health tips.
           </p>
         </div>

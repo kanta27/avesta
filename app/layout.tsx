@@ -28,7 +28,7 @@ const fontMono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const SITE_NAME = "Avesta Health";
+const SITE_NAME = "Avesta Nordic";
 const DEFAULT_DESCRIPTION =
   "Clinically formulated hydration drinks and nutrient gummies, built on Avesthagen's 25-year bioscience heritage. Prevention, Precaution and Cure.";
 
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
   // Title template: routes set a bare `title` and inherit the brand suffix; the
   // root default applies to any route that sets none.
   title: {
-    default: "Avesta Health — Medicine, rooted in science",
-    template: "%s · Avesta Health",
+    default: "Avesta Nordic — Medicine, rooted in science",
+    template: "%s · Avesta Nordic",
   },
   description: DEFAULT_DESCRIPTION,
   openGraph: {

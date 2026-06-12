@@ -29,7 +29,7 @@ export default async function AdminDashboardLayout({
       <aside className="border-line bg-paper-2 px-4 py-5 md:min-h-screen md:border-r">
         <Link href="/admin" className="block">
           <p className="font-mono text-xs uppercase tracking-widest text-grey">
-            Avesta Health
+            Avesta Nordic
           </p>
           <p className="mt-0.5 text-lg font-semibold">Admin</p>
         </Link>

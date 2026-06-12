@@ -9,7 +9,6 @@ import type {
   PackTier,
   ProductDetail,
   ProductListItem,
-  Review,
 } from "./types";
 
 export type {
@@ -120,37 +119,8 @@ export async function getProductBySlug(
   return data ? toDetail(data as ProductRow) : null;
 }
 
-/**
- * Approved reviews for a product, newest first. Returns `[]` when none exist —
- * the PDP renders an empty state rather than fabricating reviews. The
- * `reviews_public_read` RLS policy already restricts this to `is_approved`
- * rows; the explicit filter is belt-and-suspenders.
- */
-export async function getApprovedReviews(
-  productId: string,
-): Promise<Review[]> {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase
-    .from("reviews")
-    .select(
-      "id, author_name, location, rating, body, source, is_approved, created_at",
-    )
-    .eq("product_id", productId)
-    .eq("is_approved", true)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    throw new Error(`Failed to load reviews: ${error.message}`);
-  }
-
-  return (data ?? []).map((row) => ({
-    id: row.id,
-    authorName: row.author_name,
-    location: row.location,
-    rating: row.rating,
-    body: row.body,
-    source: row.source,
-    createdAt: row.created_at,
-  }));
-}
+// Review reads moved to `lib/reviews/public.ts` (feature 17): the PDP shows only
+// FIRST-PARTY (direct) reviews with a body, while third-party rows are link-out
+// aggregate badges. Keeping a single "all approved reviews" reader here invited
+// rendering a third-party body on-site, so it was removed in favour of the
+// source-aware readers in that module.

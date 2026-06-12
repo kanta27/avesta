@@ -46,7 +46,7 @@ export function Footer() {
       <div className="wrap">
         <div className="f-grid">
           <div>
-            <div className="f-logo">● AVESTA HEALTH</div>
+            <div className="f-logo">● AVESTA NORDIC</div>
             <p>
               Clinically formulated hydration &amp; nutrition, built on
               Avesthagen&apos;s 25-year bioscience heritage. Prevention,

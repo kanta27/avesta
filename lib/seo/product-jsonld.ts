@@ -2,15 +2,30 @@
 // lives here naturally — the PDP). Pure / client-safe. Money is converted from
 // integer paise to a rupee string only at this display/serialization edge.
 import type { ProductDetail } from "@/lib/products/types";
+import type { DirectReviewStats } from "@/lib/reviews/types";
 
-const BRAND = "Avesta Health";
+const BRAND = "Avesta Nordic";
 
 function paiseToRupeeString(paise: number): string {
   return (Math.round(paise) / 100).toFixed(2);
 }
 
-/** schema.org Product object. Omits fields the product doesn't have yet. */
-export function productJsonLd(product: ProductDetail, url: string) {
+/**
+ * schema.org Product object. Omits fields the product doesn't have yet.
+ *
+ * `directStats` carries the count + average over APPROVED FIRST-PARTY (direct)
+ * reviews. The on-site `aggregateRating` is derived ONLY from those — never from
+ * the product's third-party aggregate (`rating_avg`/`rating_source`, e.g. an
+ * Amazon score). Google's policy requires structured-data AggregateRating to
+ * reflect reviews the site itself collects; the third-party score stays a
+ * visible link-out badge, out of the structured data. With zero direct reviews,
+ * `aggregateRating` is omitted entirely rather than asserting a fabricated count.
+ */
+export function productJsonLd(
+  product: ProductDetail,
+  url: string,
+  directStats?: DirectReviewStats,
+) {
   const prices = product.packTiers.map((t) => t.price_paise);
   const lowest = prices.length > 0 ? Math.min(...prices) : null;
 
@@ -32,13 +47,18 @@ export function productJsonLd(product: ProductDetail, url: string) {
       ? product.images.map((i) => i.url)
       : [`${new URL(url).origin}/opengraph-image`];
 
-  if (product.ratingAvg != null) {
+  // AggregateRating is derived from FIRST-PARTY (direct) approved reviews ONLY.
+  // No direct reviews → no aggregateRating node (don't assert a count we can't
+  // back with first-party data; the third-party score is a link-out badge, not
+  // structured data).
+  if (directStats && directStats.count > 0 && directStats.average != null) {
     node.aggregateRating = {
       "@type": "AggregateRating",
-      ratingValue: product.ratingAvg,
+      ratingValue: directStats.average,
+      ratingCount: directStats.count,
+      reviewCount: directStats.count,
       bestRating: 5,
-      // No review count available yet; ratingCount intentionally omitted until
-      // a real reviews dataset exists, to avoid asserting a fabricated number.
+      worstRating: 1,
     };
   }
 

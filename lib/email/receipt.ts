@@ -50,9 +50,9 @@ export async function sendOrderReceiptEmail(
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        from: "Avesta Health <orders@avestahealth.in>",
+        from: "Avesta Nordic <orders@avestahealth.in>",
         to: order.email,
-        subject: `Your Avesta Health order ${order.order_number}`,
+        subject: `Your Avesta Nordic order ${order.order_number}`,
         html: renderReceiptHtml(order),
       }),
     });

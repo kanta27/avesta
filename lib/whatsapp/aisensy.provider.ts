@@ -48,6 +48,8 @@ function templateParamsFor(
         vars.courier ?? "",
         vars.tracking_url ?? "",
       ];
+    case "review_request":
+      return [vars.order_number ?? "", vars.review_url ?? ""];
     case "lead_welcome":
     case "lead_followup":
       return [vars.code ?? ""];
@@ -82,7 +84,7 @@ export const aisensyProvider: WhatsAppProvider = {
           campaignName: name,
           destination: `${COUNTRY_CODE}${phone}`,
           // AiSensy requires a non-empty user name field.
-          userName: "Avesta Health",
+          userName: "Avesta Nordic",
           templateParams: templateParamsFor(name, vars),
         }),
       });

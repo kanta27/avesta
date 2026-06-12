@@ -31,7 +31,7 @@ export async function generateMetadata({
   const description =
     post.seoDescription ??
     post.excerpt ??
-    `${post.title} — from the Avesta Health blog.`;
+    `${post.title} — from the Avesta Nordic blog.`;
   const path = `/blog/${post.slug}`;
 
   return {
@@ -43,7 +43,7 @@ export async function generateMetadata({
       description,
       url: `${publicEnv.NEXT_PUBLIC_SITE_URL}${path}`,
       type: "article",
-      siteName: "Avesta Health",
+      siteName: "Avesta Nordic",
       locale: "en_IN",
       publishedTime: post.publishedAt ?? undefined,
       // Use the post's cover when present; otherwise fall back to the site OG

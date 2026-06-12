@@ -5,7 +5,7 @@ import { B2bInquiryForm } from "@/components/store/B2bInquiryForm";
 export const metadata: Metadata = {
   title: "For Doctors & Distributors",
   description:
-    "Partner with Avesta Health. Wholesale and bulk enquiries for doctors, clinics, pharmacies and distributors — clinically formulated hydration and nutrition from Avesthagen's bioscience heritage.",
+    "Partner with Avesta Nordic. Wholesale and bulk enquiries for doctors, clinics, pharmacies and distributors — clinically formulated hydration and nutrition from Avesthagen's bioscience heritage.",
   alternates: { canonical: "/for-professionals" },
 };
 
@@ -23,7 +23,7 @@ const AUDIENCES = [
   },
   {
     title: "Distributors & wholesalers",
-    body: "Carry the Avesta Health range across your territory with bulk pricing and a dedicated partnerships contact.",
+    body: "Carry the Avesta Nordic range across your territory with bulk pricing and a dedicated partnerships contact.",
   },
 ] as const;
 
@@ -56,7 +56,7 @@ export default function ForProfessionalsPage() {
           For doctors &amp; distributors
         </h1>
         <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-grey">
-          Avesta Health is Avesthagen&apos;s consumer health brand — clinically
+          Avesta Nordic is Avesthagen&apos;s consumer health brand — clinically
           formulated hydration drinks and nutrient gummies for the Indian market.
           If you&apos;re a healthcare professional, pharmacy or distributor, tell us
           a little about your needs and our partnerships team will be in touch.

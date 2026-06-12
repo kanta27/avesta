@@ -2,7 +2,7 @@
 // the root layout so every route carries brand identity for search engines.
 // Pure / client-safe — takes the canonical site origin and returns a schema.org
 // @graph with both nodes sharing one document.
-const BRAND = "Avesta Health";
+const BRAND = "Avesta Nordic";
 
 // Avesthagen is the parent bioscience company; linking it as `sameAs` ties the
 // D2C brand to its established web entity.

@@ -9,7 +9,7 @@ import {
 export const metadata: Metadata = {
   title: "Refund & Replacement",
   description:
-    "When Avesta Health orders qualify for a replacement or refund, the 48-hour reporting window, the proof required, and how refunds are issued.",
+    "When Avesta Nordic orders qualify for a replacement or refund, the 48-hour reporting window, the proof required, and how refunds are issued.",
   alternates: { canonical: "/refund" },
 };
 

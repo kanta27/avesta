@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A D2C marketing site for **Avesta Health** (a consumer health/supplements brand by Avesthagen — hydration drinks and nutrient gummies, Indian market). It is being built out from a static design demo into a full Next.js commerce app, one spec at a time.
+A D2C marketing site for **Avesta Nordic** (a consumer health/supplements brand by Avesthagen — hydration drinks and nutrient gummies, Indian market). It is being built out from a static design demo into a full Next.js commerce app, one spec at a time.
 
 **Stack:** Next.js 16 (App Router) + TypeScript + Tailwind v4 · Supabase (Postgres + Auth + Storage) · Razorpay behind a payment abstraction · WhatsApp via Interakt/AiSensy · hosting on Vercel. Build specs live under `.claude/spec/` — **read the relevant spec before building**, and read `.claude/spec/conventions.md` for the guardrails and Definition of Done that apply to every feature.
 

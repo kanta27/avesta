@@ -1,63 +1,91 @@
 import { SectionHead } from "@/components/ui/SectionHead";
+import {
+  sourceLabel,
+  starString,
+  type FeaturedReview,
+} from "@/lib/reviews/types";
 
-const REVIEWS = [
-  {
-    stars: "★★★★★",
-    quote:
-      "I've tried every electrolyte powder out there. This is the first one where I could actually read the science behind it. The 90-day pack made it a habit.",
-    initials: "RS",
-    name: "Rahul S.",
-    city: "BENGALURU",
-    source: "AMAZON ✓",
-  },
-  {
-    stars: "★★★★★",
-    quote:
-      "The immunity gummies are part of my kids' routine now. Knowing it comes from a real research company — not just an Instagram brand — matters to me.",
-    initials: "PM",
-    name: "Priya M.",
-    city: "MUMBAI",
-    source: "TATA 1MG ✓",
-  },
-  {
-    stars: "★★★★☆",
-    quote:
-      "Ordered the hydration + gummy stack. Delivery was quick, and the WhatsApp tracking updates were a nice touch. Already reordered the monthly pack.",
-    initials: "AK",
-    name: "Arjun K.",
-    city: "DELHI",
-    source: "DIRECT ✓",
-  },
-] as const;
+/**
+ * Homepage testimonials strip (feature 17). Driven by real `is_featured` +
+ * approved reviews — the static placeholder cards were removed.
+ *
+ * Two card shapes, branched on source (compliance):
+ *   - direct           → a first-party testimonial WITH on-site body text.
+ *   - amazon | tata1mg → a link-out AGGREGATE BADGE: rating + platform link,
+ *                        NEVER a verbatim third-party body.
+ *
+ * Renders nothing when there are no featured reviews yet (no fabricated proof).
+ */
 
-export function Reviews() {
+/** Up to two initials from a name, for the avatar chip. */
+function initialsOf(name: string | null): string {
+  if (!name) return "★";
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  const letters = parts.slice(0, 2).map((p) => p[0]!.toUpperCase());
+  return letters.join("") || "★";
+}
+
+export function Reviews({ reviews }: { reviews: FeaturedReview[] }) {
+  if (reviews.length === 0) return null;
+
   return (
     <section id="reviews">
       <div className="wrap">
         <SectionHead
           kicker="04 — Proof"
           title="Trusted by people, verified by platforms"
-          description="Real reviews from verified buyers on Amazon and Tata 1mg — plus stories from our own customers."
+          description="Real reviews from verified buyers — plus aggregate ratings from Amazon and Tata 1mg."
         />
         <div className="rev-grid">
-          {REVIEWS.map((r) => (
-            <div className="rev" key={r.name}>
-              <div className="stars" aria-hidden>
-                {r.stars}
-              </div>
-              <p className="q">&ldquo;{r.quote}&rdquo;</p>
-              <div className="who">
-                <div className="av" aria-hidden>
-                  {r.initials}
+          {reviews.map((r) => {
+            const thirdParty = r.source === "amazon" || r.source === "tata1mg";
+
+            // Third-party: link-out badge, NO body.
+            if (thirdParty && r.reelUrl) {
+              return (
+                <a
+                  className="rev"
+                  key={r.id}
+                  href={r.reelUrl}
+                  target="_blank"
+                  rel="noreferrer noopener nofollow"
+                >
+                  <div className="stars" aria-hidden>
+                    {starString(r.rating)}
+                  </div>
+                  <p className="q">
+                    {r.rating != null
+                      ? `Rated ${r.rating.toFixed(1)} by verified buyers on `
+                      : "Rated by verified buyers on "}
+                    <b>{sourceLabel(r.source)}</b> ↗
+                  </p>
+                  <div className="who">
+                    <span className="src">{sourceLabel(r.source!).toUpperCase()} ✓</span>
+                  </div>
+                </a>
+              );
+            }
+
+            // First-party direct testimonial WITH body.
+            return (
+              <div className="rev" key={r.id}>
+                <div className="stars" aria-hidden>
+                  {starString(r.rating)}
                 </div>
-                <div>
-                  <b>{r.name}</b>
-                  <span>{r.city}</span>
+                {r.body ? <p className="q">&ldquo;{r.body}&rdquo;</p> : null}
+                <div className="who">
+                  <div className="av" aria-hidden>
+                    {initialsOf(r.authorName)}
+                  </div>
+                  <div>
+                    <b>{r.authorName ?? "Verified buyer"}</b>
+                    {r.location ? <span>{r.location.toUpperCase()}</span> : null}
+                  </div>
+                  <span className="src">{sourceLabel(r.source).toUpperCase()} ✓</span>
                 </div>
-                <span className="src">{r.source}</span>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
