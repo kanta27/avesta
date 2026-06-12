@@ -5,6 +5,7 @@ import { verifyWebhookSignature } from "@/lib/payments";
 import { sendOrderConfirmation } from "@/lib/receipts/order-confirmation";
 import { redeemOnPaid } from "@/lib/discounts";
 import { markLeadConverted } from "@/lib/leads/conversion";
+import { markCartConverted } from "@/lib/carts/conversion";
 import type { PricedItem } from "@/lib/checkout/pricing";
 
 // Uses node:crypto (via the payment layer) + the service-role client. Must run
@@ -137,6 +138,12 @@ export async function POST(request: Request) {
     // as the receipt + redemption above (covers the closed-tab case where
     // /confirm never ran), so it runs exactly once per paid order. Non-fatal.
     await markLeadConverted({ orderId: order.id, phone: order.customer_phone });
+
+    // Flip the matching abandoned-cart row to converted/recovered (feature 18).
+    // Same single winner point as the hooks above, so it runs exactly once per
+    // paid order, and it suppresses the recovery nudge by taking the cart out of
+    // `active`. Non-fatal — a cart-tracking failure never un-pays the order.
+    await markCartConverted({ phone: order.customer_phone });
 
     // TODO(production hardening): also verify `entity.amount` matches the
     // order's `total_paise` before marking paid, to reject underpayment.

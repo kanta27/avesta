@@ -53,6 +53,8 @@ function bodyValuesFor(
       ];
     case "review_request":
       return [vars.order_number ?? "", vars.review_url ?? ""];
+    case "cart_recovery":
+      return [vars.item ?? ""];
     case "lead_welcome":
     case "lead_followup":
       return [vars.code ?? ""];
