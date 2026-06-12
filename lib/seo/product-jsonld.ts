@@ -75,14 +75,18 @@ export function productJsonLd(
   return node;
 }
 
-/** schema.org FAQPage object, or null when the product has no FAQs. */
-export function faqJsonLd(product: ProductDetail) {
-  if (product.faqs.length === 0) return null;
+/**
+ * schema.org FAQPage object built from a list of `{ q, a }` entries, or null
+ * when there are none. Takes the bare FAQ array (not a whole product) so both
+ * the PDP (feature 14) and concern landing pages (feature 19) share one helper.
+ */
+export function faqJsonLd(faqs: { q: string; a: string }[]) {
+  if (faqs.length === 0) return null;
 
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: product.faqs.map((f) => ({
+    mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },

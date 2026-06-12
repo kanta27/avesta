@@ -92,7 +92,7 @@ export default async function ProductDetailPage({
 
   const url = `${publicEnv.NEXT_PUBLIC_SITE_URL}/shop/${product.slug}`;
   const productLd = productJsonLd(product, url, directStats);
-  const faqLd = faqJsonLd(product);
+  const faqLd = faqJsonLd(product.faqs);
 
   return (
     <article id="pdp">

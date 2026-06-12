@@ -69,6 +69,43 @@ export async function getActiveProducts(): Promise<ProductListItem[]> {
   return (data ?? []).map((row) => toListItem(row as ProductRow));
 }
 
+/**
+ * Fetch a set of ACTIVE products by id, preserving the order of `ids` (used by
+ * concern landing pages, feature 19, to render their `product_ids` grid).
+ *
+ * Reads via the server-side anon client under RLS, so inactive products are
+ * never returned even if their id is listed — the `is_active = true` predicate
+ * is belt-and-suspenders. Returns `[]` for an empty id list without a round trip.
+ */
+export async function getActiveProductsByIds(
+  ids: string[],
+): Promise<ProductListItem[]> {
+  if (ids.length === 0) return [];
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("products")
+    .select(
+      "id, slug, name, type, concerns, tagline, rating_avg, rating_source, images, pack_tiers, is_active",
+    )
+    .in("id", ids)
+    .eq("is_active", true);
+
+  if (error) {
+    throw new Error(`Failed to load products by id: ${error.message}`);
+  }
+
+  const byId = new Map(
+    (data ?? []).map((row) => {
+      const item = toListItem(row as ProductRow);
+      return [item.id, item];
+    }),
+  );
+  // Preserve the admin-authored order; drop ids that resolved to nothing
+  // (inactive or deleted).
+  return ids.map((id) => byId.get(id)).filter((p): p is ProductListItem => !!p);
+}
+
 /** Coerce a jsonb array column into a typed array, tolerating null / non-array. */
 function jsonArray<T>(value: ProductRow[keyof ProductRow]): T[] {
   return (Array.isArray(value) ? value : []) as unknown as T[];

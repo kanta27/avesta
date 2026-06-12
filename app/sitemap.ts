@@ -3,12 +3,13 @@ import type { MetadataRoute } from "next";
 import { publicEnv } from "@/lib/env";
 import { getActiveProducts } from "@/lib/products/queries";
 import { getPublishedSlugs } from "@/lib/blog/queries";
+import { getAllConcernSlugs } from "@/lib/concerns/queries";
 
 // Public, indexable URLs only (spec feature 14). Deliberately EXCLUDES
 // /admin, /checkout, /checkout/success, /order/*, /cart, /track and /api — all
 // non-indexable (and noindex at the metadata layer). The blog index + each
-// PUBLISHED post join below (feature 16); concern routes (feature 19) follow
-// when that ships. Bundles is a single page for now.
+// PUBLISHED post join below (feature 16); concern landing pages join too
+// (feature 19). Bundles is a single page for now.
 //
 // All URLs are absolute, built from NEXT_PUBLIC_SITE_URL (metadataBase origin).
 
@@ -55,5 +56,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...productEntries, ...postEntries];
+  // Concern landing pages (feature 19). No status column — every row is public —
+  // so getAllConcernSlugs reads them all under RLS.
+  const concernSlugs = await getAllConcernSlugs();
+  const concernEntries: MetadataRoute.Sitemap = concernSlugs.map((slug) => ({
+    url: `${origin}/health-concern/${slug}`,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  return [
+    ...staticEntries,
+    ...productEntries,
+    ...postEntries,
+    ...concernEntries,
+  ];
 }
