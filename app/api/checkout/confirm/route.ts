@@ -6,6 +6,7 @@ import { verifyPayment } from "@/lib/payments";
 import { sendOrderConfirmation } from "@/lib/receipts/order-confirmation";
 import { redeemOnPaid } from "@/lib/discounts";
 import { markLeadConverted } from "@/lib/leads/conversion";
+import { markCartConverted } from "@/lib/carts/conversion";
 import type { PricedItem } from "@/lib/checkout/pricing";
 
 // Uses node:crypto (via the payment layer) + the service-role client.
@@ -109,6 +110,12 @@ export async function POST(request: Request) {
     // as the receipt + redemption above, so it runs exactly once per paid order.
     // Non-fatal: a tracking failure never fails the already-paid order.
     await markLeadConverted({ orderId: order.id, phone: order.customer_phone });
+
+    // Flip the matching abandoned-cart row to converted/recovered (feature 18).
+    // Same single winner point as the hooks above (covers the closed-tab case
+    // via the webhook), so it runs exactly once per paid order and suppresses the
+    // recovery nudge. Non-fatal — never fails the already-paid order.
+    await markCartConverted({ phone: order.customer_phone });
 
     return NextResponse.json({
       id: order.id,

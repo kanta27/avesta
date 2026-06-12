@@ -20,14 +20,15 @@
 /**
  * The approved templates this app sends. Adding a new business message means
  * adding it here AND getting the template approved in the provider console.
- *   - order_confirmation / order_shipped / review_request → TRANSACTIONAL
- *                                          (purchase-tied; not consent-gated).
+ *   - order_confirmation / order_shipped / review_request / cart_recovery
+ *                       → TRANSACTIONAL (purchase-intent-tied; not consent-gated).
  *   - lead_welcome / lead_followup       → MARKETING (consent-gated at call site).
  */
 export type WhatsAppTemplate =
   | "order_confirmation"
   | "order_shipped"
   | "review_request"
+  | "cart_recovery"
   | "lead_welcome"
   | "lead_followup";
 

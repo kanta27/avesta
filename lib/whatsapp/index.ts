@@ -147,6 +147,20 @@ export function sendReviewRequest(
 }
 
 /**
+ * TRANSACTIONAL — single abandoned-cart recovery nudge (feature 18). Fired from
+ * the cart-recovery cron, exactly once per stale `active` cart (the cron's
+ * `recovery_sent` guard enforces "once"). Purchase-intent-tied — the shopper
+ * entered their phone to buy — so it is NOT gated on marketing consent, like the
+ * other transactional helpers. Non-fatal like every helper here.
+ */
+export function sendCartRecovery(input: {
+  phone: string;
+  item: string;
+}): Promise<WhatsAppSendResult> {
+  return send("cart_recovery", input.phone, { item: input.item });
+}
+
+/**
  * MARKETING — instant "here's your 10% code" welcome. CONSENT-GATED at the call
  * site: the leads route only calls this when `consent_whatsapp` is true.
  */

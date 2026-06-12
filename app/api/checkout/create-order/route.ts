@@ -7,6 +7,7 @@ import type { Json, TablesInsert } from "@/lib/supabase";
 import { checkoutRequestSchema } from "@/lib/checkout/validation";
 import { priceCart } from "@/lib/checkout/pricing";
 import { validateAndApply } from "@/lib/discounts";
+import { captureCart } from "@/lib/carts/capture";
 
 // Uses node:crypto (via the payment layer) and the service-role client — must run
 // on the Node.js runtime, never the edge.
@@ -170,6 +171,15 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
+
+  // Capture the cart at checkout START (feature 18) — one `active` carts row per
+  // phone, with the SERVER-priced items, so the recovery cron can nudge it if no
+  // payment lands. Best-effort and non-fatal: it never blocks or fails the order.
+  await captureCart({
+    phone: customer.phone,
+    email: customer.email ?? null,
+    items: cart.items,
+  });
 
   // Tell the client how to pay: provider name decides mock vs. real modal;
   // keyId is null in mock mode (the client uses the simulate-success path).
