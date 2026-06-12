@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { LoginForm } from "./LoginForm";
 
 export const metadata = {
-  title: "Admin sign in — Avesta Health",
+  title: "Admin sign in — Avesta Nordic",
   robots: { index: false, follow: false },
 };
 

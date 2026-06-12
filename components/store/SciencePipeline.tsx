@@ -43,7 +43,7 @@ export function SciencePipeline() {
           </h2>
           <p>
             Most supplement brands start with marketing. We start in the lab.
-            Every Avesta Health formula comes out of Avesthagen&apos;s 25-year
+            Every Avesta Nordic formula comes out of Avesthagen&apos;s 25-year
             pipeline of pharma-grade discovery — combining validated plant
             bioactives with modern clinical standards.
           </p>

@@ -18,9 +18,9 @@ export function Nav() {
   return (
     <nav>
       <div className="wrap nav-in">
-        <Link className="logo" href="/" aria-label="Avesta Health home">
+        <Link className="logo" href="/" aria-label="Avesta Nordic home">
           <span className="dot" aria-hidden />
-          AVESTA&nbsp;HEALTH
+          AVESTA&nbsp;NORDIC
         </Link>
         <div className="nav-links">
           {LINKS.map((l) => (

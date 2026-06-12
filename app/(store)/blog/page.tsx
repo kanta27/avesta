@@ -8,7 +8,7 @@ import { formatDate } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Evidence-led articles on hydration, immunity, and everyday nutrition from the Avesta Health science team.",
+    "Evidence-led articles on hydration, immunity, and everyday nutrition from the Avesta Nordic science team.",
   alternates: { canonical: "/blog" },
 };
 

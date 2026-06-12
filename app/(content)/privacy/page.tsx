@@ -9,7 +9,7 @@ import {
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "How Avesta Health collects, uses, stores and protects your personal data, your rights under the DPDP Act, 2023, and how to withdraw consent or request erasure.",
+    "How Avesta Nordic collects, uses, stores and protects your personal data, your rights under the DPDP Act, 2023, and how to withdraw consent or request erasure.",
   alternates: { canonical: "/privacy" },
 };
 

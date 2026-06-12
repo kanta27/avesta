@@ -9,7 +9,7 @@ import {
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description:
-    "The terms governing your use of the Avesta Health website and your purchase of our products.",
+    "The terms governing your use of the Avesta Nordic website and your purchase of our products.",
   alternates: { canonical: "/terms" },
 };
 

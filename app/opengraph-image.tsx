@@ -9,7 +9,7 @@ import { ImageResponse } from "next/og";
 // #0A3D3F, paper #FAFBF8, lime #C8F04C, grey-on-dark #B8C7C2. No remote font
 // fetch — the built-in sans keeps the build hermetic and fast.
 
-export const alt = "Avesta Health — Pharma-grade science. Nature-derived medicine.";
+export const alt = "Avesta Nordic — Pharma-grade science. Nature-derived medicine.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -48,7 +48,7 @@ export default function OpengraphImage() {
               lineHeight: 1,
             }}
           >
-            AVESTA HEALTH
+            AVESTA NORDIC
           </div>
           <div
             style={{

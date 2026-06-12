@@ -9,7 +9,7 @@ import {
 export const metadata: Metadata = {
   title: "Shipping Policy",
   description:
-    "How and when Avesta Health orders are dispatched and delivered, including serviceable regions, timelines and charges.",
+    "How and when Avesta Nordic orders are dispatched and delivered, including serviceable regions, timelines and charges.",
   alternates: { canonical: "/shipping" },
 };
 

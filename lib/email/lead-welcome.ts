@@ -40,7 +40,7 @@ export async function sendLeadWelcomeEmail(input: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        from: "Avesta Health <hello@avestahealth.in>",
+        from: "Avesta Nordic <hello@avestahealth.in>",
         to: input.email,
         subject: "Your 10% welcome code 🎉",
         html: renderWelcomeHtml(input.name, input.code),
@@ -91,7 +91,7 @@ export async function sendLeadFollowupEmail(input: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        from: "Avesta Health <hello@avestahealth.in>",
+        from: "Avesta Nordic <hello@avestahealth.in>",
         to: input.email,
         subject: "Still thinking it over? Your 10% code is waiting",
         html: renderFollowupHtml(input.name, input.code),
@@ -118,7 +118,7 @@ export async function sendLeadFollowupEmail(input: {
 function renderWelcomeHtml(name: string | null, code: string): string {
   const greeting = name ? `Hi ${escapeHtml(name)},` : "Hi there,";
   return `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#0A3D3F">
-  <h2>Welcome to the Avesta Health circle</h2>
+  <h2>Welcome to the Avesta Nordic circle</h2>
   <p>${greeting}</p>
   <p>Here's your code for <strong>10% off your first order</strong>:</p>
   <p style="font-size:22px;font-weight:bold;letter-spacing:1px;color:#0A3D3F">${escapeHtml(code)}</p>

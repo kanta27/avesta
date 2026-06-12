@@ -94,6 +94,14 @@ export interface WhatsAppShippedNotification {
   tracking_url: string | null;
 }
 
+/** The slice of an order needed for the post-delivery review request. */
+export interface WhatsAppReviewRequest {
+  order_number: string;
+  customer_phone: string | null;
+  /** Absolute URL of the on-site review form the message links to. */
+  review_url: string;
+}
+
 /**
  * TRANSACTIONAL — order confirmation on the created→paid transition. Fired from
  * `lib/receipts/order-confirmation.ts`, regardless of marketing consent.
@@ -119,6 +127,22 @@ export function sendShippedNotification(
     order_number: order.order_number,
     courier: order.courier ?? "",
     tracking_url: order.tracking_url ?? "",
+  });
+}
+
+/**
+ * TRANSACTIONAL — post-delivery review request. Fired EXACTLY ONCE from the
+ * orders admin on the transition INTO `delivered` (prior status != delivered);
+ * re-saving an already-delivered order does not re-fire (the call site guards
+ * the transition). Purchase-tied, so NOT gated on marketing consent. Non-fatal
+ * like every other helper here — a failed/absent send never reverses delivery.
+ */
+export function sendReviewRequest(
+  order: WhatsAppReviewRequest,
+): Promise<WhatsAppSendResult> {
+  return send("review_request", order.customer_phone, {
+    order_number: order.order_number,
+    review_url: order.review_url,
   });
 }
 

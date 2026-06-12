@@ -189,7 +189,7 @@ export function CheckoutForm() {
       order_id: order.providerOrderId,
       amount: order.amountPaise,
       currency: "INR",
-      name: "Avesta Health",
+      name: "Avesta Nordic",
       description: order.orderNumber,
       prefill: {
         name: fields.name,

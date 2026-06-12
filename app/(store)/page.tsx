@@ -11,16 +11,17 @@ import { QuizBand } from "@/components/store/QuizBand";
 import { BlogTeasers } from "@/components/store/BlogTeasers";
 import { LeadTriggerButton } from "@/components/store/LeadTriggerButton";
 import { Reveal } from "@/components/ui/Reveal";
+import { getFeaturedReviews } from "@/lib/reviews/public";
 import type { Product } from "@/components/store/ProductCard";
 
 export const metadata: Metadata = {
   // Homepage owns the site root: keep the brand default title (inherited from the
   // root layout — no `%s` suffix here) and pin the canonical to "/".
   title: {
-    absolute: "Avesta Health — Medicine, rooted in science",
+    absolute: "Avesta Nordic — Medicine, rooted in science",
   },
   description:
-    "Avesta Health makes clinically formulated hydration drinks and nutrient gummies, built on Avesthagen's 25-year bioscience heritage. Prevention, Precaution and Cure.",
+    "Avesta Nordic makes clinically formulated hydration drinks and nutrient gummies, built on Avesthagen's 25-year bioscience heritage. Prevention, Precaution and Cure.",
   alternates: { canonical: "/" },
 };
 
@@ -79,7 +80,9 @@ const SAMPLE_PRODUCTS: readonly Product[] = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const featuredReviews = await getFeaturedReviews();
+
   return (
     <>
       <Hero />
@@ -93,9 +96,11 @@ export default function Home() {
       <Reveal>
         <SciencePipeline />
       </Reveal>
-      <Reveal>
-        <Reviews />
-      </Reveal>
+      {featuredReviews.length > 0 ? (
+        <Reveal>
+          <Reviews reviews={featuredReviews} />
+        </Reveal>
+      ) : null}
       <Reveal>
         <ResearchCards />
       </Reveal>

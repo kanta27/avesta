@@ -4,7 +4,12 @@ import { notFound } from "next/navigation";
 
 import { publicEnv } from "@/lib/env";
 import { defaultTierIndex } from "@/lib/products/types";
-import { getApprovedReviews, getProductBySlug } from "@/lib/products/queries";
+import { getProductBySlug } from "@/lib/products/queries";
+import {
+  getApprovedAggregateBadges,
+  getApprovedDirectReviews,
+  getDirectReviewStats,
+} from "@/lib/reviews/public";
 import { starString } from "@/lib/products/placeholder";
 import { faqJsonLd, productJsonLd } from "@/lib/seo/product-jsonld";
 
@@ -16,6 +21,7 @@ import { IngredientsTable } from "@/components/store/pdp/IngredientsTable";
 import { BioactivesTable } from "@/components/store/pdp/BioactivesTable";
 import { FaqAccordion } from "@/components/store/pdp/FaqAccordion";
 import { ReviewsBlock } from "@/components/store/pdp/ReviewsBlock";
+import { AggregateBadges } from "@/components/store/pdp/AggregateBadges";
 
 type Params = Promise<{ slug: string }>;
 
@@ -34,7 +40,7 @@ export async function generateMetadata({
   const description =
     product.description ??
     product.tagline ??
-    `${product.name} from Avesta Health.`;
+    `${product.name} from Avesta Nordic.`;
   const path = `/shop/${product.slug}`;
 
   return {
@@ -46,7 +52,7 @@ export async function generateMetadata({
       description,
       url: `${publicEnv.NEXT_PUBLIC_SITE_URL}${path}`,
       type: "website",
-      siteName: "Avesta Health",
+      siteName: "Avesta Nordic",
       locale: "en_IN",
       // Setting `openGraph` here replaces the root's openGraph wholesale (Next
       // does not deep-merge it), which drops the site-wide file-convention OG
@@ -69,7 +75,13 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const reviews = await getApprovedReviews(product.id);
+  // First-party testimonials (with body) feed the reviews block; third-party
+  // rows surface as separate link-out badges; the direct stats drive JSON-LD.
+  const [reviews, aggregateBadges, directStats] = await Promise.all([
+    getApprovedDirectReviews(product.id),
+    getApprovedAggregateBadges(product.id),
+    getDirectReviewStats(product.id),
+  ]);
 
   const ratingNote =
     product.ratingAvg != null
@@ -79,7 +91,7 @@ export default async function ProductDetailPage({
       : null;
 
   const url = `${publicEnv.NEXT_PUBLIC_SITE_URL}/shop/${product.slug}`;
-  const productLd = productJsonLd(product, url);
+  const productLd = productJsonLd(product, url, directStats);
   const faqLd = faqJsonLd(product);
 
   return (
@@ -181,6 +193,9 @@ export default async function ProductDetailPage({
         {/* ---- Reviews ---- */}
         <section className="pdp-section" aria-labelledby="rev-h">
           <h2 id="rev-h">Reviews</h2>
+          {/* Third-party ratings link OUT (rating + link only — never a body). */}
+          <AggregateBadges badges={aggregateBadges} />
+          {/* First-party testimonials carry the on-site text. */}
           <ReviewsBlock reviews={reviews} />
         </section>
       </div>

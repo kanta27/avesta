@@ -3,9 +3,10 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth/require-admin";
+import { publicEnv } from "@/lib/env";
 import { getOrderById, updateOrder } from "@/lib/orders/admin";
 import { isOrderStatus, type OrderStatus } from "@/lib/orders/types";
-import { sendShippedNotification } from "@/lib/whatsapp";
+import { sendReviewRequest, sendShippedNotification } from "@/lib/whatsapp";
 
 /**
  * Orders server actions (feature 12, module 2).
@@ -60,6 +61,11 @@ export async function updateOrderAction(
   // shipped order won't re-message the customer.
   const movingToShipped = status === "shipped" && current.status !== "shipped";
 
+  // Likewise, the post-delivery review request fires ONLY on the transition INTO
+  // delivered (prior status != delivered). Re-saving an already-delivered order
+  // must NOT re-fire it — the customer gets at most one ask.
+  const movingToDelivered = status === "delivered" && current.status !== "delivered";
+
   // A shipped order MUST carry tracking. Accept it from this submit or from a
   // previously-saved value; refuse to ship with nothing to track.
   if (status === "shipped" && !trackingUrl && !current.trackingUrl) {
@@ -94,6 +100,25 @@ export async function updateOrderAction(
       } catch (err) {
         console.error(
           `[orders] shipped notification failed (non-fatal) — order ${row.order_number}:`,
+          err,
+        );
+      }
+    }
+
+    // Post-delivery review request — same non-fatal, await-then-swallow shape as
+    // the shipped notification. The status is already committed above, so a
+    // failed/absent send can never flip a delivered order back to an error. Fires
+    // at most once: `movingToDelivered` is false when re-saving a delivered order.
+    if (movingToDelivered) {
+      try {
+        await sendReviewRequest({
+          order_number: row.order_number,
+          customer_phone: row.customer_phone,
+          review_url: `${publicEnv.NEXT_PUBLIC_SITE_URL}/review?order=${encodeURIComponent(row.order_number)}`,
+        });
+      } catch (err) {
+        console.error(
+          `[orders] review request failed (non-fatal) — order ${row.order_number}:`,
           err,
         );
       }
