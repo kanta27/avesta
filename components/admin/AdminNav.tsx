@@ -8,8 +8,8 @@ import { usePathname } from "next/navigation";
  * `usePathname()` for active-link highlighting — it writes nothing and never
  * touches Supabase, so no server-only code reaches the browser bundle here.
  *
- * The five Phase 1 modules plus Blog (feature 16) and Testimonials (feature 17).
- * Gallery (later Phase 2) remains intentionally absent.
+ * The five Phase 1 modules plus Blog (feature 16), Testimonials (feature 17),
+ * and Gallery (feature 21).
  */
 const NAV = [
   { href: "/admin/products", label: "Products" },
@@ -18,6 +18,7 @@ const NAV = [
   { href: "/admin/blog", label: "Blog" },
   { href: "/admin/concern-pages", label: "Concern Pages" },
   { href: "/admin/testimonials", label: "Testimonials" },
+  { href: "/admin/gallery", label: "Gallery" },
   { href: "/admin/leads", label: "Leads" },
   { href: "/admin/analytics", label: "Analytics" },
 ] as const;
