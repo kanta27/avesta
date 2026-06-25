@@ -21,6 +21,7 @@ const NAV = [
   { href: "/admin/gallery", label: "Gallery" },
   { href: "/admin/leads", label: "Leads" },
   { href: "/admin/analytics", label: "Analytics" },
+  { href: "/admin/account", label: "Account" },
 ] as const;
 
 export function AdminNav() {

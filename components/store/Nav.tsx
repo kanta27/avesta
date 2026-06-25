@@ -14,7 +14,7 @@ const LINKS = [
   { href: "/#blog", label: "Blog" },
 ] as const;
 
-export function Nav() {
+export function Nav({ authed = false }: { authed?: boolean }) {
   return (
     <nav>
       <div className="wrap nav-in">
@@ -30,6 +30,13 @@ export function Nav() {
           ))}
         </div>
         <div className="nav-cta">
+          <Link
+            className="nav-account"
+            href={authed ? "/account" : "/login"}
+            aria-label={authed ? "Your account" : "Sign in"}
+          >
+            {authed ? "Account" : "Sign in"}
+          </Link>
           <CartButton />
           <Button variant="primary" href="/shop">
             Shop Now

@@ -382,6 +382,7 @@ export type Database = {
       }
       orders: {
         Row: {
+          auth_user_id: string | null
           courier: string | null
           created_at: string | null
           customer_phone: string
@@ -403,6 +404,7 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          auth_user_id?: string | null
           courier?: string | null
           created_at?: string | null
           customer_phone: string
@@ -424,6 +426,7 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          auth_user_id?: string | null
           courier?: string | null
           created_at?: string | null
           customer_phone?: string
@@ -539,6 +542,42 @@ export type Database = {
           type?: string
           who_for?: string | null
           who_not_for?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          consent_at: string | null
+          consent_whatsapp: boolean
+          created_at: string
+          default_address: Json | null
+          email: string | null
+          id: string
+          name: string | null
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          consent_at?: string | null
+          consent_whatsapp?: boolean
+          created_at?: string
+          default_address?: Json | null
+          email?: string | null
+          id: string
+          name?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          consent_at?: string | null
+          consent_whatsapp?: boolean
+          created_at?: string
+          default_address?: Json | null
+          email?: string | null
+          id?: string
+          name?: string | null
+          phone?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
