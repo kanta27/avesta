@@ -7,6 +7,7 @@ import { CatalogProvider } from "@/components/store/cart/CatalogProvider";
 import { CartDrawer } from "@/components/store/cart/CartDrawer";
 import { getActiveProducts } from "@/lib/products/queries";
 import { getActiveBundles } from "@/lib/bundles/queries";
+import { getCurrentUser } from "@/lib/auth/customer";
 
 /**
  * Public storefront shell: announcement bar + sticky nav above the page,
@@ -23,15 +24,16 @@ export default async function StoreLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [products, bundles] = await Promise.all([
+  const [products, bundles, user] = await Promise.all([
     getActiveProducts(),
     getActiveBundles(),
+    getCurrentUser(),
   ]);
 
   return (
     <CatalogProvider products={products} bundles={bundles}>
       <AnnouncementBar />
-      <Nav />
+      <Nav authed={Boolean(user)} />
       <main>{children}</main>
       <Footer />
       <WhatsAppFab />

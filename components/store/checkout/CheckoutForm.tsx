@@ -92,14 +92,25 @@ const FIELDS = {
 };
 type FieldKey = keyof typeof FIELDS;
 
-export function CheckoutForm() {
+/** Profile-derived prefill for the signed-in customer (all optional). */
+export type CheckoutInitial = Partial<
+  Pick<
+    typeof FIELDS,
+    "name" | "phone" | "email" | "line1" | "line2" | "city" | "state" | "pincode"
+  >
+>;
+
+export function CheckoutForm({ initial }: { initial?: CheckoutInitial }) {
   const hydrated = useCartHydrated();
   const items = useCart((s) => s.items);
   const clear = useCart((s) => s.clear);
   const { resolve } = useCatalog();
   const router = useRouter();
 
-  const [fields, setFields] = useState<typeof FIELDS>(FIELDS);
+  const [fields, setFields] = useState<typeof FIELDS>({
+    ...FIELDS,
+    ...initial,
+  });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -263,6 +274,11 @@ export function CheckoutForm() {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
+        // Session expired mid-checkout → send them to sign in and back here.
+        if (res.status === 401) {
+          router.push("/login?next=/checkout");
+          return;
+        }
         const first = Array.isArray(data.issues) && data.issues[0]?.message;
         setError(first || data.error || "Could not start checkout.");
         setBusy(false);

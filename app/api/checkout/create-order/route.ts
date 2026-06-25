@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createPaymentOrder, getPaymentProvider } from "@/lib/payments";
 import { serverEnv } from "@/lib/env.server";
@@ -26,6 +27,21 @@ export const runtime = "nodejs";
  * no public write path to `orders`/`customers`.
  */
 export async function POST(request: Request) {
+  // 0. Require a signed-in customer. Login is mandatory before any purchase, so
+  //    the order can be tied to an account (auth_user_id). `getUser()` revalidates
+  //    the JWT against Supabase Auth — an expired/forged cookie is rejected. This
+  //    backstops the page-level gate (a direct POST bypasses page redirects).
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json(
+      { error: "Please sign in to place your order." },
+      { status: 401 },
+    );
+  }
+
   // 1. Parse + validate. Unknown keys (e.g. a smuggled price) are stripped here.
   let body: unknown;
   try {
@@ -147,9 +163,13 @@ export async function POST(request: Request) {
   //    the confirm call and the webhook can both reconcile against it.
   const orderRow: TablesInsert<"orders"> = {
     order_number: orderNumber,
+    // Tie the order to the signed-in account so it shows in their order history.
+    auth_user_id: user.id,
     customer_phone: customer.phone,
     name: customer.name,
-    email: customer.email ?? null,
+    // Prefer the email typed at checkout; fall back to the account email so a
+    // receipt always has somewhere to go.
+    email: customer.email ?? user.email ?? null,
     items: cart.items as unknown as Json,
     subtotal_paise: cart.subtotalPaise,
     // Only a code that VALIDATED is stored (null on no-code or a rejected code),
