@@ -563,8 +563,16 @@ section {
 /* ---------- blog ---------- */
 
 /* ---------- footer newsletter (our addition inside the reference footer) --- */
+/* The newsletter row raises the brand column's min-content beyond what the
+   reference footer grid expects — let the columns shrink below it. */
+.foot-top > * {
+  min-width: 0;
+}
 .f-news {
   margin-top: 26px;
+}
+.f-news-row {
+  flex-wrap: wrap;
 }
 /* mirror the reference .foot-col h4 so the block reads as a footer column */
 .f-news h4 {
