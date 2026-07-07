@@ -26,4 +26,10 @@
   --radius: var(--r); /* card radius */
 
   --amber: #f0a93b; /* star ratings / warm warnings */
+
+  /* Reference font names → next/font variables (injected on <html> by
+     app/layout.tsx). styles/home.css uses --serif/--sans/--mono verbatim. */
+  --serif: var(--font-d), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --sans: var(--font-b), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--font-m), ui-monospace, "SFMono-Regular", monospace;
 }
