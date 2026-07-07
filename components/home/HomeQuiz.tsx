@@ -51,8 +51,10 @@ export function HomeQuiz({ products }: { products: ProductListItem[] }) {
         <div className="wrap reveal">
           <span className="eyebrow">60-second check</span>
           <h2>Not sure where to start?</h2>
+          {/* Reference copy says "two quick questions"; our shared QuizFlow
+              asks five, so the count is generalized. */}
           <p className="q-sub">
-            Answer two quick questions and we&apos;ll match you to the right
+            Answer a few quick questions and we&apos;ll match you to the right
             Avesta routine for your goal.
           </p>
           <div id="quizStage">
