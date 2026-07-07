@@ -6,6 +6,22 @@
    `var(--ink)` both resolve to the same source token. */
 @theme inline {
   --color-ink: var(--ink);
+  --color-pine: var(--pine);
+  --color-pine-deep: var(--pine-deep);
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-teal: var(--teal);
+  --color-parchment: var(--parchment);
+  --color-parchment-2: var(--parchment-2);
+  --color-cream: var(--cream);
+  --color-sage: var(--sage);
+  --color-line: var(--line);
+  --color-line-dark: var(--line-dark);
+  --color-muted: var(--muted);
+
+  /* transitional aliases — removed in Phase 4 */
   --color-ink-2: var(--ink-2);
   --color-paper: var(--paper);
   --color-paper-2: var(--paper-2);
@@ -13,7 +29,6 @@
   --color-lime-deep: var(--lime-deep);
   --color-amber: var(--amber);
   --color-grey: var(--grey);
-  --color-line: var(--line);
 
   --font-display: var(--font-d);
   --font-body: var(--font-b);

@@ -1,16 +1,38 @@
-/* Brand design tokens — source of truth, ported from the homepage demo.
+/* Brand design tokens — source of truth, ported from design/reference.html.
    Color + radii live here as CSS variables; font variables are injected by
    next/font on <html> (see app/layout.tsx). Tailwind utilities are mapped
    from these in app/globals.css via @theme inline. */
 :root {
-  --ink: #0a3d3f;        /* deep clinical teal (primary) */
-  --ink-2: #0f5557;      /* secondary teal */
-  --paper: #fafbf8;      /* base background */
-  --paper-2: #f1f5f0;    /* alt section background */
-  --lime: #c8f04c;       /* electric accent / CTAs */
-  --lime-deep: #9ccb1f;  /* accent text */
-  --amber: #e8a24a;      /* stars / warm secondary */
-  --grey: #5c6b68;       /* body subtext */
-  --line: #dde5df;       /* borders */
-  --radius: 18px;        /* card radius */
+  --ink: #1f2d38;         /* dark slate text */
+  --pine: #127fb3;        /* primary brand blue */
+  --pine-deep: #0c5f88;   /* darker blue (hover) */
+  --navy: #0e3a4f;        /* deep teal-navy for dark sections */
+  --navy-deep: #092836;
+  --brass: #5aa72f;       /* brand leaf green accent */
+  --brass-soft: #7cc24f;
+  --teal: #27a9e0;        /* brand cyan-blue accent */
+  --parchment: #ffffff;   /* page bg */
+  --parchment-2: #f2f8fb;
+  --cream: #f8fbfd;       /* card bg */
+  --sage: #dde9ef;
+  --line: #e2e9ee;        /* cool hairline */
+  --line-dark: #1c4d61;   /* hairline on dark */
+  --muted: #56707d;
+
+  --maxw: 1200px;
+  --pad: clamp(20px, 5vw, 64px);
+  --r: 14px;
+  --pill: 980px;
+  --radius: var(--r); /* card radius */
+
+  /* ---- transitional aliases (old palette names → new tokens) ----
+     Kept so components still referencing the old names keep working
+     mid-migration. Removed in Phase 4 of the redesign sweep. */
+  --ink-2: var(--navy);
+  --paper: var(--parchment);
+  --paper-2: var(--parchment-2);
+  --lime: var(--brass);
+  --lime-deep: var(--brass);
+  --amber: #f0a93b; /* stars */
+  --grey: var(--muted);
 }
