@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
-import { Schibsted_Grotesk, Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Raleway, Mulish, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
 import { publicEnv } from "@/lib/env";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationJsonLd } from "@/lib/seo/organization-jsonld";
 
-// Display — Schibsted Grotesk (variable font: full weight range available).
-const fontDisplay = Schibsted_Grotesk({
+// Display — Raleway (variable font; headings use 500–800).
+const fontDisplay = Raleway({
   variable: "--font-d",
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
 });
 
-// Body — Instrument Sans (variable font).
-const fontBody = Instrument_Sans({
+// Body — Mulish (variable font; 400–800).
+const fontBody = Mulish({
   variable: "--font-b",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
