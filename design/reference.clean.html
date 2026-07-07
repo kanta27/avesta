@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Avesta Wellbeing · Bringing Science to Life</title>
+<meta name="description" content="Avesta Wellbeing — 25+ years at the convergence of botanical wisdom and precision genomics. Predictive, Preventive, Personalized healthcare: clinically validated nutrition, NGS diagnostics, biosimilars and more." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Mulish:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1f2d38;          /* dark slate text */
+    --pine:#127fb3;         /* primary brand blue */
+    --pine-deep:#0c5f88;    /* darker blue (hover) */
+    --navy:#0e3a4f;         /* deep teal-navy for dark sections */
+    --navy-deep:#092836;
+    --brass:#5aa72f;        /* brand leaf green accent */
+    --brass-soft:#7cc24f;
+    --teal:#27a9e0;         /* brand cyan-blue accent */
+    --parchment:#ffffff;    /* page bg */
+    --parchment-2:#f2f8fb;
+    --cream:#f8fbfd;        /* card bg */
+    --sage:#dde9ef;
+    --line:#e2e9ee;         /* cool hairline */
+    --line-dark:#1c4d61;    /* hairline on dark */
+    --muted:#56707d;
+
+    --serif:"Raleway", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --sans:"Mulish", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+    --maxw:1200px;
+    --pad: clamp(20px, 5vw, 64px);
+    --r:14px;
+    --pill:980px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:400;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:var(--brass);color:#fff}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  /* paper grain overlay */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.28;
+    background-image:radial-gradient(circle at 50% 50%, rgba(0,0,0,.015) 1px, transparent 1.4px);
+    background-size:5px 5px;
+  }
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);position:relative;z-index:1}
+
+  /* ---------- typography helpers ---------- */
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--brass);
+    display:inline-flex;align-items:center;gap:.7em;
+    margin:0 0 22px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--brass);display:inline-block;opacity:.8}
+  .eyebrow.center{justify-content:center}
+  .eyebrow.center::before{display:none}
+
+  h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0}
+  h2{font-size:clamp(30px,4.4vw,52px)}
+  h3{font-size:clamp(21px,2.2vw,27px);line-height:1.18}
+  p{margin:0 0 1.1em}
+  .lead{font-size:clamp(18px,1.5vw,21px);line-height:1.6;color:#2c3b45}
+
+  .section{padding-block:clamp(72px,9vw,128px);position:relative}
+  .section-head{max-width:760px;margin-bottom:clamp(40px,5vw,64px)}
+  .section-head p{color:var(--muted);font-size:18px;margin-top:18px}
+
+  .btn{
+    font-family:var(--sans);font-weight:700;font-size:14.5px;letter-spacing:.02em;
+    padding:15px 30px;border-radius:var(--pill);border:1px solid transparent;
+    display:inline-flex;align-items:center;gap:.6em;cursor:pointer;
+    transition:transform .25s ease, background .25s ease, color .25s ease, box-shadow .25s ease;
+    background:var(--pine);color:#f6f3ea;
+  }
+  .btn:hover{background:var(--pine-deep);transform:translateY(-2px);box-shadow:0 12px 28px -14px rgba(15,42,32,.7)}
+  .btn .arr{transition:transform .25s ease}
+  .btn:hover .arr{transform:translateX(4px)}
+  .btn.ghost{background:transparent;color:var(--pine);border-color:var(--pine)}
+  .btn.ghost:hover{background:var(--pine);color:#f6f3ea}
+  .btn.brass{background:var(--brass);color:#06222f}
+  .btn.brass:hover{background:var(--brass-soft);box-shadow:0 12px 28px -14px rgba(176,137,74,.8)}
+  .btn.on-dark.ghost{color:#f0ece0;border-color:rgba(240,236,224,.45)}
+  .btn.on-dark.ghost:hover{background:#f0ece0;color:var(--pine)}
+
+  .textlink{
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--pine);display:inline-flex;align-items:center;gap:.55em;border-bottom:1px solid var(--brass);
+    padding-bottom:3px;transition:gap .25s ease,color .25s ease;
+  }
+  .textlink:hover{gap:.95em;color:var(--brass)}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, box-shadow .3s ease, background .3s ease;
+  }
+  header.scrolled{border-color:var(--line);box-shadow:0 6px 24px -20px rgba(0,0,0,.5)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
+  .brand{display:flex;align-items:center;gap:12px;line-height:1}
+  .brand .mark{width:34px;height:34px;flex:none}
+  .brand .name{font-family:var(--serif);font-weight:600;font-size:20px;letter-spacing:.01em;color:var(--pine)}
+  .brand .sub{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass);margin-top:3px}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{
+    font-size:14.5px;font-weight:600;color:#2c3b45;position:relative;padding:4px 0;
+  }
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;height:1.5px;width:0;background:var(--brass);transition:width .28s ease}
+  .nav-links a:hover{color:var(--pine)}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .nav-cta .btn{padding:11px 20px}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+  .burger span{width:24px;height:2px;background:var(--pine);transition:.3s}
+  .mobile-menu{display:none}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;padding-top:clamp(72px,10vw,132px);padding-bottom:clamp(64px,8vw,112px)}
+  .hero-copy{max-width:880px}
+  .hero h1{font-size:clamp(40px,6.4vw,82px);font-weight:700;letter-spacing:-.022em}
+  .hero h1 em{font-style:normal;color:var(--teal);font-weight:700}
+  .hero .lead{margin-top:30px;max-width:54ch}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:16px;margin-top:42px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:16px;margin-top:42px}
+  .hero-figure{position:relative;display:flex;justify-content:center}
+  .helix-card{
+    position:relative;width:100%;max-width:340px;aspect-ratio:240/560;
+    background:
+      linear-gradient(160deg, #0e3a4f 0%, #092836 100%);
+    border-radius:18px;border:1px solid var(--line-dark);
+    box-shadow:0 40px 80px -40px rgba(15,42,32,.65), inset 0 1px 0 rgba(255,255,255,.04);
+    overflow:hidden;
+  }
+  .helix-card::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 60% at 50% 0%, rgba(176,137,74,.18), transparent 60%)}
+  .helix-card svg{position:absolute;inset:0;width:100%;height:100%}
+  .helix-card .tag{
+    position:absolute;left:14px;bottom:14px;z-index:2;font-family:var(--mono);font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:rgba(240,236,224,.6)
+  }
+  .helix-card .tag b{color:var(--brass-soft);font-weight:500}
+
+  .hero-stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:clamp(56px,7vw,92px);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .stat{padding:26px 22px 24px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:none}
+  .stat .num{font-family:var(--serif);font-size:clamp(30px,3.4vw,42px);font-weight:500;color:var(--pine);line-height:1}
+  .stat .num span{color:var(--brass);font-size:.6em;vertical-align:.12em}
+  .stat .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+
+  /* ---------- partner strip ---------- */
+  .partners{background:linear-gradient(180deg,#f2f8fb,#ffffff);color:var(--ink);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;position:relative}
+  .partners .wrap{padding-block:clamp(34px,5vw,52px) 0}
+  .partners .pl-label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);text-align:center;margin:0 0 30px;display:flex;align-items:center;justify-content:center;gap:14px}
+  .partners .pl-label::before,.partners .pl-label::after{content:"";height:1px;width:38px;background:var(--line)}
+  .marquee{position:relative;width:100%;overflow:hidden;padding-block:14px clamp(30px,4vw,46px);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .marquee-track{display:flex;align-items:center;width:max-content;animation:logoscroll 34s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .logo{flex:none;display:flex;align-items:center;justify-content:center;height:48px;margin-right:clamp(44px,6vw,86px);transition:transform .3s}
+  .logo:hover{transform:translateY(-3px) scale(1.04)}
+  .logo img{height:42px;max-width:180px;object-fit:contain;opacity:.82;transition:opacity .35s,filter .35s,transform .35s;filter:saturate(.92)}
+  .logo:hover img{opacity:1;filter:saturate(1.05)}
+  .logo .wm{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--ink);opacity:.55;white-space:nowrap;transition:.3s}
+  .logo:hover .wm{opacity:1;color:var(--pine)}
+  @keyframes logoscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none;flex-wrap:wrap;justify-content:center;width:auto;gap:28px}.logo{margin-right:0}}
+
+  /* ---------- convergence / pillars ---------- */
+  .converge-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,64px);align-items:start;margin-top:clamp(20px,3vw,34px)}
+
+  /* PPP — connected step flow */
+  .ppp{position:relative;display:grid;gap:6px}
+  .ppp::before{content:"";position:absolute;left:26px;top:46px;bottom:54px;width:2px;z-index:0;border-radius:2px;
+    background:linear-gradient(180deg,var(--teal),rgba(39,169,224,.12))}
+  .ppp-item{position:relative;z-index:1;display:grid;grid-template-columns:54px 1fr;gap:20px;align-items:start;
+    padding:16px 14px 16px 0;border-radius:16px;transition:transform .3s ease,background .3s ease}
+  .ppp-item:hover{transform:translateX(4px)}
+  .ppp-badge{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;flex:none;color:var(--teal);
+    background:#fff;border:1px solid var(--line);box-shadow:0 12px 24px -14px rgba(14,58,79,.45);
+    transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s ease}
+  .ppp-item:hover .ppp-badge{background:linear-gradient(150deg,var(--teal),var(--pine));color:#fff;border-color:transparent;transform:scale(1.07)}
+  .ppp-ico{width:27px;height:27px}
+  .ppp-item h3{font-size:21px;margin:3px 0 6px}
+  .ppp-item p{margin:0;color:var(--muted);font-size:15.5px;line-height:1.55}
+  .ppp-item .k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--brass);text-transform:uppercase}
+
+  /* convergence — navy feature panel */
+  .converge-aside{position:relative;overflow:hidden;align-self:start;color:#eaf3f6;border-radius:22px;
+    padding:clamp(28px,3vw,40px);border:1px solid rgba(255,255,255,.08);
+    background:linear-gradient(158deg,#0e3a4f 0%, #0b3245 52%, #092836 100%)}
+  .converge-aside::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(58% 48% at 92% 2%, rgba(39,169,224,.32), transparent 60%),
+      radial-gradient(48% 40% at 4% 102%, rgba(90,167,47,.20), transparent 60%)}
+  .converge-aside>*{position:relative;z-index:1}
+  .conv-chip{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--brass-soft);border:1px solid rgba(124,194,79,.38);border-radius:980px;padding:6px 13px;margin-bottom:16px}
+  .converge-aside h3{font-size:clamp(22px,2.2vw,27px);margin-bottom:14px;color:#fff;letter-spacing:-.01em}
+  .converge-aside p{color:rgba(234,243,246,.82);font-size:15.5px;line-height:1.62;margin:0 0 14px}
+  .converge-aside p em{color:var(--teal);font-style:italic}
+  .conv-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)}
+  .conv-tags span{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#bfe0ee;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:980px;padding:6px 12px}
+
+  /* staggered step entrance */
+  .ppp.reveal{opacity:1;transform:none;transition:none}
+  .ppp .ppp-item{opacity:0}
+  .ppp.in .ppp-item{animation:pppRise .62s cubic-bezier(.2,.7,.2,1) both}
+  .ppp.in .ppp-item:nth-child(2){animation-delay:.1s}
+  .ppp.in .ppp-item:nth-child(3){animation-delay:.2s}
+  @keyframes pppRise{from{opacity:0;translate:0 24px}to{opacity:1;translate:0 0}}
+
+  /* ---------- avestagenome feature ---------- */
+  .avgen{background:linear-gradient(160deg,#0e3a4f,#092836);color:#e7eef2;overflow:hidden;position:relative}
+  .avgen::before{content:"";position:absolute;inset:0;
+    background:
+      linear-gradient(102deg, rgba(6,26,36,.95) 0%, rgba(7,30,41,.82) 40%, rgba(9,40,54,.46) 72%, rgba(9,40,54,.34) 100%),
+      radial-gradient(circle at 82% 8%, rgba(39,169,224,.16), transparent 46%),
+      radial-gradient(circle at 8% 92%, rgba(124,194,79,.14), transparent 46%)}
+  .avgen .wrap{position:relative}
+  .avgen .eyebrow{color:var(--brass-soft)}
+  .avgen .eyebrow::before{background:var(--brass-soft)}
+  .avgen-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,5vw,72px);align-items:center}
+  .avgen h2{color:#f3f9fc;font-size:clamp(30px,4vw,50px);text-shadow:0 2px 6px rgba(4,18,26,.5)}
+  .avgen h2 em{font-style:italic;color:var(--brass-soft)}
+  .avgen p{color:#d6e2ea;font-size:17px;text-shadow:0 1px 3px rgba(4,18,26,.5)}
+
+  /* left — connected discovery timeline */
+  .avgen-points{list-style:none;margin:34px 0 0;padding:0;display:grid;gap:0}
+  .avgen-points li{display:grid;grid-template-columns:auto 1fr;gap:22px;padding:22px 0;align-items:start;border-top:1px solid rgba(255,255,255,.16)}
+  .avgen-points li:first-child{border-top:none;padding-top:6px}
+  .avgen-points li .n{font-family:var(--serif);font-size:clamp(28px,2.8vw,36px);font-weight:700;line-height:1;flex:none;min-width:48px;
+    color:var(--brass-soft);transition:transform .3s ease,color .3s ease}
+  .avgen-points li:hover .n{color:#9fd877;transform:translateY(-1px)}
+  .avgen-points li b{color:#f1f8fc;font-family:var(--serif);font-size:19px;font-weight:600;display:block;text-shadow:0 1px 3px rgba(4,18,26,.5)}
+  .avgen-points li span{display:block;color:#c4d2db;font-size:14.5px;margin-top:5px;line-height:1.6;text-shadow:0 1px 2px rgba(4,18,26,.45)}
+
+  /* right — frosted stats panel */
+  .avgen-panel{position:relative;overflow:hidden;border-radius:22px;padding:clamp(26px,3vw,38px);
+    background:linear-gradient(158deg, rgba(13,42,57,.74), rgba(8,30,42,.82));-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 70px -36px rgba(0,0,0,.9)}
+  .avgen-panel::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(60% 52% at 90% -4%, rgba(124,194,79,.18), transparent 60%)}
+  .avgen-panel>*{position:relative;z-index:1}
+  .ap-chip{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--brass-soft);border:1px solid rgba(124,194,79,.34);border-radius:980px;padding:6px 13px;margin-bottom:18px}
+  .avgen-panel .big{font-family:var(--serif);font-size:clamp(54px,7.5vw,88px);font-weight:500;color:#eef6fb;line-height:.95;letter-spacing:-.02em}
+  .avgen-panel .big span{color:var(--brass-soft)}
+  .avgen-panel .cap{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#a7bcc7;margin-top:10px}
+  .cohort{margin:22px 0 22px}
+  .cohort-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:11px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#a7bcc7}
+  .cohort-top b{font-family:var(--serif);font-weight:600;font-size:20px;color:#eef6fb;text-transform:none;letter-spacing:0}
+  .cohort-top b i{font-style:normal;color:#9fb2bd;font-size:13px;font-family:var(--mono);margin-left:6px}
+  .cohort-bar{position:relative;height:14px;border-radius:980px;background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);overflow:hidden}
+  .cohort-fill{height:100%;width:0;border-radius:980px;background:linear-gradient(90deg,#4f9e2a,#7cc24f);
+    box-shadow:0 0 16px rgba(124,194,79,.55);transition:width 1.5s cubic-bezier(.2,.7,.2,1)}
+  .avgen-panel.in .cohort-fill{width:46%}
+  .ap-rows{display:grid;gap:0;border-top:1px solid rgba(255,255,255,.16);padding-top:6px}
+  .avgen-panel .row{display:flex;justify-content:space-between;gap:16px;padding:12px 0;font-size:14px;color:#c4d2db;border-bottom:1px solid rgba(255,255,255,.1)}
+  .avgen-panel .row:last-child{border-bottom:none}
+  .avgen-panel .row b{color:#f1f8fc;font-family:var(--serif);font-weight:500;font-size:15.5px;text-align:right}
+
+  /* ---------- portfolio / specimen cards ---------- */
+  .division{position:relative;padding-top:clamp(52px,6.5vw,88px);padding-bottom:clamp(40px,5vw,68px);--accent:var(--teal)}
+  .division>*{position:relative;z-index:1}
+  .division.band::before{content:"";position:absolute;z-index:0;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);
+    background:color-mix(in srgb,var(--accent) 6%, #fff)}
+  .division + .division{border-top:1px solid var(--line)}
+  .division.band, .division.band + .division{border-top:none}
+  .div-mono{display:inline-grid;place-items:center;width:54px;height:54px;border-radius:15px;
+    font-family:var(--mono);font-weight:600;font-size:18px;letter-spacing:.03em;color:#fff;background:var(--accent);
+    box-shadow:0 14px 26px -14px color-mix(in srgb,var(--accent) 75%, transparent);margin-bottom:18px}
+  .div-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:42px}
+  .div-head .meta{max-width:620px}
+  .div-code{font-family:var(--mono);font-size:13px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase}
+  .div-head h2{margin-top:14px;font-size:clamp(28px,3.6vw,44px)}
+  .div-head .meta p{margin-top:16px;color:var(--muted);font-size:17px}
+
+  .div-head .textlink{color:var(--accent)}
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(18px,1.8vw,24px)}
+  @media(max-width:680px){.cards{grid-template-columns:1fr}}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:20px;
+    padding:clamp(24px,2.4vw,32px);display:flex;flex-direction:column;position:relative;overflow:hidden;
+    transition:transform .32s ease, box-shadow .32s ease, border-color .32s ease;
+  }
+  .card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;z-index:3;
+    background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+  .card::after{content:"";position:absolute;top:-46px;right:-46px;width:150px;height:150px;border-radius:50%;pointer-events:none;z-index:0;
+    opacity:0;transition:opacity .4s ease;
+    background:radial-gradient(circle, color-mix(in srgb,var(--accent) 18%, transparent), transparent 70%)}
+  .card>*{position:relative;z-index:1}
+  .card:hover{transform:translateY(-6px);box-shadow:0 30px 56px -34px rgba(22,58,46,.6);
+    border-color:color-mix(in srgb,var(--accent) 45%, var(--line))}
+  .card:hover::before{transform:scaleX(1)}
+  .card:hover::after{opacity:1}
+  .card .top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
+  .card .cat{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 11%, #fff);border:1px solid color-mix(in srgb,var(--accent) 26%, var(--line));
+    padding:5px 11px;border-radius:980px;white-space:nowrap}
+  .card .ico{width:48px;height:48px;flex:none;color:var(--accent);box-sizing:border-box;padding:11px;border-radius:14px;
+    background:color-mix(in srgb,var(--accent) 9%, #fff);border:1px solid color-mix(in srgb,var(--accent) 20%, var(--line));
+    transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s ease}
+  .card:hover .ico{background:var(--accent);color:#fff;border-color:transparent;transform:rotate(-6deg) scale(1.06)}
+  .card h3{font-size:23px;margin-bottom:5px;transition:color .3s ease}
+  .card:hover h3{color:var(--accent)}
+  .card .tt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;opacity:.92}
+  .card p{font-size:15px;color:#44555f;line-height:1.6;margin:0 0 20px}
+  .card .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:18px;border-top:1px solid var(--line)}
+  .card .tags span{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--muted);background:#f4f8fb;border:1px solid var(--line);padding:5px 10px;border-radius:20px;transition:border-color .3s ease,color .3s ease}
+  .card:hover .tags span{border-color:color-mix(in srgb,var(--accent) 28%, var(--line))}
+  .card.wide{grid-column:span 2}
+  .card .ribbon{position:absolute;top:16px;right:-30px;transform:rotate(45deg);background:var(--accent);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:4px 36px;text-transform:uppercase;z-index:3}
+
+  /* specimen card entrance */
+  .cards.reveal{opacity:1;transform:none;transition:none}
+  .cards .card{opacity:0}
+  .cards.in .card{animation:cardRise .62s cubic-bezier(.2,.7,.2,1) both}
+  .cards.in .card:nth-child(2){animation-delay:.09s}
+  .cards.in .card:nth-child(3){animation-delay:.18s}
+  .cards.in .card:nth-child(4){animation-delay:.27s}
+  @keyframes cardRise{from{opacity:0;translate:0 32px;scale:.97}to{opacity:1;translate:0 0;scale:1}}
+
+  .pipeline{margin-top:26px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--cream)}
+  .pipeline .ph{display:grid;grid-template-columns:1.1fr 1.4fr 1fr .9fr;gap:0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:#eef4f8;border-bottom:1px solid var(--line)}
+  .pipeline .ph div{padding:13px 18px}
+  .pipeline .pr{display:grid;grid-template-columns:1.1fr 1.4fr 1fr .9fr;gap:0;border-bottom:1px solid var(--line);align-items:center}
+  .pipeline .pr:last-child{border-bottom:none}
+  .pipeline .pr div{padding:15px 18px;font-size:14.5px}
+  .pipeline .pr .mol{font-family:var(--serif);font-weight:500;font-size:17px;color:var(--pine)}
+  .stage{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:4px 11px;border-radius:20px;text-transform:uppercase}
+  .stage.pre{background:#e9f4e1;color:#3f8a24;border:1px solid #cfe6bd}
+  .stage.scale{background:#e2f1fa;color:#0f6f9c;border:1px solid #b9ddf0}
+
+  /* ---------- research / network ---------- */
+  .net-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .net-card{background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:clamp(26px,3vw,38px);position:relative}
+  .net-card .loc{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);display:flex;align-items:center;gap:8px}
+  .net-card h3{font-size:25px;margin:14px 0 12px}
+  .net-card p{font-size:15.5px;color:#44555f;margin:0}
+  .net-card .pin{width:14px;height:14px;color:var(--teal)}
+  .feature-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:26px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--cream)}
+  .feature-row .f{padding:28px 24px;border-right:1px solid var(--line)}
+  .feature-row .f:last-child{border-right:none}
+  .feature-row .f .ico{width:34px;height:34px;color:var(--pine);margin-bottom:16px}
+  .feature-row .f h3{font-size:18px;margin-bottom:8px}
+  .feature-row .f p{font-size:14px;color:var(--muted);margin:0}
+
+  /* ---------- insights ---------- */
+  .insights{background:#f2f8fb}
+  .ins-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .ins-card{background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+  .ins-card:hover{transform:translateY(-4px);box-shadow:0 22px 44px -32px rgba(22,58,46,.55)}
+  .ins-card .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--brass);margin-bottom:16px;display:flex;justify-content:space-between}
+  .ins-card h3{font-size:21px;line-height:1.22;margin-bottom:12px}
+  .ins-card p{font-size:14.5px;color:#44555f;margin:0 0 22px}
+  .ins-card .textlink{margin-top:auto}
+
+  /* ---------- CTA band ---------- */
+  .cta-band{background:linear-gradient(160deg,#0e3a4f,#092836);color:#eef4f7;text-align:center;position:relative;overflow:hidden}
+  .cta-band::before{content:"";position:absolute;inset:0;opacity:.65;background:radial-gradient(60% 80% at 50% 0%, rgba(39,169,224,.24), transparent 60%)}
+  .cta-band .wrap{position:relative;z-index:2;max-width:760px}
+  .cta-band h2{color:#eef6fb;font-size:clamp(32px,4.6vw,56px)}
+  .cta-band h2 em{font-style:italic;color:var(--brass-soft)}
+  .cta-band p{color:#b7c8d3;font-size:19px;margin:22px auto 36px;max-width:52ch}
+  .cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* ---------- contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(34px,5vw,72px);align-items:start}
+  .contact-info h2{font-size:clamp(28px,3.6vw,46px)}
+  .contact-info .lead{margin-top:20px;color:var(--muted)}
+  .ci-list{list-style:none;margin:34px 0 0;padding:0;display:grid;gap:2px}
+  .ci-list li{display:grid;grid-template-columns:130px 1fr;gap:18px;padding:16px 0;border-top:1px solid var(--line);align-items:baseline}
+  .ci-list .ci-k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass)}
+  .ci-list .ci-v{font-size:16px;color:#2c3b45}
+  .ci-list .ci-v a{border-bottom:1px solid var(--brass)}
+  .form{background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:clamp(26px,3vw,40px)}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .field input,.field select,.field textarea{
+    width:100%;font-family:var(--sans);font-size:15.5px;color:var(--ink);
+    background:var(--parchment);border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;outline:none;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .field textarea{resize:vertical;min-height:110px}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--brass);box-shadow:0 0 0 3px rgba(176,137,74,.15)}
+  .form .btn{width:100%;justify-content:center;margin-top:6px}
+  .form .fine{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--muted);text-align:center;margin:16px 0 0}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--navy-deep);color:#c4d2da;padding-block:clamp(56px,6vw,84px) 0}
+  .foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:36px;padding-bottom:48px;border-bottom:1px solid var(--line-dark)}
+  .foot-brand .name{font-family:var(--serif);font-weight:600;font-size:24px;color:#e8f1f7;display:flex;align-items:center;gap:12px}
+  .foot-brand p{margin-top:18px;font-size:14.5px;color:#8a9fab;max-width:34ch}
+  .foot-brand .sub{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass-soft);margin-top:6px}
+  .foot-col h4{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-soft);margin:0 0 18px;font-weight:500}
+  .foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+  .foot-col a{font-size:14.5px;color:#adbfc8;transition:color .2s}
+  .foot-col a:hover{color:#fff}
+  .foot-bot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-block:26px}
+  .foot-bot small{font-size:12.5px;color:#7d92a0}
+  .foot-social{display:flex;gap:14px}
+  .foot-social a{width:34px;height:34px;border:1px solid var(--line-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#adbfc8;transition:.2s}
+  .foot-social a:hover{background:var(--brass);color:#06222f;border-color:var(--brass)}
+  .disclaimer{font-size:11.5px;color:#6e8492;line-height:1.6;padding-block:22px 34px;border-top:1px solid var(--line-dark);max-width:none}
+
+  /* ---------- imagery ---------- */
+  .sec-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .avgen .sec-bg{opacity:.24;mix-blend-mode:luminosity}
+  .avgen::before{z-index:1}
+  .avgen .wrap{z-index:2}
+  .cta-band .sec-bg{opacity:.36;mix-blend-mode:luminosity}
+  .cta-band::before{z-index:1}
+  .insights{position:relative}
+  .insights .sec-bg{opacity:.10;mix-blend-mode:multiply}
+  .insights .wrap{position:relative;z-index:2}
+
+  /* image inside hero helix card */
+  .helix-card .hc-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.5;mix-blend-mode:luminosity;filter:saturate(.85)}
+  .helix-card::after{z-index:1;background:linear-gradient(180deg, rgba(8,40,54,.30) 0%, rgba(9,40,54,.88) 100%)}
+  .helix-card svg{z-index:2}
+  .helix-card .tag{z-index:3}
+
+  /* photo band at top of a card */
+  .card-img{
+    width:calc(100% + 52px);height:158px;object-fit:cover;
+    margin:-26px -26px 20px;border-bottom:1px solid var(--line);
+    border-radius:17px 17px 0 0;background:var(--sage);
+  }
+  .net-card .card-img{width:calc(100% + 2*clamp(26px,3vw,38px));margin:calc(-1*clamp(26px,3vw,38px)) calc(-1*clamp(26px,3vw,38px)) 22px;height:180px}
+
+  /* insights image header */
+  .ins-img{height:168px;border-radius:16px;background:var(--sage) center/cover no-repeat;margin-bottom:22px;border:1px solid var(--line)}
+
+  /* hero background photo with legible light veil */
+  .hero .sec-bg{filter:none;object-position:right center}
+  .hero::after{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(100deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.86) 30%, rgba(255,255,255,.32) 55%, rgba(255,255,255,0) 80%)}
+  .hero .wrap{position:relative;z-index:2}
+
+  /* full-bleed credibility image banner */
+  .imgband{position:relative;overflow:hidden;padding-block:clamp(64px,8vw,104px);color:#eef6fb;text-align:center}
+  .imgband .sec-bg{opacity:1;filter:saturate(.85) brightness(.92)}
+  .imgband::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(9,40,54,.85), rgba(7,33,46,.9))}
+  .imgband .wrap{position:relative;z-index:2;max-width:900px}
+  .imgband .eyebrow{justify-content:center;color:var(--brass-soft)}
+  .imgband .eyebrow::before{display:none}
+  .imgband h2{color:#fff;font-size:clamp(30px,4.4vw,52px)}
+  .imgband p{color:#c2d3dd;font-size:18px;margin:18px auto 40px;max-width:54ch}
+  .cred{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(255,255,255,.16)}
+  .cred li{padding:26px 16px;border-right:1px solid rgba(255,255,255,.16)}
+  .cred li:last-child{border-right:none}
+  .cred li b{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(19px,2.3vw,26px);color:#fff;line-height:1.1}
+  .cred li span{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-soft);margin-top:9px;display:block}
+  @media(max-width:760px){.cred{grid-template-columns:1fr 1fr}.cred li:nth-child(2){border-right:none}.cred li:nth-child(1),.cred li:nth-child(2){border-bottom:1px solid rgba(255,255,255,.16)}}
+
+  /* soft floating cards (Danone/Nestlé airy feel) */
+  .card,.ins-card,.net-card,.form,.converge-aside,.pipeline,.feature-row{box-shadow:0 6px 26px -16px rgba(14,58,79,.20)}
+  .card{border-color:#e9eff3}
+
+  /* explore heading accent */
+  .explore .section-head h2 em{font-style:italic;font-weight:700;color:var(--teal)}
+
+  /* image-tile explore grid */
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .tile{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/3.1;display:block;background:var(--sage);box-shadow:0 14px 34px -20px rgba(14,58,79,.45);transition:transform .35s ease, box-shadow .35s ease}
+  .tile:hover{transform:translateY(-4px);box-shadow:0 26px 50px -24px rgba(14,58,79,.5)}
+  .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+  .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(9,40,54,0) 32%, rgba(8,37,50,.84) 100%)}
+  .tile:hover img{transform:scale(1.07)}
+  .tile .t-cat{position:absolute;left:22px;top:18px;z-index:2;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.16);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.28);padding:5px 11px;border-radius:var(--pill)}
+  .tile .t-label{position:absolute;left:22px;right:20px;bottom:20px;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+  .tile .t-label h3{color:#fff;font-size:clamp(18px,1.7vw,22px);font-weight:700;line-height:1.15}
+  .tile .t-arrow{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.34);display:flex;align-items:center;justify-content:center;flex:none;transition:background .25s,transform .25s,border-color .25s}
+  .tile:hover .t-arrow{background:var(--teal);border-color:var(--teal);transform:translateX(3px)}
+  .tile .t-arrow svg{width:17px;height:17px;color:#fff}
+  @media(max-width:900px){.tiles{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.tiles{grid-template-columns:1fr}}
+
+  /* explore tiles — staggered entrance (card styles above are untouched) */
+  .tiles.reveal{opacity:1;transform:none;transition:none}   /* container stays put; each tile animates itself */
+  .tiles .tile{opacity:0}
+  .tiles .tile:nth-child(1){--d:0s}   .tiles .tile:nth-child(2){--d:.09s}  .tiles .tile:nth-child(3){--d:.18s}
+  .tiles .tile:nth-child(4){--d:.27s} .tiles .tile:nth-child(5){--d:.36s}  .tiles .tile:nth-child(6){--d:.45s}
+  .tiles.in .tile{animation:tileRise .74s cubic-bezier(.22,.68,.18,1) both;animation-delay:var(--d,0s)}
+  .tiles.in .tile img{animation:tileImgSettle 1.2s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+  @keyframes tileRise{from{opacity:0;translate:0 46px}to{opacity:1;translate:0 0}}
+  @keyframes tileImgSettle{from{scale:1.18}to{scale:1}}
+
+  /* reveal ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ====================== COMMERCE LAYER ====================== */
+  /* announcement bar */
+  .announce{background:linear-gradient(90deg,var(--pine),var(--teal));color:#fff;font-size:13px;text-align:center;padding:9px 16px;position:relative;z-index:60}
+  .announce b{font-weight:700}
+  .announce .code{font-family:var(--mono);background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:2px 8px;border-radius:var(--pill);margin-left:6px;letter-spacing:.06em}
+
+  /* cart button in nav */
+  .cart-btn{position:relative;background:none;border:none;cursor:pointer;color:var(--pine);width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
+  .cart-btn:hover{background:#eaf4f9}
+  .cart-btn svg{width:22px;height:22px}
+  .cart-count{position:absolute;top:2px;right:0;min-width:18px;height:18px;background:var(--brass);color:#fff;border-radius:var(--pill);font-family:var(--mono);font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid #fff}
+  .cart-count.zero{display:none}
+
+  /* shop section */
+  .shop-filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;align-items:center}
+  .chip{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--muted);background:var(--cream);border:1px solid var(--line);padding:9px 17px;border-radius:var(--pill);cursor:pointer;transition:all .2s}
+  .chip:hover{border-color:var(--teal);color:var(--pine)}
+  .chip.active{background:var(--pine);color:#fff;border-color:var(--pine)}
+  .filter-label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin-right:4px}
+  .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,1.8vw,24px);margin-top:24px}
+  @media(max-width:980px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:640px){.shop-grid{grid-template-columns:1fr}}
+  .shop-more{display:flex;justify-content:center;margin-top:clamp(26px,3vw,40px)}
+  .shop-more-btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-weight:600;font-size:15px;
+    color:var(--pine);background:#fff;border:1.5px solid color-mix(in srgb,var(--pine) 32%, var(--line));
+    border-radius:980px;padding:13px 28px;cursor:pointer;
+    transition:background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease,box-shadow .25s ease}
+  .shop-more-btn:hover{background:var(--pine);color:#fff;border-color:var(--pine);transform:translateY(-2px);box-shadow:0 16px 32px -16px rgba(18,127,179,.6)}
+  .shop-more-btn .ic{width:16px;height:16px;transition:transform .3s ease}
+  .shop-more-btn.open .ic{transform:rotate(180deg)}
+  .shop-grid.revealing .prod{animation:prodIn .5s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes prodIn{from{opacity:0;translate:0 18px}to{opacity:1;translate:0 0}}
+  .prod{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;
+    box-shadow:0 10px 30px -20px rgba(14,58,79,.28);transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;--pc:var(--teal)}
+  .prod:hover{transform:translateY(-6px);box-shadow:0 30px 54px -30px rgba(14,58,79,.5);border-color:color-mix(in srgb,var(--pc) 34%,var(--line))}
+  .prod-art{height:188px;position:relative;display:grid;place-items:center;overflow:hidden;border-bottom:1px solid var(--line);
+    background:linear-gradient(170deg,#ffffff,color-mix(in srgb,var(--pc) 5%,#fff))}
+  .prod-art::before{content:"";position:absolute;inset:0;z-index:0;
+    background:radial-gradient(120% 90% at 50% 118%, color-mix(in srgb,var(--pc) 12%, transparent), transparent 60%)}
+  .pimg{position:relative;z-index:1;max-width:84%;max-height:84%;width:auto;height:auto;object-fit:contain;
+    filter:drop-shadow(0 14px 20px rgba(14,58,79,.18));transition:transform .35s ease}
+  .prod:hover .pimg{transform:translateY(-3px) scale(1.04)}
+  .prod-art .ptype{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.94);color:var(--pine);padding:4px 10px;border-radius:var(--pill);border:1px solid var(--line)}
+  .prod-art .pconcern{position:absolute;top:12px;right:12px;z-index:2;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:var(--pc);color:#fff;padding:4px 10px;border-radius:var(--pill)}
+  .prod-body{padding:22px;display:flex;flex-direction:column;flex:1}
+  .prod h3{font-size:18px;font-weight:700;margin-bottom:5px;line-height:1.25}
+  .prod .ptag{font-size:13.5px;color:var(--muted);margin-bottom:12px;line-height:1.45}
+  .stars{display:flex;align-items:center;gap:6px;margin-bottom:14px}
+  .stars .s{color:#f0a93b;font-size:14px;letter-spacing:1px}
+  .stars span{font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+  .badges b{font-family:var(--mono);font-weight:500;font-size:10px;letter-spacing:.05em;color:var(--pine);background:#eaf4f9;border:1px solid #d3e8f1;padding:3px 9px;border-radius:var(--pill)}
+  .packs{display:flex;gap:7px;margin-bottom:18px}
+  .pack{flex:1;border:1px solid var(--line);border-radius:13px;padding:9px 6px 8px;text-align:center;cursor:pointer;transition:all .2s;background:#fff;position:relative}
+  .pack:hover{border-color:color-mix(in srgb,var(--pc) 50%, var(--line))}
+  .pack.active{border-color:var(--pc);background:color-mix(in srgb,var(--pc) 8%, #fff);box-shadow:0 0 0 2px color-mix(in srgb,var(--pc) 18%, transparent)}
+  .pack .pk{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+  .pack.active .pk{color:var(--pc)}
+  .pack .pp{font-weight:700;font-size:14px;color:var(--ink);margin-top:3px}
+  .pack .save{display:block;font-family:var(--mono);font-size:9px;color:var(--brass);margin-top:2px}
+  .prod-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
+  .prod-price{font-family:var(--serif);font-weight:700;font-size:23px;color:var(--pine)}
+  .prod-price s{font-family:var(--sans);font-weight:400;font-size:14px;color:var(--muted);margin-left:6px}
+  .add-btn{font-family:var(--sans);font-weight:700;font-size:13px;padding:11px 18px;border-radius:var(--pill);border:none;background:var(--pc);color:#fff;cursor:pointer;transition:transform .2s,filter .2s,background .2s;white-space:nowrap}
+  .add-btn:hover{filter:brightness(1.08);transform:translateY(-2px)}
+  .add-btn.added{background:#1f8a3f;color:#fff}
+
+  /* cart drawer */
+  .overlay{position:fixed;inset:0;background:rgba(9,33,46,.5);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:opacity .3s;z-index:90}
+  .overlay.open{opacity:1;visibility:visible}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);background:var(--parchment);z-index:100;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.7,.2,1);box-shadow:-20px 0 60px -30px rgba(0,0,0,.5)}
+  .drawer.open{transform:none}
+  .drawer-head{display:flex;align-items:center;justify-content:space-between;padding:22px 24px;border-bottom:1px solid var(--line)}
+  .drawer-head h3{font-size:20px;font-weight:700}
+  .drawer-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);line-height:1;width:34px;height:34px;border-radius:50%;transition:background .2s}
+  .drawer-close:hover{background:#eef4f8}
+  .drawer-body{flex:1;overflow-y:auto;padding:8px 24px}
+  .ci{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .ci-img{width:64px;height:64px;border-radius:12px;background:#fff center/contain no-repeat;border:1px solid var(--line);flex:none}
+  .ci-main{flex:1;min-width:0}
+  .ci-main h4{font-size:15px;font-weight:700;margin:0 0 2px}
+  .ci-main .ci-meta{font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:8px}
+  .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:var(--pill);overflow:hidden}
+  .qty button{width:28px;height:28px;border:none;background:#fff;cursor:pointer;font-size:16px;color:var(--pine);line-height:1}
+  .qty button:hover{background:#eaf4f9}
+  .qty span{min-width:30px;text-align:center;font-weight:600;font-size:14px}
+  .ci-right{text-align:right;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end}
+  .ci-right .ci-price{font-weight:700;color:var(--pine)}
+  .ci-remove{background:none;border:none;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;text-decoration:underline}
+  .ci-remove:hover{color:#c0392b}
+  .cart-empty{text-align:center;color:var(--muted);padding:60px 20px}
+  .cart-empty svg{width:54px;height:54px;color:var(--line);margin-bottom:16px}
+  .drawer-foot{border-top:1px solid var(--line);padding:20px 24px;background:var(--cream)}
+  .promo{display:flex;gap:8px;margin-bottom:16px}
+  .promo input{flex:1;font-family:var(--sans);font-size:14px;padding:11px 14px;border:1px solid var(--line);border-radius:var(--pill);background:#fff;outline:none}
+  .promo input:focus{border-color:var(--teal)}
+  .promo button{font-family:var(--sans);font-weight:700;font-size:13px;padding:0 18px;border-radius:var(--pill);border:1px solid var(--pine);background:#fff;color:var(--pine);cursor:pointer}
+  .promo button:hover{background:var(--pine);color:#fff}
+  .promo-msg{font-family:var(--mono);font-size:11px;margin:-8px 0 14px}
+  .promo-msg.ok{color:var(--brass)}
+  .promo-msg.err{color:#c0392b}
+  .totals{font-size:14px;margin-bottom:16px}
+  .totals .tr{display:flex;justify-content:space-between;padding:5px 0;color:var(--muted)}
+  .totals .tr.grand{color:var(--ink);font-weight:700;font-size:19px;border-top:1px solid var(--line);margin-top:6px;padding-top:12px;font-family:var(--serif)}
+  .totals .tr.disc{color:var(--brass)}
+  .checkout-btns{display:grid;gap:10px}
+  .checkout-btns .btn{width:100%;justify-content:center}
+  .wa-btn{background:#25d366;color:#06222f}
+  .wa-btn:hover{background:#1eb958}
+
+  /* whatsapp FAB */
+  .wa-fab{position:fixed;right:22px;bottom:22px;z-index:80;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -10px rgba(37,211,102,.6);transition:transform .25s}
+  .wa-fab:hover{transform:scale(1.08)}
+  .wa-fab svg{width:30px;height:30px;color:#fff}
+
+  /* lead popup */
+  .lead-pop{position:fixed;inset:0;z-index:110;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .35s}
+  .lead-pop.open{opacity:1;visibility:visible}
+  .lead-pop .lp-bg{position:absolute;inset:0;background:rgba(9,33,46,.55);backdrop-filter:blur(3px)}
+  .lp-card{position:relative;background:var(--parchment);border-radius:24px;max-width:440px;width:100%;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.5);transform:translateY(16px) scale(.98);transition:transform .35s}
+  .lead-pop.open .lp-card{transform:none}
+  .lp-top{background:linear-gradient(160deg,var(--pine),var(--teal));color:#fff;padding:30px 30px 26px;text-align:center;position:relative}
+  .lp-top .lp-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;font-size:18px;cursor:pointer;line-height:1}
+  .lp-top .lp-off{font-family:var(--serif);font-size:46px;font-weight:700;line-height:1}
+  .lp-top p{margin:8px 0 0;font-size:15px;opacity:.95}
+  .lp-body{padding:26px 30px 30px;text-align:center}
+  .lp-body h3{font-size:22px;font-weight:700;margin-bottom:8px}
+  .lp-body p{font-size:14.5px;color:var(--muted);margin-bottom:18px}
+  .lp-body input{width:100%;font-family:var(--sans);font-size:15px;padding:13px 16px;border:1px solid var(--line);border-radius:var(--pill);background:#fff;outline:none;margin-bottom:12px;text-align:center}
+  .lp-body input:focus{border-color:var(--teal)}
+  .lp-body .btn{width:100%;justify-content:center}
+  .lp-fine{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:14px}
+  .lp-success{text-align:center;padding:10px 0}
+  .lp-success .lp-code{font-family:var(--mono);font-size:24px;font-weight:600;letter-spacing:.12em;color:var(--pine);background:#eaf4f9;border:1px dashed var(--teal);border-radius:14px;padding:14px;margin:14px 0}
+
+  /* quiz band */
+  .quiz{background:linear-gradient(160deg,#0e3a4f,#092836);color:#eef6fb;position:relative;overflow:hidden}
+  .quiz::before{content:"";position:absolute;inset:0;opacity:.6;background:radial-gradient(50% 70% at 85% 10%,rgba(39,169,224,.22),transparent 60%),radial-gradient(40% 60% at 10% 90%,rgba(124,194,79,.2),transparent 60%)}
+  .quiz .wrap{position:relative;z-index:2;max-width:760px;text-align:center}
+  .quiz .eyebrow{justify-content:center;color:var(--brass-soft)}
+  .quiz .eyebrow::before{display:none}
+  .quiz h2{color:#fff;font-size:clamp(28px,4vw,46px)}
+  .quiz .q-sub{color:#bcd3dd;font-size:18px;margin:16px auto 30px;max-width:48ch}
+  .q-step .q-q{font-family:var(--serif);font-weight:700;font-size:22px;margin-bottom:22px;color:#fff}
+  .q-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;max-width:620px;margin:0 auto}
+  .q-opt{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#eef6fb;border-radius:16px;padding:18px 14px;cursor:pointer;font-weight:600;font-size:15px;transition:all .2s}
+  .q-opt:hover{background:rgba(255,255,255,.16);border-color:var(--teal);transform:translateY(-3px)}
+  .q-progress{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-soft);margin-bottom:20px}
+  .q-result{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:30px;max-width:560px;margin:0 auto;text-align:left;display:flex;gap:20px;align-items:center}
+  .q-result .qr-img{width:130px;height:130px;border-radius:16px;background:#fff center/contain no-repeat;border:1px solid var(--line);flex:none}
+  .q-result h3{color:#fff;font-size:22px;margin-bottom:6px}
+  .q-result p{color:#bcd3dd;font-size:14px;margin-bottom:14px}
+  .q-result .btn{padding:11px 22px}
+  @media(max-width:520px){.q-result{flex-direction:column;text-align:center}}
+
+  /* reviews */
+  /* ----- testimonials ----- */
+  .rev-head{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(18px,3vw,38px);margin-bottom:clamp(26px,3vw,40px);
+    background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(20px,2.3vw,28px) clamp(24px,3vw,40px);
+    box-shadow:0 16px 44px -30px rgba(14,58,79,.45)}
+  .rev-score{display:flex;align-items:center;gap:16px;flex:none;padding-right:clamp(18px,3vw,38px);border-right:1px solid var(--line)}
+  .rev-score .rs-num{font-family:var(--serif);font-size:clamp(44px,4.8vw,60px);font-weight:700;color:var(--pine);line-height:1}
+  .rev-score .s{color:#f4a93b;font-size:17px;letter-spacing:3px;line-height:1}
+  .rev-score small{display:block;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:7px}
+  .rev-head .lead{flex:1 1 300px;margin:0;font-size:clamp(16px,1.35vw,19px);line-height:1.5;color:#33444e}
+  @media(max-width:600px){.rev-score{border-right:none;padding-right:0;width:100%}}
+
+  /* auto-scrolling testimonial wall */
+  .rev-marquee{position:relative;overflow:hidden;padding:6px 0 2px;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+  .rev-track{display:flex;gap:22px;width:max-content;animation:revscroll 64s linear infinite}
+  .rev-marquee:hover .rev-track{animation-play-state:paused}
+  .rev-card{flex:0 0 clamp(290px,29vw,358px);box-sizing:border-box;display:flex;flex-direction:column;
+    position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:20px;
+    padding:28px 26px 22px;box-shadow:0 10px 30px -22px rgba(14,58,79,.3);--c:var(--teal);
+    transition:transform .32s ease,box-shadow .32s ease,border-color .32s ease}
+  .rev-card::before{content:"\201C";position:absolute;top:-6px;right:18px;font-family:var(--serif);font-size:104px;line-height:1;
+    color:color-mix(in srgb,var(--c) 16%, transparent);pointer-events:none}
+  .rev-card::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--c);
+    transform:scaleX(0);transform-origin:left;transition:transform .42s cubic-bezier(.2,.7,.2,1)}
+  .rev-card>*{position:relative;z-index:1}
+  .rev-card:hover{transform:translateY(-6px);box-shadow:0 30px 54px -30px rgba(14,58,79,.45);
+    border-color:color-mix(in srgb,var(--c) 38%, var(--line))}
+  .rev-card:hover::after{transform:scaleX(1)}
+  .rev-card .s{color:#f0a93b;font-size:15px;letter-spacing:2px;margin-bottom:14px}
+  .rev-card p{font-size:15px;color:#2f3f49;line-height:1.6;margin:0 0 20px}
+  .rev-card .who{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:16px;border-top:1px solid var(--line)}
+  .rev-card .av{width:42px;height:42px;border-radius:50%;background:var(--c);color:#fff;flex:none;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;
+    box-shadow:0 10px 20px -10px color-mix(in srgb,var(--c) 70%, transparent)}
+  .rev-card .who b{display:block;font-size:14.5px;margin-bottom:5px}
+  .rev-card .rmeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .rev-card .vrf{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:#3f8a24;
+    background:#eaf5e1;border:1px solid #cfe6bd;border-radius:980px;padding:3px 9px}
+  .rev-card .vrf::before{content:"✓ "}
+  .rev-card .rcat{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+  .rev-note{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:22px;font-style:normal}
+  @keyframes revscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){
+    .rev-track{animation:none;flex-wrap:wrap;width:auto;justify-content:center}
+    .rev-card.rev-dup{display:none}
+    .rev-marquee{-webkit-mask-image:none;mask-image:none}
+  }
+
+  /* policy links row */
+  .foot-col .pol a{display:flex}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1000px){
+    .converge-grid,.avgen-grid,.contact-grid,.net-grid{grid-template-columns:1fr;gap:40px}
+    .foot-top{grid-template-columns:1fr 1fr}
+    .ins-grid{grid-template-columns:1fr 1fr}
+    .feature-row{grid-template-columns:1fr}
+    .feature-row .f{border-right:none;border-bottom:1px solid var(--line)}
+    .feature-row .f:last-child{border-bottom:none}
+  }
+  @media (max-width:860px){
+    .nav-links,.nav-cta .btn{display:none}
+    .burger{display:flex}
+    .nav-cta{display:block}
+    .mobile-menu{display:none;position:absolute;top:74px;left:0;right:0;background:var(--parchment);border-bottom:1px solid var(--line);padding:18px var(--pad) 26px;flex-direction:column;gap:4px;box-shadow:0 20px 30px -22px rgba(0,0,0,.5)}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{padding:13px 0;border-bottom:1px solid var(--line);font-weight:600;font-size:16px;color:#2c3b45}
+    .mobile-menu .btn{margin-top:16px;justify-content:center}
+    .hero-stats{grid-template-columns:1fr 1fr}
+    .stat:nth-child(2){border-right:none}
+    .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line)}
+    .pipeline .ph{display:none}
+    .pipeline .pr{grid-template-columns:1fr 1fr;gap:6px 0}
+    .pipeline .pr div{padding:12px 16px}
+    .pipeline .pr div:nth-child(2){grid-column:1/3;padding-top:0;color:var(--muted);font-size:13px}
+  }
+  @media (max-width:620px){
+    body{font-size:16px}
+    .ins-grid{grid-template-columns:1fr}
+    .foot-top{grid-template-columns:1fr 1fr}
+    .card.wide{grid-column:span 1}
+    .ci-list li{grid-template-columns:1fr;gap:4px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none}
+    .tiles .tile{opacity:1}
+    .ppp .ppp-item{opacity:1}
+    .cards .card{opacity:1}
+    .rev-grid .rev-card{opacity:1}
+  }
+  .anchor{position:relative;top:-74px;visibility:hidden}
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<div class="announce">
+  ✦ Free shipping on orders over <b>₹999</b> · New here? Take <b>10% off</b> your first order with code <span class="code">WELCOME10</span>
+</div>
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Avesta Wellbeing home">
+      <svg class="mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" stroke="#27a9e0" stroke-width="1.3"/>
+        <path d="M20 6c-5 4-5 10 0 14s5 10 0 14" stroke="#27a9e0" stroke-width="1.6" fill="none"/>
+        <path d="M20 6c5 4 5 10 0 14s-5 10 0 14" stroke="#5aa72f" stroke-width="1.6" fill="none"/>
+        <path d="M20 13c2.6-1.2 5-1 6.4.6-2 .8-4.4.6-6.4-.6Z" fill="#5aa72f"/>
+        <path d="M20 27c-2.6 1.2-5 1-6.4-.6 2-.8 4.4-.6 6.4.6Z" fill="#27a9e0"/>
+      </svg>
+      <span class="name">Avesta Wellbeing<span class="sub">Est. 1998</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#shop">Shop</a>
+      <a href="#science">Science</a>
+      <a href="#diagnostics">Diagnostics</a>
+      <a href="#nutrition">Nutrition</a>
+      <a href="#crops">Crops</a>
+      <a href="#insights">Insights</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="cart-btn" id="cartBtn" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 6h15l-1.5 9h-12L6 6Z" stroke-linejoin="round"/><path d="M6 6 5 3H2" stroke-linecap="round"/><circle cx="9" cy="20" r="1.4" fill="currentColor" stroke="none"/><circle cx="18" cy="20" r="1.4" fill="currentColor" stroke="none"/></svg>
+        <span class="cart-count zero" id="cartCount">0</span>
+      </button>
+      <a class="btn brass" href="#contact">Book a consultation</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#shop">Shop</a>
+    <a href="#science">Science</a>
+    <a href="#avestagenome">The Avestagenome Project</a>
+    <a href="#diagnostics">Diagnostics</a>
+    <a href="#nutrition">Nutrition &amp; Functional Foods</a>
+    <a href="#pharma">Bio-Pharmaceuticals</a>
+    <a href="#crops">Adjusted Crops</a>
+    <a href="#research">Research &amp; Network</a>
+    <a href="#insights">Insights</a>
+    <a class="btn brass" href="#contact">Book a consultation</a>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <img class="sec-bg" src="/home/hero-bg.jpg" alt="Botanical science meets precision genomics" loading="eager" fetchpriority="high">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Bringing Science to Life · Est. 1998</span>
+      <h1>Where botanical wisdom meets <em>precision genomics</em>.</h1>
+      <p class="lead">For more than 25 years, we've worked at the convergence of food, pharma and population genetics. Avesta Wellbeing brings that science home — predictive, preventive and personalized care, grounded in clinically validated nature.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#science">Explore our science <span class="arr">→</span></a>
+        <a class="btn ghost" href="#shop">Shop wellbeing</a>
+      </div>
+    </div>
+
+    <div class="hero-stats reveal">
+      <div class="stat"><div class="num">25<span>+</span></div><div class="lbl">Years of science</div></div>
+      <div class="stat"><div class="num">10,000</div><div class="lbl">Genome Project<sup></sup></div></div>
+      <div class="stat"><div class="num">2,500</div><div class="lbl">Medicinal plants</div></div>
+      <div class="stat"><div class="num">40<span>+</span></div><div class="lbl">Wellbeing products</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PARTNERS ===================== -->
+<div class="partners">
+  <div class="wrap reveal">
+    <div class="pl-label">Built with global food &amp; pharma leaders</div>
+  </div>
+  <div class="marquee"><div class="marquee-track" id="logoTrack"></div></div>
+</div>
+
+<!-- ===================== EXPLORE TILES ===================== -->
+<section class="section explore" style="padding-bottom:clamp(20px,3vw,40px)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Explore</span>
+      <h2>One platform, many ways to <em>thrive</em>.</h2>
+      <p>From at-home genome insights to clinically proven nutrition — find the part of Avesta Wellbeing that fits your life.</p>
+    </div>
+    <div class="tiles reveal">
+      <a class="tile" href="#avestagenome">
+        <img src="/home/tile-avestagenome.jpg" alt="The Avestagenome Project — genomics lab and sequencing">
+        <span class="t-cat">Population genomics</span>
+        <div class="t-label"><h3>The Avestagenome Project®</h3>
+          <span class="t-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </a>
+      <a class="tile" href="#diagnostics">
+        <img src="/home/tile-diagnostics.jpg" alt="Genetic diagnostics — cell analysis under microscope">
+        <span class="t-cat">Division DX</span>
+        <div class="t-label"><h3>Genetic Diagnostics</h3>
+          <span class="t-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </a>
+      <a class="tile" href="#nutrition">
+        <img src="https://avesthagen.com/wp-content/uploads/2019/09/wellness-360x258.jpeg" alt="Nutrition and functional foods" loading="lazy" onerror="this.remove()">
+        <span class="t-cat">Division NU</span>
+        <div class="t-label"><h3>Nutrition &amp; Functional Foods</h3>
+          <span class="t-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </a>
+      <a class="tile" href="#pharma">
+        <img src="/home/tile-pharma.jpg" alt="Bio-pharmaceuticals — antibody in bloodstream">
+        <span class="t-cat">Division RX</span>
+        <div class="t-label"><h3>Bio-Pharmaceuticals</h3>
+          <span class="t-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </a>
+      <a class="tile" href="#crops">
+        <img src="https://avesthagen.com/wp-content/uploads/2019/09/env-compressor.jpeg" alt="Environmentally adjusted crops" loading="lazy" onerror="this.remove()">
+        <span class="t-cat">Division AG</span>
+        <div class="t-label"><h3>Environmentally Adjusted Crops™</h3>
+          <span class="t-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </a>
+      <a class="tile" href="#research">
+        <img src="/home/tile-research.jpg" alt="Global research network map">
+        <span class="t-cat">Worldwide</span>
+        <div class="t-label"><h3>Research &amp; Global Network</h3>
+          <span class="t-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SCIENCE / CONVERGENCE ===================== -->
+<span class="anchor" id="science"></span>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our Science</span>
+      <h2>A new paradigm for precision &amp; personalized care.</h2>
+      <p>Healthcare is being revolutionized by genomic and stem-cell research. Avesta Wellbeing is built on a single integrated platform that lets us predict disease potential, prevent it through clinically validated nutrition, and personalize treatment to the individual.</p>
+    </div>
+
+    <div class="converge-grid">
+      <div class="ppp reveal">
+        <div class="ppp-item">
+          <span class="ppp-badge"><svg class="ppp-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 30c8-14 28-14 36 0" stroke-linecap="round"/><circle cx="24" cy="22" r="6"/><path d="M24 6v4M24 38v4"/></svg></span>
+          <div>
+            <div class="k">01 · Predictive</div>
+            <h3>Read risk before it becomes disease</h3>
+            <p>Next-generation sequencing and multi-omics analytics reveal genetic predisposition to cancers, neurodegeneration and metabolic conditions — years before symptoms.</p>
+          </div>
+        </div>
+        <div class="ppp-item">
+          <span class="ppp-badge"><svg class="ppp-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 6c4 6 12 9 12 18a12 12 0 0 1-24 0c0-9 8-12 12-18Z" stroke-linejoin="round"/><path d="M19 26c2 3 8 3 10 0" stroke-linecap="round"/></svg></span>
+          <div>
+            <div class="k">02 · Preventive</div>
+            <h3>Food as the first medicine</h3>
+            <p>Clinically validated botanical bioactives — drawn from a library of 2,500 medicinal plants — help manage blood glucose, heart, bone, cognition and immunity, reducing the need for pharmaceuticals.</p>
+          </div>
+        </div>
+        <div class="ppp-item">
+          <span class="ppp-badge"><svg class="ppp-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="16" r="7"/><path d="M10 40c2-8 8-12 14-12s12 4 14 12" stroke-linecap="round"/></svg></span>
+          <div>
+            <div class="k">03 · Personalized</div>
+            <h3>One genome, one plan</h3>
+            <p>AI-guided, actionable recommendations translate your individual genome profile into lifestyle and nutrition changes — reviewed and guided by experts.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="converge-aside reveal">
+        <span class="conv-chip">Integrated platform</span>
+        <h3>The convergence advantage</h3>
+        <p>Most companies do one thing: a diagnostic, a supplement, a drug. Avesta Wellbeing is one of the only fully integrated platforms that can help you identify a health issue <em>and</em> address it — across nutrition, diagnostics and novel therapeutics.</p>
+        <p>That integration is powered by world-class R&amp;D spanning systems biology, bioactive discovery, donor-derived iPSC stem-cell platforms and CRISPR agriculture — from discovery all the way to commercial launch.</p>
+        <div class="conv-tags"><span>Food</span><span>Pharma</span><span>Population Genetics</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AVESTAGENOME PROJECT ===================== -->
+<span class="anchor" id="avestagenome"></span>
+<section class="section avgen">
+  <img class="sec-bg" src="https://avesthagen.com/wp-content/uploads/2019/09/genome-project-compressor.jpg" alt="" loading="lazy" onerror="this.remove()">
+  <div class="wrap">
+    <div class="avgen-grid">
+      <div class="reveal">
+        <span class="eyebrow">The Avestagenome Project®</span>
+        <h2>The world's largest systems-biology study of a single community — <em>decoding longevity</em>.</h2>
+        <p>A landmark study of the Parsi-Zoroastrian population — among the longest-lived, most genetically distinct communities on earth — undertaken to understand the molecular basis of longevity and the rise of age-related disease.</p>
+        <ul class="avgen-points">
+          <li><span class="n">01</span><div><b>A living biobank</b><span>Blood samples and longitudinal patient data from a first cohort of 4,600, expanding toward 10,000.</span></div></li>
+          <li><span class="n">02</span><div><b>Druggable targets &amp; biomarkers</b><span>A unique database of mitochondrial, nuclear and epigenomic variants linked to cancer, Parkinson's, Alzheimer's and rare disorders.</span></div></li>
+          <li><span class="n">03</span><div><b>One of the world's most valuable datasets</b><span>Mapped DNA combined with medical, nutritional and socio-economic data — fuelling drug development, diagnostics and global partnerships.</span></div></li>
+        </ul>
+      </div>
+      <div class="avgen-panel reveal">
+        <span class="ap-chip">Study at a glance</span>
+        <div class="big">10<span>,</span>000</div>
+        <div class="cap">Genome target · The Avestagenome Project®</div>
+        <div class="cohort">
+          <div class="cohort-top"><span>Genomes sequenced</span><b>46%<i>· 4,600 of 10,000</i></b></div>
+          <div class="cohort-bar"><div class="cohort-fill"></div></div>
+        </div>
+        <div class="ap-rows">
+          <div class="row"><span>iPSC source bank</span><b>4,700 PBMC samples</b></div>
+          <div class="row"><span>Study type</span><b>Systems biology · first of its kind</b></div>
+          <div class="row"><span>Population</span><b>Parsi-Zoroastrian</b></div>
+          <div class="row"><span>Focus</span><b>Longevity &amp; aging disease</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PORTFOLIO ===================== -->
+<section class="section" style="padding-bottom:clamp(40px,5vw,72px);overflow-x:clip">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Portfolio</span>
+      <h2>Four divisions. One integrated platform.</h2>
+      <p>Every asset below is catalogued like a specimen in our library — a single, traceable system spanning diagnostics, nutrition, pharmaceuticals and agriculture.</p>
+    </div>
+
+    <!-- DIAGNOSTICS -->
+    <span class="anchor" id="diagnostics"></span>
+    <div class="division" style="padding-top:0;--accent:#27a9e0">
+      <div class="div-head reveal">
+        <div class="meta">
+          <span class="div-mono">DX</span>
+          <div class="div-code">Division DX · AVGEN Diagnostics</div>
+          <h2>Know your genome. Act early.</h2>
+          <p>A portfolio of NGS-driven tests bringing together precision gene panels and an AI-powered interpretation platform — backed by Congenica, an NHS-trusted, ISO 13485:2016 certified clinical genomics platform.</p>
+        </div>
+        <a class="textlink" href="#contact">Order a test →</a>
+      </div>
+      <div class="cards reveal">
+        <div class="card">
+          <div class="top">
+            <span class="cat">No. DX-01 · Clinician initiated</span>
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="5" width="24" height="30" rx="2"/><path d="M14 13h12M14 20h12M14 27h7"/></svg>
+          </div>
+          <h3>AvestaScan®</h3>
+          <div class="tt">Flagship NGS test</div>
+          <p>High-quality whole-genome and exome genetic testing with best-in-class analysis powered by Congenica — the foundation for clinical decisions.</p>
+          <div class="tags"><span>NGS</span><span>Clinical</span><span>Congenica</span></div>
+        </div>
+        <div class="card">
+          <div class="top">
+            <span class="cat">No. DX-02 · Clinician initiated</span>
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="14"/><path d="M20 6v28M6 20h28" stroke-width="1"/><circle cx="20" cy="20" r="5"/></svg>
+          </div>
+          <h3>CALiBRx®</h3>
+          <div class="tt">624-gene risk panel</div>
+          <p>An in-house curated panel using 19,652 probes across 624 genes and 15 fusion genes — for early detection of cancers, neurodegenerative and associated conditions.</p>
+          <div class="tags"><span>624 genes</span><span>Oncology</span><span>Early detection</span></div>
+        </div>
+        <div class="card">
+          <div class="top">
+            <span class="cat">No. DX-03 · Direct to consumer</span>
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="4" width="16" height="32" rx="4"/><path d="M18 8h4" stroke-linecap="round"/><circle cx="20" cy="29" r="2.4"/></svg>
+          </div>
+          <h3>AvestaLife®</h3>
+          <div class="tt">At-home genome insights</div>
+          <p>AI-driven, actionable health recommendations based on your individual genome profile — with lifestyle guidance reviewed by experts, delivered to your phone.</p>
+          <div class="tags"><span>Consumer</span><span>AI report</span><span>Lifestyle</span></div>
+        </div>
+        <div class="card">
+          <div class="top">
+            <span class="cat">No. DX-04 · Platform</span>
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 28l8-8 6 6 8-12 6 6"/><circle cx="14" cy="20" r="2"/><circle cx="28" cy="14" r="2"/></svg>
+          </div>
+          <h3>NGS Platform</h3>
+          <div class="tt">Sequencing services</div>
+          <p>Massively parallel next-generation sequencing — single-cell, transcriptomics, microbiome and expression analysis, with expert bioinformatics interpretation.</p>
+          <div class="tags"><span>Single-cell</span><span>Microbiome</span><span>Bioinformatics</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NUTRITION -->
+    <span class="anchor" id="nutrition"></span>
+    <div class="division band" style="--accent:#5aa72f">
+      <div class="div-head reveal">
+        <div class="meta">
+          <span class="div-mono">NU</span>
+          <div class="div-code">Division NU · Nutrition &amp; Functional Foods</div>
+          <h2>Clinically proven nature.</h2>
+          <p>From a library of 2,500 medicinal plants and 15,000 catalogued compounds, we developed eight high-potential bioactives — and over 40 functional foods and supplements that prevent disease and support everyday wellbeing.</p>
+        </div>
+        <a class="textlink" href="#contact">Stock our range →</a>
+      </div>
+      <div class="cards reveal">
+        <div class="card">
+          <div class="ribbon">First in India</div>
+          <div class="top">
+            <span class="cat">No. NU-01 · Functional food</span>
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 6c0 6-4 8-4 14a10 10 0 0 0 20 0c0-6-4-8-4-14" stroke-linejoin="round"/><path d="M14 6h12"/></svg>
+          </div>
+          <h3>Teestar™ Gummies &amp; Crackers</h3>
+          <div class="tt">Good Earth · blood-glucose support</div>
+          <p>India's first clinically proven functional gummies and crackers containing Teestar™ — shown in clinical tests to help maintain stable blood glucose levels.</p>
+          <div class="tags"><span>Glucose</span><span>Clinically tested</span><span>Good Earth</span></div>
+        </div>
+        <div class="card">
+          <div class="top">
+            <span class="cat">No. NU-02 · Supplement line</span>
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6c-7 0-12 5-12 12 0 9 12 16 12 16s12-7 12-16c0-7-5-12-12-12Z"/><path d="M20 14v10M15 19h10"/></svg>
+          </div>
+          <h3>Heart, Bone &amp; Mind</h3>
+          <div class="tt">ProVa Smartchol · Bonephyte · ThinkWell</div>
+          <p>Targeted bioactive formulations for cholesterol and heart health, bone density, and cognition — including AvestaDHA™ and Ashwagandha.</p>
+          <div class="tags"><span>Heart</span><span>Bone</span><span>Cognition</span></div>
+        </div>
+        <div class="card">
+          <div class="top">
+            <span class="cat">No. NU-03 · Immunity &amp; antioxidants</span>
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="6"/><path d="M20 4v6M20 30v6M4 20h6M30 20h6M9 9l4 4M27 27l4 4M31 9l-4 4M13 27l-4 4" stroke-linecap="round"/></svg>
+          </div>
+          <h3>AmlaPure · GojiMax · WinterWell</h3>
+          <div class="tt">Daily defense</div>
+          <p>Antioxidant-rich botanicals to support immunity, energy and seasonal resilience — formulated and standardized for consistent potency.</p>
+          <div class="tags"><span>Immunity</span><span>Antioxidant</span><span>Standardized</span></div>
+        </div>
+        <div class="card">
+          <div class="top">
+            <span class="cat">No. NU-04 · Pipeline</span>
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 6h20M14 6v10l-6 14a3 3 0 0 0 3 4h18a3 3 0 0 0 3-4l-6-14V6" stroke-linejoin="round"/><path d="M11 26h18"/></svg>
+          </div>
+          <h3>Bioactive R&amp;D pipeline</h3>
+          <div class="tt">Pre-clinical → proof of concept</div>
+          <p>A pipeline of proprietary bioactives targeting diabetes, cardiovascular disease, osteoporosis, obesity, digestion and weight management — ready for partnership and licensing.</p>
+          <div class="tags"><span>Licensing</span><span>B2B</span><span>40+ products</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHARMA -->
+    <span class="anchor" id="pharma"></span>
+    <div class="division" style="--accent:#127fb3">
+      <div class="div-head reveal">
+        <div class="meta">
+          <span class="div-mono">RX</span>
+          <div class="div-code">Division RX · Bio-Pharmaceuticals</div>
+          <h2>A biosimilar pipeline, de-risked.</h2>
+          <p>Eight biosimilar molecules for cancers and autoimmune disorders — four advanced as lead candidates for Chronic Kidney Disease and Rheumatoid Arthritis, with stable cell lines producing commercially viable yields.</p>
+        </div>
+        <a class="textlink" href="#contact">Partner on co-development →</a>
+      </div>
+      <div class="pipeline reveal">
+        <div class="ph">
+          <div>Molecule</div><div>Indication</div><div>Stage</div><div>Next step</div>
+        </div>
+        <div class="pr">
+          <div class="mol">AVDESP™</div>
+          <div>Chronic Kidney Disease</div>
+          <div><span class="stage scale">Scale-up ready</span></div>
+          <div>cGMP for clinical trials</div>
+        </div>
+        <div class="pr">
+          <div class="mol">AVENT™</div>
+          <div>Chronic Kidney Disease</div>
+          <div><span class="stage scale">Scale-up ready</span></div>
+          <div>cGMP for clinical trials</div>
+        </div>
+        <div class="pr">
+          <div class="mol">AVCADE™</div>
+          <div>Rheumatoid Arthritis</div>
+          <div><span class="stage pre">Stable cell line</span></div>
+          <div>Clinical evaluation</div>
+        </div>
+        <div class="pr">
+          <div class="mol">AVPLASE™</div>
+          <div>Autoimmune / RA</div>
+          <div><span class="stage pre">Stable cell line</span></div>
+          <div>Clinical evaluation</div>
+        </div>
+      </div>
+      <p class="reveal" style="font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);margin-top:16px">AVDESP™ &amp; AVENT™ have passed pre-clinical trials · 4 lead candidates of 8 in portfolio</p>
+    </div>
+
+    <!-- CROPS -->
+    <span class="anchor" id="crops"></span>
+    <div class="division band" style="--accent:#2f9e8f">
+      <div class="div-head reveal">
+        <div class="meta">
+          <span class="div-mono">AG</span>
+          <div class="div-code">Division AG · Environmentally Adjusted Crops™</div>
+          <h2>Standardizing nature at the source.</h2>
+          <p>A deep portfolio of agricultural IP focused on biotic and abiotic stress resistance, oil enhancement and functional foods — now extended with CRISPR-based gene editing to improve crop traits, yields and biofuel output.</p>
+        </div>
+      </div>
+      <div class="cards reveal">
+        <div class="card">
+          <div class="top">
+            <span class="cat">No. AG-01 · Gene editing</span>
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 8c8 6 8 18 16 24M28 8c-8 6-8 18-16 24" stroke-linecap="round"/><circle cx="14" cy="11" r="2"/><circle cx="26" cy="29" r="2"/></svg>
+          </div>
+          <h3>CRISPR crop traits</h3>
+          <div class="tt">Yield &amp; resilience</div>
+          <p>Next-generation gene editing to improve crop traits and yields — ensuring standardization and effectiveness at the growing stage of the supply chain.</p>
+          <div class="tags"><span>CRISPR</span><span>Stress resistance</span></div>
+        </div>
+        <div class="card">
+          <div class="top">
+            <span class="cat">No. AG-02 · Oil &amp; biofuel</span>
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6C14 14 10 18 10 24a10 10 0 0 0 20 0c0-6-4-10-10-18Z" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Enhanced oil yields</h3>
+          <div class="tt">Functional &amp; sustainable</div>
+          <p>Through the enhancement of selected genes, we develop crops that net significantly higher oil yields — improving both functional foods and biofuel output.</p>
+          <div class="tags"><span>Biofuel</span><span>Oil enhancement</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SHOP ===================== -->
+<span class="anchor" id="shop"></span>
+<section class="section" style="padding-top:clamp(56px,7vw,96px)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Shop Wellbeing</span>
+      <h2>Clinically-backed nutrition, delivered.</h2>
+      <p>Hydration sachets and functional gummies formulated around the concern you care about — each clinically validated and made with our botanical bioactives.</p>
+    </div>
+
+    <div class="shop-filters reveal">
+      <span class="filter-label">Concern</span>
+      <button class="chip active" data-filter="concern" data-value="all">All</button>
+      <button class="chip" data-filter="concern" data-value="Blood Sugar">Blood Sugar</button>
+      <button class="chip" data-filter="concern" data-value="Immunity">Immunity</button>
+      <button class="chip" data-filter="concern" data-value="Skin & Hair">Skin &amp; Hair</button>
+      <button class="chip" data-filter="concern" data-value="Eye Health">Eye Health</button>
+      <button class="chip" data-filter="concern" data-value="Energy">Energy</button>
+    </div>
+    <div class="shop-filters reveal" style="margin-bottom:4px">
+      <span class="filter-label">Format</span>
+      <button class="chip active" data-filter="type" data-value="all">All</button>
+      <button class="chip" data-filter="type" data-value="hydration">Hydration</button>
+      <button class="chip" data-filter="type" data-value="gummy">Gummies</button>
+    </div>
+
+    <div class="shop-grid reveal" id="shopGrid"></div>
+    <div class="shop-more" id="shopMore" style="display:none">
+      <button class="shop-more-btn" id="shopMoreBtn" type="button"><span class="lbl">See more products</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUIZ BAND ===================== -->
+<span class="anchor" id="quiz"></span>
+<section class="section quiz">
+  <div class="wrap reveal" id="quizWrap">
+    <span class="eyebrow">60-second check</span>
+    <h2>Not sure where to start?</h2>
+    <p class="q-sub">Answer two quick questions and we'll match you to the right Avesta routine for your goal.</p>
+    <div id="quizStage"></div>
+  </div>
+</section>
+
+<!-- ===================== REVIEWS ===================== -->
+<span class="anchor" id="reviews"></span>
+<section class="section" style="background:#f2f8fb">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Loved by customers</span>
+      <h2>Real results, real reviews.</h2>
+    </div>
+    <div class="rev-head reveal">
+      <div class="rev-score">
+        <div class="rs-num">4.7</div>
+        <div><div class="s">★★★★★</div><small>2,840+ verified ratings</small></div>
+      </div>
+      <p class="lead">A growing community choosing food-first, clinically validated wellbeing — backed by 25 years of clinical science.</p>
+    </div>
+    <div class="rev-marquee reveal" aria-label="Customer testimonials">
+      <div class="rev-track" id="revTrack"></div>
+    </div>
+    <p class="rev-note">Illustrative reviews shown for demonstration — replace with verified customer reviews at launch.</p>
+  </div>
+</section>
+
+<!-- ===================== CREDIBILITY IMAGE BANNER ===================== -->
+<section class="imgband">
+  <img class="sec-bg" src="https://avesthagen.com/wp-content/uploads/2019/09/healthcare-compressor.jpeg" alt="" loading="lazy" onerror="this.remove()">
+  <div class="wrap reveal">
+    <span class="eyebrow">Trusted · Validated · Certified</span>
+    <h2>Science you can stand behind.</h2>
+    <p>Twenty-five years of peer-reviewed research, clinical validation and partnerships with the world's leading food and pharma houses — engineered to the highest standards.</p>
+    <ul class="cred">
+      <li><b>ISO 13485:2016</b><span>Clinical genomics</span></li>
+      <li><b>NHS-trusted</b><span>Congenica platform</span></li>
+      <li><b>25+ years</b><span>R&amp;D heritage</span></li>
+      <li><b>US · UK · India</b><span>Global network</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== RESEARCH / NETWORK ===================== -->
+<span class="anchor" id="research"></span>
+<section class="section insights" style="background:#f2f8fb" id="research-bg-host">
+  <img class="sec-bg" src="https://avesthagen.com/wp-content/uploads/2019/09/drylab-compressor.jpeg" alt="" loading="lazy" onerror="this.remove()" style="opacity:.14">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Research &amp; Global Network</span>
+      <h2>Discovery without borders.</h2>
+      <p>Deep-tech R&amp;D subsidiaries across geographies extend our reach from the lab bench to global markets — and a donor-derived iPSC platform makes drug discovery faster, humanized and animal-free.</p>
+    </div>
+
+    <div class="net-grid reveal">
+      <div class="net-card">
+        <img class="card-img" src="https://avesthagen.com/wp-content/uploads/2019/09/tech-360x258.jpeg" alt="Science and innovation" loading="lazy" onerror="this.remove()">
+        <div class="loc"><svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg> United States</div>
+        <h3>AGENOME LLC</h3>
+        <p>Population genomics and life sciences focused on longevity — developing next-generation precision liquid-biopsy diagnostics and a proprietary 622-gene pan-cancer panel (ACCP) for early cancer risk prediction.</p>
+      </div>
+      <div class="net-card">
+        <img class="card-img" src="https://avesthagen.com/wp-content/uploads/2019/09/drylab-compressor.jpeg" alt="THE Dry Lab" loading="lazy" onerror="this.remove()">
+        <div class="loc"><svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg> United Kingdom</div>
+        <h3>AVGEN Ltd</h3>
+        <p>Global variant discovery and population genomics — generating and expanding unique, disease-specific donor-derived iPSC cell lines for off-the-shelf therapeutic development across MHC barriers.</p>
+      </div>
+    </div>
+
+    <div class="feature-row reveal">
+      <div class="f">
+        <svg class="ico" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="18" r="6"/><circle cx="18" cy="18" r="13"/><circle cx="18" cy="5" r="2" fill="currentColor"/></svg>
+        <h3>Donor-derived iPSC platform</h3>
+        <p>Animal-free, humanized drug discovery and screening — leveraging 4,700 PBMC samples from the Avestagenome biobank.</p>
+      </div>
+      <div class="f">
+        <svg class="ico" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 30h24M12 30V14M18 30V8M24 30V18"/></svg>
+        <h3>2,500 plants · 15,000 compounds</h3>
+        <p>One of the deepest catalogued libraries of medicinal botanicals and traceable compounds in the world.</p>
+      </div>
+      <div class="f">
+        <svg class="ico" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 4h8M16 4v8l-7 16a3 3 0 0 0 3 4h12a3 3 0 0 0 3-4l-7-16V4"/><path d="M12 24h12"/></svg>
+        <h3>Discovery to launch</h3>
+        <p>An end-to-end R&amp;D engine — bioactive discovery, clinical testing, market research and commercial launch under one roof.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INSIGHTS ===================== -->
+<span class="anchor" id="insights"></span>
+<section class="section insights">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Insights &amp; Research</span>
+      <h2>From the lab notebook.</h2>
+      <p>Peer-reviewed science, published findings and the thinking behind predictive, preventive, personalized care.</p>
+    </div>
+    <div class="ins-grid reveal">
+      <article class="ins-card">
+        <div class="ins-img" style="background-image:url('https://avesthagen.com/wp-content/uploads/2019/09/genome-project-compressor.jpg')"></div>
+        <div class="kicker"><span>Genomics</span><span>2020</span></div>
+        <h3>The first complete Zoroastrian-Parsi mitochondrial reference genome</h3>
+        <p>A milestone release establishing mitochondrial signatures in an endogamous, non-smoking population — and what it tells us about longevity.</p>
+        <a class="textlink" href="#contact">Read more →</a>
+      </article>
+      <article class="ins-card">
+        <div class="ins-img" style="background-image:url('https://avesthagen.com/wp-content/uploads/2019/09/healthcare-compressor.jpeg')"></div>
+        <div class="kicker"><span>Oncology</span><span>2020</span></div>
+        <h3>Genetic predictors for tobacco-related cancers</h3>
+        <p>How NGS profiling of circulating free DNA and RNA in smoking subjects can deliver qualified biomarkers for early cancer risk.</p>
+        <a class="textlink" href="#contact">Read more →</a>
+      </article>
+      <article class="ins-card">
+        <div class="ins-img" style="background-image:url('https://avesthagen.com/wp-content/uploads/2019/09/wellness-360x258.jpeg')"></div>
+        <div class="kicker"><span>Nutrition</span><span>Clinical</span></div>
+        <h3>Teestar™ and stable blood glucose</h3>
+        <p>The clinical story behind India's first functional food and gummy proven to help manage stable blood glucose levels.</p>
+        <a class="textlink" href="#contact">Read more →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA BAND ===================== -->
+<section class="section cta-band">
+  <img class="sec-bg" src="https://avesthagen.com/wp-content/uploads/2019/09/tech-360x258.jpeg" alt="" loading="lazy" onerror="this.remove()">
+  <div class="wrap">
+    <span class="eyebrow center" style="color:var(--brass-soft)">Predictive · Preventive · Personalized</span>
+    <h2>Bring 25 years of science <em>into your life</em>.</h2>
+    <p>Whether you're a consumer seeking a personalized health plan, a clinic ordering diagnostics, or a partner exploring licensing — let's talk.</p>
+    <div class="btns">
+      <a class="btn brass" href="#contact">Book a consultation</a>
+      <a class="btn on-dark ghost" href="#nutrition">Explore products</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<span class="anchor" id="contact"></span>
+<section class="section">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <span class="eyebrow">Get in touch</span>
+        <h2>Start your wellbeing journey.</h2>
+        <p class="lead">Tell us what you're looking for and our team will get back to you. For consumers, clinicians, retailers and strategic partners alike.</p>
+        <ul class="ci-list">
+          <li><span class="ci-k">Headquarters</span><span class="ci-v">Bangalore, Karnataka, India</span></li>
+          <li><span class="ci-k">Email</span><span class="ci-v"><a href="mailto:hello@avestawellbeing.com">hello@avestawellbeing.com</a></span></li>
+          <li><span class="ci-k">Enquiries</span><span class="ci-v">Consumer · Clinical · Licensing &amp; JV</span></li>
+        </ul>
+      </div>
+      <div class="form reveal">
+        <div class="field">
+          <label for="cf-name">Full name</label>
+          <input id="cf-name" type="text" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" type="email" placeholder="you@email.com" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="cf-interest">I'm interested in</label>
+          <select id="cf-interest">
+            <option>A personalized health plan (AvestaLife®)</option>
+            <option>Genetic diagnostics (AvestaScan® / CALiBRx®)</option>
+            <option>Nutrition &amp; functional foods</option>
+            <option>Stocking / retail partnership</option>
+            <option>Licensing, JV or co-development</option>
+            <option>Investor relations</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="cf-msg">Message</label>
+          <textarea id="cf-msg" placeholder="A few details about what you need…"></textarea>
+        </div>
+        <button class="btn brass" id="cf-send" type="button">Send enquiry <span class="arr">→</span></button>
+        <p class="fine">We'll reply from hello@avestawellbeing.com · Strictly confidential</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="name">
+          <svg width="30" height="30" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <circle cx="20" cy="20" r="19" stroke="#5aa72f" stroke-width="1.3"/>
+            <path d="M20 6c-5 4-5 10 0 14s5 10 0 14" stroke="#38b6e8" stroke-width="1.6"/>
+            <path d="M20 6c5 4 5 10 0 14s-5 10 0 14" stroke="#79c24f" stroke-width="1.6"/>
+          </svg>
+          Avesta Wellbeing
+        </div>
+        <div class="sub">Bringing Science to Life · Est. 1998</div>
+        <p>Bringing science to life — at the convergence of food, pharma and population genetics.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Portfolio</h4>
+        <ul>
+          <li><a href="#diagnostics">AVGEN Diagnostics</a></li>
+          <li><a href="#nutrition">Nutrition &amp; Foods</a></li>
+          <li><a href="#pharma">Bio-Pharmaceuticals</a></li>
+          <li><a href="#crops">Adjusted Crops™</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Science</h4>
+        <ul>
+          <li><a href="#science">Our Science</a></li>
+          <li><a href="#avestagenome">Avestagenome Project®</a></li>
+          <li><a href="#research">Global Network</a></li>
+          <li><a href="#insights">Insights</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#science">Our Story</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#contact">Careers</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Policies</h4>
+        <ul>
+          <li><a href="#contact">Shipping</a></li>
+          <li><a href="#contact">Privacy Policy</a></li>
+          <li><a href="#contact">Terms &amp; Conditions</a></li>
+          <li><a href="#contact">Refund &amp; Replacement</a></li>
+          <li><a href="#contact">Grievance Redressal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <small>© 2026 Avesta Wellbeing. All rights reserved.</small>
+      <div class="foot-social">
+        <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5ZM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21H21.4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H13.7z"/></svg></a>
+        <a href="#" target="_blank" rel="noopener" aria-label="X / Twitter"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.3 8.3L23 22h-6.8l-5.3-6.9L4.8 22H1.7l7.8-8.9L1 2h6.9l4.8 6.3zM17.7 20.1h1.7L7.2 3.8H5.4z"/></svg></a>
+        <a href="#" target="_blank" rel="noopener" aria-label="Facebook"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.2c-1.2 0-1.6.75-1.6 1.5V12h2.7l-.43 2.9h-2.3v7A10 10 0 0 0 22 12Z"/></svg></a>
+      </div>
+    </div>
+    <p class="disclaimer">This website includes statements, estimates, projections and other forward-looking statements regarding the anticipated future performance of the Company, based upon assumptions by management that may not prove correct. Such assumptions are inherently subject to significant uncertainties and contingencies. No representation is made, and no assurance can be given, that the Company will attain such results. Product candidates referenced may be in development and not yet approved for sale. Health-related information is provided for general purposes and is not a substitute for professional medical advice. Strictly private and confidential.</p>
+  </div>
+</footer>
+
+<!-- ===================== CART DRAWER ===================== -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Shopping cart">
+  <div class="drawer-head">
+    <h3>Your cart</h3>
+    <button class="drawer-close" id="drawerClose" aria-label="Close cart">×</button>
+  </div>
+  <div class="drawer-body" id="cartItems"></div>
+  <div class="drawer-foot" id="cartFoot" style="display:none">
+    <div class="promo">
+      <input type="text" id="promoInput" placeholder="Discount code (try WELCOME10)">
+      <button id="promoApply">Apply</button>
+    </div>
+    <div class="promo-msg" id="promoMsg"></div>
+    <div class="totals">
+      <div class="tr"><span>Subtotal</span><span id="tSub">₹0</span></div>
+      <div class="tr disc" id="tDiscRow" style="display:none"><span id="tDiscLabel">Discount</span><span id="tDisc">−₹0</span></div>
+      <div class="tr"><span>Shipping</span><span id="tShip">FREE</span></div>
+      <div class="tr grand"><span>Total</span><span id="tTotal">₹0</span></div>
+    </div>
+    <div class="checkout-btns">
+      <button class="btn brass" id="payRazor">Checkout securely →</button>
+      <a class="btn wa-btn" id="payWa" href="#">Order on WhatsApp</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ===================== LEAD POPUP ===================== -->
+<div class="lead-pop" id="leadPop" role="dialog" aria-label="Welcome offer">
+  <div class="lp-bg" id="lpBg"></div>
+  <div class="lp-card">
+    <div class="lp-top">
+      <button class="lp-close" id="lpClose" aria-label="Close">×</button>
+      <div class="lp-off">10% OFF</div>
+      <p>your first Avesta Wellbeing order</p>
+    </div>
+    <div class="lp-body" id="lpBody">
+      <h3>Join the wellbeing list</h3>
+      <p>Get your code, early access to new launches, and science-backed health tips. No spam — unsubscribe anytime.</p>
+      <input type="email" id="lpEmail" placeholder="you@email.com" autocomplete="email">
+      <button class="btn brass" id="lpSubmit">Get my 10% code</button>
+      <div class="lp-fine">By signing up you agree to our privacy policy.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== WHATSAPP FAB ===================== -->
+<a class="wa-fab" id="waFab" href="#" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3Zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.9 1 1-4.8-.2-.4c-1-1.6-1.5-3.4-1.5-5.3C5 9.5 9.9 4.6 16 4.6S27 9.5 27 15.6 22.1 24.8 16 24.8Zm6.1-7.3c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.4-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.8-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.3 1.4 3.5c.2.2 2.5 3.8 6 5.3 2.8 1.2 3.4 1 4 .9.6-.1 2-.8 2.3-1.6.3-.8.3-1.4.2-1.6-.1-.1-.3-.2-.6-.4Z"/></svg>
+</a>
+
+<script>
+  // sticky header shadow
+  var header = document.getElementById('top');
+  var onScroll = function(){ header.classList.toggle('scrolled', window.scrollY > 8); };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // mobile menu
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); });
+  });
+
+  // scroll reveal
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduced && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // contact form -> mailto
+  document.getElementById('cf-send').addEventListener('click', function(){
+    var name = (document.getElementById('cf-name').value || '').trim();
+    var email = (document.getElementById('cf-email').value || '').trim();
+    var interest = document.getElementById('cf-interest').value;
+    var msg = (document.getElementById('cf-msg').value || '').trim();
+    var subject = encodeURIComponent('Avesta Wellbeing enquiry — ' + interest);
+    var body = encodeURIComponent(
+      'Name: ' + (name || '(not provided)') + '\n' +
+      'Email: ' + (email || '(not provided)') + '\n' +
+      'Interest: ' + interest + '\n\n' +
+      (msg || '(no message)')
+    );
+    window.location.href = 'mailto:hello@avestawellbeing.com?subject=' + subject + '&body=' + body;
+  });
+
+  /* ====================== COMMERCE ====================== */
+  var WA = '919999999999'; // ← replace with the real WhatsApp business number
+  var IMG = 'https://avesthagen.com/wp-content/uploads/';
+  var INR = function(n){ return '₹' + n.toLocaleString('en-IN'); };
+
+  var PRODUCTS = [
+    {id:'teestar-tam', name:'Teestar™ Bioactive Gummies – Tamarind', type:'gummy', concern:'Blood Sugar', base:750, rating:4.7,
+     tag:'Botanical sugar-control gummies — supports stable blood glucose.', badges:['No added sugar','Vegan','Clinically validated'], img:'/home/product-teestar-tamarind.jpg'},
+    {id:'teestar-lit', name:'Teestar™ Bioactive Gummies – Litchi', type:'gummy', concern:'Blood Sugar', base:750, rating:4.7,
+     tag:'Sugar-control gummies the natural way, in a juicy litchi flavour.', badges:['No added sugar','Vegan','Plant-based'], img:'/home/product-teestar-litchi.jpg'},
+    {id:'hibix', name:'HiBix® Radiant Skin & Healthy Hair', type:'hydration', concern:'Skin & Hair', base:449, rating:4.6,
+     tag:'Anthocyanin-rich bioactive drink for natural collagen, skin & hair.', badges:['No added sugar','Antioxidant-rich','Vegetarian'], img:'/home/product-hibix.jpg'},
+    {id:'amlapure', name:'AmlaPure® Inflammation & Immunity Aid', type:'hydration', concern:'Immunity', base:299, rating:4.9,
+     tag:'Vitamin-C amla bioactive for immunity, gut health & inflammation.', badges:['No preservatives','Immunomodulator','Vegetarian'], img:'/home/product-amlapure.jpg'},
+    {id:'gojimax', name:'GojiMax® Stress Relief & Eye Health', type:'hydration', concern:'Eye Health', base:470, rating:5.0,
+     tag:'Goji bioactives for vision, calm focus & everyday vitality.', badges:['No added sugar','Science-backed','Vegetarian'], img:'/home/product-gojimax.jpg'},
+    {id:'gojiberry', name:'GojiMax® Berry — Stress Busting', type:'hydration', concern:'Energy', base:399, rating:4.7,
+     tag:'Berry hydration to fight stress & fatigue and lift daily energy.', badges:['No preservatives','Heart & eye support','Vegetarian'], img:'/home/product-gojimax-berry.jpg'}
+  ];
+  var PACKS = [
+    {key:'15', label:'15-day', units:1, disc:0},
+    {key:'30', label:'30-day', units:2, disc:.10},
+    {key:'90', label:'90-day', units:3, disc:.20}
+  ];
+  var packOf = function(k){ for(var i=0;i<PACKS.length;i++){ if(PACKS[i].key===k) return PACKS[i]; } return PACKS[0]; };
+  var roundTen = function(n){ return Math.round(n/10)*10; };
+  var priceFor = function(p, key){ var t=packOf(key); return roundTen(p.base*t.units*(1-t.disc)); };
+  var compareFor = function(p, key){ return p.base*packOf(key).units; };
+  var byId = function(id){ for(var i=0;i<PRODUCTS.length;i++){ if(PRODUCTS[i].id===id) return PRODUCTS[i]; } };
+
+  var filterState = {concern:'all', type:'all'};
+  var selPack = {}; PRODUCTS.forEach(function(p){ selPack[p.id]='30'; });
+
+  function stars(r){ var full=Math.round(r); var s=''; for(var i=0;i<5;i++) s+= i<full?'★':'☆'; return s; }
+
+  // concern -> accent color + emblem icon (replaces mismatched stock photos)
+  var SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">';
+  var CONCERN = {
+    'Blood Sugar':{c:'#2f7fb8', i:SVG+'<path d="M3 12h3.4l2-6 3.6 12 2.4-7H21"/></svg>'},
+    'Immunity':{c:'#5aa72f', i:SVG+'<path d="M12 3l7 3v5c0 4.2-2.9 7.3-7 8.4-4.1-1.1-7-4.2-7-8.4V6z"/><path d="M9.2 12l1.9 1.9 3.7-3.9"/></svg>'},
+    'Skin & Hair':{c:'#c2415c', i:SVG+'<path d="M12 21s-7-4.6-7-10a4.4 4.4 0 0 1 8-2.6A4.4 4.4 0 0 1 19 11c0 5.4-7 10-7 10z"/></svg>'},
+    'Eye Health':{c:'#2f9e8f', i:SVG+'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.6"/></svg>'},
+    'Energy':{c:'#b8487f', i:SVG+'<path d="M13 2 5 13h5l-1 9 9-12h-6z"/></svg>'}
+  };
+
+  var shopExpanded=false, justReveal=false;
+  function colCount(){ var w=window.innerWidth; return w>980?3:(w>640?2:1); }
+  function renderShop(){
+    var grid = document.getElementById('shopGrid');
+    var list = PRODUCTS.filter(function(p){
+      return (filterState.concern==='all'||p.concern===filterState.concern) &&
+             (filterState.type==='all'||p.type===filterState.type);
+    });
+    var moreWrap=document.getElementById('shopMore'), moreBtn=document.getElementById('shopMoreBtn');
+    if(!list.length){ grid.innerHTML = '<p style="color:var(--muted);grid-column:1/-1">No products match — try another filter.</p>'; if(moreWrap) moreWrap.style.display='none'; return; }
+    var preview=colCount();
+    var show = shopExpanded ? list : list.slice(0,preview);
+    grid.innerHTML = show.map(function(p){
+      var key = selPack[p.id];
+      var price = priceFor(p,key), cmp = compareFor(p,key);
+      var packs = PACKS.map(function(t){
+        var sv = t.disc? '<span class="save">Save '+(t.disc*100)+'%</span>':'<span class="save">&nbsp;</span>';
+        return '<button class="pack '+(t.key===key?'active':'')+'" data-pack="'+t.key+'" data-pid="'+p.id+'">'+
+               '<span class="pk">'+t.label+'</span><span class="pp">'+INR(priceFor(p,t.key))+'</span>'+sv+'</button>';
+      }).join('');
+      var badges = p.badges.map(function(b){ return '<b>'+b+'</b>'; }).join('');
+      var ci = CONCERN[p.concern] || {c:'var(--teal)', i:''};
+      return '<div class="prod" data-pid="'+p.id+'" style="--pc:'+ci.c+'">'+
+        '<div class="prod-art">'+
+          '<span class="ptype">'+(p.type==='gummy'?'Gummy':'Hydration')+'</span>'+
+          '<span class="pconcern">'+p.concern+'</span>'+
+          '<img class="pimg" src="'+p.img+'" alt="'+p.name+'" loading="lazy"></div>'+
+        '<div class="prod-body">'+
+          '<h3>'+p.name+'</h3><div class="ptag">'+p.tag+'</div>'+
+          '<div class="stars"><span class="s">'+stars(p.rating)+'</span><span>'+p.rating.toFixed(1)+'</span></div>'+
+          '<div class="badges">'+badges+'</div>'+
+          '<div class="packs">'+packs+'</div>'+
+          '<div class="prod-foot">'+
+            '<div class="prod-price" data-price="'+p.id+'">'+INR(price)+(cmp>price?' <s>'+INR(cmp)+'</s>':'')+'</div>'+
+            '<button class="add-btn" data-add="'+p.id+'">Add</button>'+
+          '</div></div></div>';
+    }).join('');
+    if(moreWrap && moreBtn){
+      if(list.length>preview){
+        moreWrap.style.display='flex';
+        moreBtn.classList.toggle('open', shopExpanded);
+        moreBtn.querySelector('.lbl').textContent = shopExpanded ? 'Show fewer' : ('See more products ('+(list.length-preview)+')');
+      } else { moreWrap.style.display='none'; }
+    }
+    if(justReveal){ grid.classList.add('revealing'); setTimeout(function(){ grid.classList.remove('revealing'); }, 650); justReveal=false; }
+  }
+
+  // shop interactions (delegated)
+  document.getElementById('shopGrid').addEventListener('click', function(e){
+    var pk = e.target.closest('.pack');
+    if(pk){ selPack[pk.getAttribute('data-pid')] = pk.getAttribute('data-pack'); renderShop(); return; }
+    var add = e.target.closest('.add-btn');
+    if(add){ var id=add.getAttribute('data-add'); addToCart(id, selPack[id], 1);
+      add.textContent='Added ✓'; add.classList.add('added');
+      setTimeout(function(){ add.textContent='Add'; add.classList.remove('added'); }, 1200);
+    }
+  });
+
+  // filter chips
+  document.querySelectorAll('.chip').forEach(function(c){
+    c.addEventListener('click', function(){
+      var grp = c.getAttribute('data-filter');
+      document.querySelectorAll('.chip[data-filter="'+grp+'"]').forEach(function(x){ x.classList.remove('active'); });
+      c.classList.add('active');
+      filterState[grp] = c.getAttribute('data-value');
+      shopExpanded=false;
+      renderShop();
+    });
+  });
+
+  var smb=document.getElementById('shopMoreBtn');
+  if(smb){ smb.addEventListener('click', function(){
+    shopExpanded=!shopExpanded; justReveal=shopExpanded; renderShop();
+    if(!shopExpanded){ var a=document.getElementById('shop'); if(a) a.scrollIntoView({behavior:'smooth',block:'start'}); }
+  }); }
+  var _shopRT; window.addEventListener('resize', function(){ clearTimeout(_shopRT); _shopRT=setTimeout(function(){ if(!shopExpanded) renderShop(); }, 180); });
+
+  /* ---- cart ---- */
+  var cart = [];           // {id, packKey, qty}
+  var discountPct = 0, discountCode = '';
+
+  function findLine(id,key){ for(var i=0;i<cart.length;i++){ if(cart[i].id===id&&cart[i].packKey===key) return cart[i]; } return null; }
+  function addToCart(id,key,qty){ var l=findLine(id,key); if(l) l.qty+=qty; else cart.push({id:id,packKey:key,qty:qty}); renderCart(); openDrawer(); }
+  function cartQty(){ return cart.reduce(function(a,c){ return a+c.qty; },0); }
+  function subtotal(){ return cart.reduce(function(a,c){ return a + priceFor(byId(c.id),c.packKey)*c.qty; },0); }
+
+  function updateBadge(){ var n=cartQty(); var b=document.getElementById('cartCount'); b.textContent=n; b.classList.toggle('zero', n===0); }
+
+  function renderCart(){
+    var box=document.getElementById('cartItems'), foot=document.getElementById('cartFoot');
+    updateBadge();
+    if(!cart.length){
+      box.innerHTML='<div class="cart-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 6h15l-1.5 9h-12L6 6Z" stroke-linejoin="round"/><path d="M6 6 5 3H2" stroke-linecap="round"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg><p>Your cart is empty.</p></div>';
+      foot.style.display='none'; return;
+    }
+    foot.style.display='block';
+    box.innerHTML = cart.map(function(c){
+      var p=byId(c.id), t=packOf(c.packKey), price=priceFor(p,c.packKey);
+      return '<div class="ci">'+
+        '<div class="ci-img" style="background-image:url(\''+p.img+'\')"></div>'+
+        '<div class="ci-main"><h4>'+p.name+'</h4><div class="ci-meta">'+t.label+' pack</div>'+
+          '<div class="qty"><button data-dec="'+c.id+'|'+c.packKey+'">−</button><span>'+c.qty+'</span><button data-inc="'+c.id+'|'+c.packKey+'">+</button></div></div>'+
+        '<div class="ci-right"><div class="ci-price">'+INR(price*c.qty)+'</div>'+
+          '<button class="ci-remove" data-rm="'+c.id+'|'+c.packKey+'">Remove</button></div></div>';
+    }).join('');
+    var sub=subtotal();
+    var disc=Math.round(sub*discountPct);
+    var ship= (sub-disc)>=999 || sub===0 ? 0 : 49;
+    document.getElementById('tSub').textContent=INR(sub);
+    var dRow=document.getElementById('tDiscRow');
+    if(disc>0){ dRow.style.display='flex'; document.getElementById('tDiscLabel').textContent='Discount ('+discountCode+')'; document.getElementById('tDisc').textContent='−'+INR(disc); }
+    else dRow.style.display='none';
+    document.getElementById('tShip').textContent = ship===0 ? 'FREE' : INR(ship);
+    document.getElementById('tTotal').textContent = INR(sub - disc + ship);
+    // whatsapp order link
+    var lines = cart.map(function(c){ var p=byId(c.id); return c.qty+'× '+p.name+' ('+packOf(c.packKey).label+') — '+INR(priceFor(p,c.packKey)*c.qty); });
+    var msg = 'Hi Avesta Wellbeing! I\'d like to order:%0a'+ lines.join('%0a') +
+      '%0a%0aSubtotal: '+INR(sub) + (disc>0?('%0aDiscount ('+discountCode+'): -'+INR(disc)):'') +
+      '%0aTotal: '+INR(sub-disc+ship);
+    document.getElementById('payWa').setAttribute('href','https://wa.me/'+WA+'?text='+msg);
+  }
+
+  document.getElementById('cartItems').addEventListener('click', function(e){
+    var t=e.target;
+    var inc=t.getAttribute('data-inc'), dec=t.getAttribute('data-dec'), rm=t.getAttribute('data-rm');
+    var key = inc||dec||rm; if(!key) return;
+    var parts=key.split('|'); var l=findLine(parts[0],parts[1]); if(!l) return;
+    if(inc) l.qty++;
+    else if(dec){ l.qty--; if(l.qty<=0) cart=cart.filter(function(x){return x!==l;}); }
+    else if(rm) cart=cart.filter(function(x){return x!==l;});
+    renderCart();
+  });
+
+  // promo
+  var CODES = { 'WELCOME10':.10, 'AVESTA15':.15 };
+  document.getElementById('promoApply').addEventListener('click', function(){
+    var v=(document.getElementById('promoInput').value||'').trim().toUpperCase();
+    var msg=document.getElementById('promoMsg');
+    if(CODES[v]!==undefined){ discountPct=CODES[v]; discountCode=v; msg.className='promo-msg ok'; msg.textContent='✓ '+(CODES[v]*100)+'% off applied.'; }
+    else { discountPct=0; discountCode=''; msg.className='promo-msg err'; msg.textContent='Invalid code.'; }
+    renderCart();
+  });
+  document.getElementById('payRazor').addEventListener('click', function(){
+    if(!cart.length) return;
+    alert('Demo checkout — in the live store this opens secure Razorpay payment. Total: '+document.getElementById('tTotal').textContent);
+  });
+
+  // drawer open/close
+  var overlay=document.getElementById('overlay'), drawer=document.getElementById('drawer');
+  function openDrawer(){ overlay.classList.add('open'); drawer.classList.add('open'); }
+  function closeDrawer(){ overlay.classList.remove('open'); drawer.classList.remove('open'); }
+  document.getElementById('cartBtn').addEventListener('click', openDrawer);
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  /* ---- WhatsApp FAB ---- */
+  document.getElementById('waFab').setAttribute('href','https://wa.me/'+WA+'?text='+encodeURIComponent('Hi Avesta Wellbeing! I have a question.'));
+
+  /* ---- concern quiz ---- */
+  var quiz = {concern:null, format:null};
+  function renderQuiz(){
+    var stage=document.getElementById('quizStage');
+    if(!quiz.concern){
+      var opts=['Blood Sugar','Immunity','Skin & Hair','Eye Health','Energy'];
+      stage.innerHTML='<div class="q-step"><div class="q-progress">Step 1 of 2</div><div class="q-q">What\'s your main goal right now?</div><div class="q-opts">'+
+        opts.map(function(o){ return '<button class="q-opt" data-c="'+o+'">'+o+'</button>'; }).join('')+'</div></div>';
+    } else if(!quiz.format){
+      stage.innerHTML='<div class="q-step"><div class="q-progress">Step 2 of 2</div><div class="q-q">How do you like to take it?</div><div class="q-opts">'+
+        '<button class="q-opt" data-f="gummy">Gummies</button><button class="q-opt" data-f="hydration">Hydration sachets</button><button class="q-opt" data-f="any">No preference</button></div></div>';
+    } else {
+      var match = PRODUCTS.filter(function(p){ return p.concern===quiz.concern && (quiz.format==='any'||p.type===quiz.format); });
+      if(!match.length) match = PRODUCTS.filter(function(p){ return p.concern===quiz.concern; });
+      if(!match.length) match=[PRODUCTS[0]];
+      var p=match[0];
+      stage.innerHTML='<div class="q-result"><div class="qr-img" style="background-image:url(\''+p.img+'\')"></div>'+
+        '<div><div class="q-progress">Your match</div><h3>'+p.name+'</h3><p>'+p.tag+'</p>'+
+        '<button class="btn brass" data-qadd="'+p.id+'">Add to cart · '+INR(priceFor(p,'30'))+'</button> '+
+        '<button class="btn ghost on-dark" data-qreset style="border-color:rgba(255,255,255,.4);color:#eef6fb">Retake</button></div></div>';
+    }
+  }
+  document.getElementById('quizStage').addEventListener('click', function(e){
+    var c=e.target.getAttribute('data-c'), f=e.target.getAttribute('data-f');
+    if(c){ quiz.concern=c; renderQuiz(); return; }
+    if(f){ quiz.format=f; renderQuiz(); return; }
+    var qa=e.target.getAttribute('data-qadd');
+    if(qa){ addToCart(qa,'30',1); return; }
+    if(e.target.hasAttribute('data-qreset')){ quiz={concern:null,format:null}; renderQuiz(); }
+  });
+
+  /* ---- lead popup (8s OR 45% scroll, once per session) ---- */
+  var leadShown=false, leadPop=document.getElementById('leadPop');
+  function showLead(){ if(leadShown) return; leadShown=true; leadPop.classList.add('open'); }
+  function hideLead(){ leadPop.classList.remove('open'); }
+  setTimeout(showLead, 8000);
+  window.addEventListener('scroll', function(){
+    var sp=(window.scrollY)/(document.body.scrollHeight-window.innerHeight);
+    if(sp>=.45) showLead();
+  }, {passive:true});
+  document.getElementById('lpClose').addEventListener('click', hideLead);
+  document.getElementById('lpBg').addEventListener('click', hideLead);
+  document.getElementById('lpSubmit').addEventListener('click', function(){
+    var email=(document.getElementById('lpEmail').value||'').trim();
+    if(!email || email.indexOf('@')<0){ document.getElementById('lpEmail').focus(); document.getElementById('lpEmail').style.borderColor='#c0392b'; return; }
+    document.getElementById('lpBody').innerHTML='<div class="lp-success"><h3>You\'re in! 🎉</h3><p>Use this code at checkout for 10% off your first order:</p>'+
+      '<div class="lp-code">WELCOME10</div>'+
+      '<a class="btn brass" style="width:100%;justify-content:center" href="#shop" id="lpShop">Start shopping</a></div>';
+    document.getElementById('lpShop').addEventListener('click', hideLead);
+  });
+
+  // init
+  renderShop(); renderCart(); renderQuiz();
+
+  /* ---- partner logo marquee ---- */
+  (function(){
+    var LOGOS = [
+      {n:'Danone', src:'/home/logo-danone.png'},
+      {n:'Nestlé', src:'/home/logo-nestle.png'},
+      {n:'Limagrain', src:'/home/logo-limagrain.png'},
+      {n:'bioMérieux', src:'/home/logo-biomerieux.png'},
+      {n:'Godrej', src:'/home/logo-godrej.png'},
+      {n:'Affymetrix', src:'/home/logo-affymetrix.png'}
+    ];
+    var item = function(l){
+      return '<div class="logo" title="'+l.n+'">'+
+        '<img src="'+l.src+'" alt="'+l.n+'" loading="lazy"></div>';
+    };
+    var set = LOGOS.map(item).join('');
+    var track = document.getElementById('logoTrack');
+    if(track){ track.innerHTML = set + set; } // duplicate for seamless -50% loop
+  })();
+</script>
+<script>
+/* testimonial wall — add as many reviews as you like; the row scrolls automatically */
+(function(){
+  var R=[
+    {s:'★★★★★', t:'"My fasting glucose readings have been noticeably steadier since I started the Teestar gummies — and they\u2019re genuinely easy to stick with."', n:'Rhea M.', av:'R', cat:'Blood Sugar', c:'var(--teal)'},
+    {s:'★★★★★', t:'"The electrolyte sachets are part of my morning now. Light, not too sweet, and I feel properly hydrated through training."', n:'Arjun K.', av:'A', cat:'Hydration', c:'var(--brass)'},
+    {s:'★★★★☆', t:'"Love that there\u2019s real clinical science behind these, not just marketing. The immunity gummies are a family favourite."', n:'Priya S.', av:'P', cat:'Immunity', c:'var(--pine)'},
+    {s:'★★★★★', t:'"AvestaDHA has made a real difference to my focus through long workdays — no jitters, just steadier concentration."', n:'Dev N.', av:'D', cat:'Focus', c:'#2f9e8f'},
+    {s:'★★★★★', t:'"Started Bonephyte on my doctor\u2019s nudge. Six months in, my latest scan numbers had actually improved."', n:'Meera R.', av:'M', cat:'Bone Health', c:'#27a9e0'},
+    {s:'★★★★☆', t:'"ProVa Smartchol slotted into my routine easily, and my cholesterol panel is finally trending the right way."', n:'Karthik V.', av:'K', cat:'Cholesterol', c:'var(--teal)'},
+    {s:'★★★★★', t:'"The ashwagandha blend takes the edge off my evenings. I\u2019m sleeping deeper and waking up far less wired."', n:'Ananya G.', av:'A', cat:'Stress & Sleep', c:'var(--brass)'},
+    {s:'★★★★★', t:'"AmlaPure is a daily habit now — clean label, no aftertaste, and backed by their own published research."', n:'Rohan T.', av:'R', cat:'Antioxidant', c:'var(--pine)'},
+    {s:'★★★★★', t:'"WinterWell got our whole house through the season. Honestly fewer sick days for everyone this year."', n:'Sara F.', av:'S', cat:'Immunity', c:'#2f9e8f'}
+  ];
+  var t=document.getElementById('revTrack');
+  if(!t) return;
+  function card(r,dup){
+    return '<article class="rev-card'+(dup?' rev-dup':'')+'"'+(dup?' aria-hidden="true"':'')+' style="--c:'+r.c+'">'+
+      '<div class="s">'+r.s+'</div>'+
+      '<p>'+r.t+'</p>'+
+      '<div class="who"><div class="av">'+r.av+'</div><div><b>'+r.n+'</b>'+
+        '<div class="rmeta"><span class="vrf">Verified</span><span class="rcat">'+r.cat+'</span></div></div></div>'+
+      '</article>';
+  }
+  var one=R.map(function(r){return card(r,false);}).join('');
+  var dup=R.map(function(r){return card(r,true);}).join('');
+  t.innerHTML=one+dup;
+})();
+</script>
+<script>
+/* avestagenome hero figure counts up when scrolled into view */
+(function(){
+  var el=document.querySelector('.avgen-panel .big');
+  if(!el) return;
+  var done=false, target=10000, dur=1400;
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function finish(){ el.innerHTML='10<span>,</span>000'; }
+  function run(){
+    if(done) return; done=true;
+    if(reduced){ finish(); return; }
+    var t0=null;
+    function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1); var e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(target*e).toLocaleString('en-US');
+      if(p<1) requestAnimationFrame(step); else finish(); }
+    requestAnimationFrame(step);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ run(); io.disconnect(); } }); }, {threshold:.45});
+    io.observe(el);
+  } else { run(); }
+})();
+</script>
+</body>
+</html>
