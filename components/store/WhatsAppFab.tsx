@@ -1,18 +1,18 @@
-/**
- * Floating WhatsApp action button. The number is a placeholder until the
- * WhatsApp Business account is provisioned (Part F / feature 10).
- */
+import { WhatsAppIcon } from "@/components/home/icons";
+import { waLink } from "@/components/store/whatsapp";
+
+/** Reference floating WhatsApp button (`.wa-fab`), wired to our wa.me flow. */
 export function WhatsAppFab() {
   return (
     <a
-      className="wa"
-      href="https://wa.me/910000000000"
+      className="wa-fab"
+      href={waLink("Hi Avesta Wellbeing! I have a question.")}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
-      title="Chat with us on WhatsApp"
+      aria-label="Chat on WhatsApp"
+      title="Chat on WhatsApp"
     >
-      <span aria-hidden>💬</span>
+      <WhatsAppIcon />
     </a>
   );
 }

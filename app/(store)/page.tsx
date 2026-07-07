@@ -1,114 +1,59 @@
 import type { Metadata } from "next";
 
-import { Hero } from "@/components/store/Hero";
-import { TrustStrip } from "@/components/store/TrustStrip";
-import { ConcernGrid } from "@/components/store/ConcernGrid";
-import { Products } from "@/components/store/Products";
-import { SciencePipeline } from "@/components/store/SciencePipeline";
-import { Reviews } from "@/components/store/Reviews";
-import { ResearchCards } from "@/components/store/ResearchCards";
-import { QuizBand } from "@/components/store/QuizBand";
-import { BlogTeasers } from "@/components/store/BlogTeasers";
-import { Reveal } from "@/components/ui/Reveal";
-import { getFeaturedReviews } from "@/lib/reviews/public";
-import type { Product } from "@/components/store/ProductCard";
+import { RevealObserver } from "@/components/home/RevealObserver";
+import { Hero } from "@/components/home/Hero";
+import { Partners } from "@/components/home/Partners";
+import { Explore } from "@/components/home/Explore";
+import { Science } from "@/components/home/Science";
+import { Avestagenome } from "@/components/home/Avestagenome";
+import { Portfolio } from "@/components/home/Portfolio";
+import { HomeShop } from "@/components/home/HomeShop";
+import { HomeQuiz } from "@/components/home/HomeQuiz";
+import { ReviewsWall } from "@/components/home/ReviewsWall";
+import { ImgBand } from "@/components/home/ImgBand";
+import { ResearchNetwork } from "@/components/home/ResearchNetwork";
+import { Insights } from "@/components/home/Insights";
+import { CtaBand } from "@/components/home/CtaBand";
+import { ContactSection } from "@/components/home/ContactSection";
+import { getActiveProducts } from "@/lib/products/queries";
 
 export const metadata: Metadata = {
-  // Homepage owns the site root: keep the brand default title (inherited from the
-  // root layout — no `%s` suffix here) and pin the canonical to "/".
+  // Reference page title/description (design/reference.html <head>).
   title: {
-    absolute: "Avesta Nordic — Medicine, rooted in science",
+    absolute: "Avesta Wellbeing · Bringing Science to Life",
   },
   description:
-    "Avesta Nordic makes clinically formulated hydration drinks and nutrient gummies, built on Avesthagen's 25-year bioscience heritage. Prevention, Precaution and Cure.",
+    "Avesta Wellbeing — 25+ years at the convergence of botanical wisdom and precision genomics. Predictive, Preventive, Personalized healthcare: clinically validated nutrition, NGS diagnostics, biosimilars and more.",
   alternates: { canonical: "/" },
 };
 
-// Sample homepage products for the A1 port. Replaced by the live catalog
-// (Supabase) in feature 1; the demo's placeholder branding is intentional.
-const SAMPLE_PRODUCTS: readonly Product[] = [
-  {
-    name: "HydraSci™ Daily Electrolyte",
-    sci: "Na⁺ K⁺ Mg²⁺ · GLUCOSE-OPTIMIZED",
-    stars: "★★★★★",
-    ratingNote: "4.6 · AMAZON VERIFIED",
-    packs: ["15-DAY", "30-DAY −10%", "90-DAY −15%"],
-    defaultPackIndex: 1,
-    price: "₹1,098",
-    perDay: "₹37/DAY",
-    emoji: "🥤",
-    imgBackground: "linear-gradient(150deg,#E3F4FB,#CBE9F4)",
-    tag: "BESTSELLER",
-  },
-  {
-    name: "HydraSci™ Energy +",
-    sci: "B-COMPLEX · NATURAL CAFFEINE",
-    stars: "★★★★☆",
-    ratingNote: "4.4 · TATA 1MG",
-    packs: ["15-DAY", "30-DAY −10%", "90-DAY −15%"],
-    defaultPackIndex: 1,
-    price: "₹1,198",
-    perDay: "₹40/DAY",
-    emoji: "🥤",
-    imgBackground: "linear-gradient(150deg,#FFF0DC,#FBDFB6)",
-  },
-  {
-    name: "VitaGum™ Immunity",
-    sci: "VIT C + D3 + ZINC · 30 GUMMIES",
-    stars: "★★★★★",
-    ratingNote: "4.7 · AMAZON VERIFIED",
-    packs: ["15-DAY", "30-DAY −10%", "90-DAY −15%"],
-    defaultPackIndex: 1,
-    price: "₹898",
-    perDay: "₹30/DAY",
-    emoji: "🍬",
-    imgBackground: "linear-gradient(150deg,#F3E9FB,#E2D2F2)",
-    tag: "NEW",
-  },
-  {
-    name: "VitaGum™ Hair & Skin",
-    sci: "BIOTIN · AMLA BIOACTIVES",
-    stars: "★★★★☆",
-    ratingNote: "4.5 · TATA 1MG",
-    packs: ["15-DAY", "30-DAY −10%", "90-DAY −15%"],
-    defaultPackIndex: 1,
-    price: "₹998",
-    perDay: "₹33/DAY",
-    emoji: "🍬",
-    imgBackground: "linear-gradient(150deg,#E5F6E8,#CDEBD4)",
-  },
-];
-
+/**
+ * Homepage — a 1:1 port of design/reference.html, section for section:
+ * hero → partners → explore → science → avestagenome → portfolio → shop →
+ * quiz → reviews → credibility band → research → insights → CTA → contact.
+ * Static copy is the reference's verbatim; the shop grid and quiz band are
+ * hydrated from the live Supabase catalog and the shared cart store.
+ */
 export default async function Home() {
-  const featuredReviews = await getFeaturedReviews();
+  const products = await getActiveProducts();
 
   return (
     <>
+      <RevealObserver />
       <Hero />
-      <TrustStrip />
-      <Reveal>
-        <ConcernGrid />
-      </Reveal>
-      <Reveal>
-        <Products products={SAMPLE_PRODUCTS} />
-      </Reveal>
-      <Reveal>
-        <SciencePipeline />
-      </Reveal>
-      {featuredReviews.length > 0 ? (
-        <Reveal>
-          <Reviews reviews={featuredReviews} />
-        </Reveal>
-      ) : null}
-      <Reveal>
-        <ResearchCards />
-      </Reveal>
-      <Reveal>
-        <QuizBand />
-      </Reveal>
-      <Reveal>
-        <BlogTeasers />
-      </Reveal>
+      <Partners />
+      <Explore />
+      <Science />
+      <Avestagenome />
+      <Portfolio />
+      <HomeShop products={products} />
+      <HomeQuiz products={products} />
+      <ReviewsWall />
+      <ImgBand />
+      <ResearchNetwork />
+      <Insights />
+      <CtaBand />
+      <ContactSection />
     </>
   );
 }

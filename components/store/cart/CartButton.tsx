@@ -1,17 +1,19 @@
 "use client";
 
+import { CartIcon } from "@/components/home/icons";
 import { useCart, useCartHydrated, selectCount } from "@/lib/cart/store";
 
 /**
- * Nav cart button with a live item-count badge. Opens the slide-over drawer.
- * The count is gated on hydration so the server-rendered markup (count unknown)
- * matches the first client paint, then reveals the real persisted count.
+ * Reference nav cart button (SVG + count badge; `.zero` hides the badge at 0).
+ * Opens the slide-over drawer. The count is gated on hydration so the
+ * server-rendered markup (count unknown → zero) matches the first client
+ * paint, then reveals the real persisted count.
  */
 export function CartButton() {
   const open = useCart((s) => s.open);
   const count = useCart(selectCount);
   const hydrated = useCartHydrated();
-  const showCount = hydrated && count > 0;
+  const shown = hydrated ? count : 0;
 
   return (
     <button
@@ -19,15 +21,13 @@ export function CartButton() {
       className="cart-btn"
       onClick={open}
       aria-label={
-        showCount ? `Cart, ${count} item${count === 1 ? "" : "s"}` : "Cart"
+        shown > 0 ? `Cart, ${shown} item${shown === 1 ? "" : "s"}` : "Open cart"
       }
     >
-      <span aria-hidden>🛒</span>
-      {showCount ? (
-        <span className="cart-count" aria-hidden>
-          {count}
-        </span>
-      ) : null}
+      <CartIcon />
+      <span className={`cart-count${shown === 0 ? " zero" : ""}`} aria-hidden>
+        {shown}
+      </span>
     </button>
   );
 }

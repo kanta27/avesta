@@ -1,8 +1,8 @@
 export function AnnouncementBar() {
   return (
     <div className="announce">
-      FREE SHIPPING ON ORDERS ABOVE ₹999 &nbsp;·&nbsp; FSSAI LICENSED
-      &nbsp;·&nbsp; SHIPS ACROSS INDIA
+      ✦ Free shipping on orders over <b>₹999</b> · New here? Take <b>10% off</b>{" "}
+      your first order with code <span className="code">WELCOME10</span>
     </div>
   );
 }

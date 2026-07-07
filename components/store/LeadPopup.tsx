@@ -29,6 +29,14 @@ function suppress(): void {
   localStorage.setItem(LOCAL_SUPPRESS, String(Date.now() + SUPPRESS_MS));
 }
 
+/**
+ * Lead-capture popup — reference `#leadPop` visuals (`.lead-pop` / `.lp-*`),
+ * our capture flow: the existing trigger/suppression rules (dwell, scroll
+ * depth, exit intent, returning visitor; once per session; 10-day suppression;
+ * never during checkout) and the real /api/leads popup arm — which requires
+ * name + phone + email and an explicit DPDP consent checkbox, so the form
+ * carries those two extra fields over the reference's email-only mock.
+ */
 export function LeadPopup() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -49,19 +57,14 @@ export function LeadPopup() {
   //   - NEVER during checkout — when on a /checkout* route we arm nothing and
   //     ignore manual opens, so the popup cannot interrupt a purchase.
   useEffect(() => {
-    // Don't even count the view (or arm anything) during checkout.
     if (inCheckout) return;
 
     const views = Number(localStorage.getItem(LOCAL_VIEWS) ?? "0") + 1;
     localStorage.setItem(LOCAL_VIEWS, String(views));
 
-    // Manual open (e.g. the quiz CTA) — explicit user action, so it bypasses the
-    // suppression window, but still never opens during checkout (guarded above).
     const onManual = () => setOpen(true);
     window.addEventListener(OPEN_LEAD_EVENT, onManual);
 
-    // Inside the 7–14d suppression window: keep the manual opener wired, but arm
-    // none of the auto-triggers.
     if (isSuppressed()) {
       return () => window.removeEventListener(OPEN_LEAD_EVENT, onManual);
     }
@@ -119,11 +122,10 @@ export function LeadPopup() {
       document.removeEventListener("keydown", onKey);
       (lastFocused.current as HTMLElement | null)?.focus?.();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   function close() {
-    // Dismiss starts the suppression window (same as submit) so a closed popup
-    // stays closed for 7–14 days.
     sessionStorage.setItem(SESSION_SEEN, "1");
     suppress();
     setOpen(false);
@@ -135,14 +137,11 @@ export function LeadPopup() {
     setError(null);
     setSubmitting(true);
 
-    const form = e.currentTarget;
-    const data = new FormData(form);
+    const data = new FormData(e.currentTarget);
     const payload = {
       name: String(data.get("name") ?? "").trim(),
       phone: String(data.get("phone") ?? "").trim(),
       email: String(data.get("email") ?? "").trim(),
-      // DPDP: honest flag — an unticked box submits consent=false (still captured,
-      // just never enters the marketing follow-up).
       consent,
       source_page: window.location.pathname,
       source_type: "popup" as const,
@@ -169,7 +168,6 @@ export function LeadPopup() {
         return;
       }
 
-      // Captured. Reveal the real shared code and start the suppression window.
       sessionStorage.setItem(SESSION_SEEN, "1");
       suppress();
       setCode(json.code);
@@ -182,133 +180,97 @@ export function LeadPopup() {
 
   return (
     <div
-      className={`overlay${open ? " show" : ""}`}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) close();
-      }}
+      className={`lead-pop${open ? " open" : ""}`}
+      role="dialog"
+      aria-label="Welcome offer"
+      aria-hidden={!open}
     >
-      <div
-        className="popup"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="lead-popup-title"
-        tabIndex={-1}
-        ref={dialogRef}
-      >
-        <div className="pop-left">
-          <div className="off" aria-hidden>
-            10% OFF
-          </div>
-          <h3>your first order</h3>
-          <p>
-            Join the Avesta Nordic circle — get your code instantly on WhatsApp,
-            plus science-backed health tips.
-          </p>
-        </div>
-        <div className="pop-right">
-          <button className="pop-close" onClick={close} aria-label="Close">
-            ✕
+      <div className="lp-bg" onClick={close} />
+      <div className="lp-card" ref={dialogRef} tabIndex={-1}>
+        <div className="lp-top">
+          <button className="lp-close" onClick={close} aria-label="Close">
+            ×
           </button>
+          <div className="lp-off">10% OFF</div>
+          <p>your first Avesta Wellbeing order</p>
+        </div>
+        <div className="lp-body">
           {submitted ? (
-            <div>
-              <h3
-                id="lead-popup-title"
-                style={{ fontFamily: "var(--font-d)", fontSize: 20 }}
-              >
-                You&apos;re in! 🎉
-              </h3>
-              <p style={{ marginTop: 12, color: "var(--muted)", fontSize: 14.5 }}>
-                Use code{" "}
-                <b style={{ fontFamily: "var(--font-m)", letterSpacing: "0.5px" }}>
-                  {code}
-                </b>{" "}
-                at checkout for 10% off your first order.
-              </p>
+            <div className="lp-success">
+              <h3>You&apos;re in! 🎉</h3>
+              <p>Use this code at checkout for 10% off your first order:</p>
+              <div className="lp-code">{code}</div>
               {consent ? (
-                <p style={{ marginTop: 10, color: "var(--muted)", fontSize: 13 }}>
+                <p style={{ fontSize: 13 }}>
                   We&apos;ll also send it to your WhatsApp &amp; email.
                 </p>
               ) : null}
-              <button
-                type="button"
-                className="btn btn-brass"
-                style={{ width: "100%", justifyContent: "center", marginTop: 18 }}
+              <a
+                className="btn brass"
+                style={{ width: "100%", justifyContent: "center" }}
+                href="/#shop"
                 onClick={() => setOpen(false)}
               >
-                Done
-              </button>
+                Start shopping
+              </a>
             </div>
           ) : (
             <form onSubmit={submitLead}>
-              <h3
-                id="lead-popup-title"
-                style={{ fontFamily: "var(--font-d)", fontSize: 20, marginBottom: 18 }}
-              >
-                Unlock your code
-              </h3>
-              <div className="field">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your name"
-                  aria-label="Your name"
-                  autoComplete="name"
-                  required
-                />
-              </div>
-              <div className="field">
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone number (10 digits)"
-                  aria-label="Phone number, 10 digits"
-                  inputMode="numeric"
-                  pattern="[0-9]{10}"
-                  maxLength={10}
-                  autoComplete="tel-national"
-                  required
-                />
-              </div>
-              <div className="field">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email address"
-                  aria-label="Email address"
-                  autoComplete="email"
-                  required
-                />
-              </div>
+              <h3>Join the wellbeing list</h3>
+              <p>
+                Get your code, early access to new launches, and science-backed
+                health tips. No spam — unsubscribe anytime.
+              </p>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your name"
+                aria-label="Your name"
+                autoComplete="name"
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone number (10 digits)"
+                aria-label="Phone number, 10 digits"
+                inputMode="numeric"
+                pattern="[0-9]{10}"
+                maxLength={10}
+                autoComplete="tel-national"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="you@email.com"
+                aria-label="Email address"
+                autoComplete="email"
+                required
+              />
               {/* DPDP: UNTICKED by default. Submitting without it still captures
-                  the lead (consent_whatsapp=false) and reveals the code — it only
-                  gates entry into the marketing follow-up. */}
-              <label className="consent">
+                  the lead (consent_whatsapp=false) and reveals the code. */}
+              <label className="consent" style={{ textAlign: "left" }}>
                 <input
                   type="checkbox"
                   checked={consent}
                   onChange={(e) => setConsent(e.target.checked)}
                 />
-                Send me offers &amp; health tips on WhatsApp. I agree to the{" "}
-                <u>Privacy Policy</u>.
+                <span>
+                  Send me offers &amp; health tips on WhatsApp. I agree to the{" "}
+                  <u>Privacy Policy</u>.
+                </span>
               </label>
               {error ? (
-                <p
-                  role="alert"
-                  style={{ color: "#b42318", fontSize: 13, marginBottom: 12 }}
-                >
+                <p role="alert" style={{ color: "#c0392b", fontSize: 13, margin: "0 0 12px" }}>
                   {error}
                 </p>
               ) : null}
-              <button
-                type="submit"
-                className="btn btn-brass"
-                style={{ width: "100%", justifyContent: "center" }}
-                disabled={submitting}
-              >
-                {submitting ? "Getting your code…" : "Get my 10% code →"}
+              <button className="btn brass" type="submit" disabled={submitting}>
+                {submitting ? "Getting your code…" : "Get my 10% code"}
               </button>
-              <div className="pop-note">
-                NO SPAM. ONE CODE, REAL SCIENCE, EASY OPT-OUT.
+              <div className="lp-fine">
+                By signing up you agree to our privacy policy.
               </div>
             </form>
           )}

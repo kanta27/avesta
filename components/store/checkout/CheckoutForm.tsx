@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -113,6 +113,19 @@ export function CheckoutForm({ initial }: { initial?: CheckoutInitial }) {
   });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Prefill the discount field with a code the cart drawer already validated
+  // (sessionStorage handoff). UX only — the server re-validates at create-order.
+  useEffect(() => {
+    try {
+      const code = sessionStorage.getItem("av_checkout_discount");
+      if (code) {
+        setFields((f) => (f.discountCode ? f : { ...f, discountCode: code }));
+      }
+    } catch {
+      /* storage unavailable — field just starts empty */
+    }
+  }, []);
 
   const set = (key: FieldKey) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setFields((f) => ({ ...f, [key]: e.target.value }));
