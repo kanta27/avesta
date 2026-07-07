@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { CartButton } from "@/components/store/cart/CartButton";
 
@@ -15,8 +18,18 @@ const LINKS = [
 ] as const;
 
 export function Nav({ authed = false }: { authed?: boolean }) {
+  // Header starts borderless over the page; a hairline + shadow fade in once
+  // the user scrolls (reference.html `header.scrolled` behavior).
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav>
+    <nav className={scrolled ? "scrolled" : undefined}>
       <div className="wrap nav-in">
         <Link className="logo" href="/" aria-label="Avesta Nordic home">
           <span className="dot" aria-hidden />

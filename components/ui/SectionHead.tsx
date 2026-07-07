@@ -19,10 +19,10 @@ export function SectionHead({
 }: SectionHeadProps) {
   return (
     <div className="sec-head">
-      <h2>
+      <div>
         <span className="kicker">{kicker}</span>
-        {title}
-      </h2>
+        <h2>{title}</h2>
+      </div>
       {description ? <p>{description}</p> : null}
       {children}
     </div>

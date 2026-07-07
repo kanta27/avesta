@@ -42,11 +42,18 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  background: var(--paper);
+  background: var(--parchment);
   color: var(--ink);
   font-family: var(--font-b), system-ui, sans-serif;
-  line-height: 1.6;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection {
+  background: var(--brass);
+  color: #fff;
 }
 img {
   max-width: 100%;
@@ -55,30 +62,44 @@ h1,
 h2,
 h3 {
   font-family: var(--font-d), sans-serif;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: clamp(30px, 4.4vw, 52px);
+}
+h3 {
+  font-size: clamp(21px, 2.2vw, 27px);
+  line-height: 1.18;
+}
+.lead {
+  font-size: clamp(18px, 1.5vw, 21px);
+  line-height: 1.6;
+  color: #2c3b45;
 }
 .mono {
   font-family: var(--font-m), monospace;
 }
 .wrap {
-  max-width: 1180px;
+  max-width: var(--maxw);
   margin: 0 auto;
-  padding: 0 28px;
+  padding-left: var(--pad);
+  padding-right: var(--pad);
+  position: relative;
+  z-index: 1;
 }
 
-/* Grain + molecule dot texture, fading out below the fold. */
+/* Paper-grain overlay. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.5;
-  background-image: radial-gradient(var(--line) 1px, transparent 1px);
-  background-size: 34px 34px;
-  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent 40%);
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent 40%);
+  opacity: 0.28;
+  background-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.015) 1px, transparent 1.4px);
+  background-size: 5px 5px;
 }
 main,
 header,
@@ -89,62 +110,76 @@ footer {
 
 /* ---------- announcement + nav ---------- */
 .announce {
-  background: var(--ink);
-  color: var(--lime);
-  font-family: var(--font-m);
-  font-size: 12px;
+  background: linear-gradient(90deg, var(--pine), var(--teal));
+  color: #fff;
+  font-family: var(--font-b);
+  font-size: 13px;
   text-align: center;
-  padding: 8px 12px;
-  letter-spacing: 0.06em;
+  padding: 9px 16px;
+  letter-spacing: 0.02em;
+  position: relative;
+  z-index: 60;
 }
 nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(250, 251, 248, 0.86);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+nav.scrolled {
+  border-color: var(--line);
+  box-shadow: 0 6px 24px -20px rgba(0, 0, 0, 0.5);
 }
 .nav-in {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
+  height: 74px;
 }
 .logo {
   font-family: var(--font-d);
-  font-weight: 800;
-  font-size: 21px;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.01em;
+  color: var(--pine);
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
 }
 .logo .dot {
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: var(--lime);
-  box-shadow: 0 0 0 4px rgba(200, 240, 76, 0.25);
+  background: var(--brass);
+  box-shadow: 0 0 0 4px rgba(90, 167, 47, 0.22);
 }
 .nav-links {
   display: flex;
   gap: 30px;
   font-size: 14.5px;
-  font-weight: 500;
+  font-weight: 600;
 }
 .nav-links a {
   position: relative;
   padding: 4px 0;
+  color: #2c3b45;
+  transition: color 0.2s ease;
+}
+.nav-links a:hover {
+  color: var(--pine);
 }
 .nav-links a::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -2px;
   width: 0;
-  height: 2px;
-  background: var(--lime-deep);
-  transition: width 0.25s;
+  height: 1.5px;
+  background: var(--brass);
+  transition: width 0.28s ease;
 }
 .nav-links a:hover::after {
   width: 100%;
@@ -154,38 +189,87 @@ nav {
   align-items: center;
   gap: 14px;
 }
+.nav-cta .btn {
+  padding: 11px 20px;
+}
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  font-size: 15px;
-  padding: 13px 24px;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.18s, box-shadow 0.18s;
+  gap: 0.6em;
   font-family: var(--font-b);
+  font-weight: 700;
+  font-size: 14.5px;
+  letter-spacing: 0.02em;
+  padding: 15px 30px;
+  border-radius: var(--pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  background: var(--pine);
+  color: #f6f3ea;
 }
 .btn:hover {
+  background: var(--pine-deep);
   transform: translateY(-2px);
+  box-shadow: 0 12px 28px -14px rgba(15, 42, 32, 0.7);
+}
+.btn .arr {
+  transition: transform 0.25s ease;
+}
+.btn:hover .arr {
+  transform: translateX(4px);
 }
 .btn-primary {
-  background: var(--ink);
-  color: #fff;
-  box-shadow: 0 8px 22px rgba(10, 61, 63, 0.22);
+  background: var(--pine);
+  color: #f6f3ea;
 }
 .btn-primary:hover {
-  box-shadow: 0 12px 28px rgba(10, 61, 63, 0.3);
+  background: var(--pine-deep);
 }
-.btn-lime {
-  background: var(--lime);
-  color: var(--ink);
+.btn-lime,
+.btn-brass {
+  background: var(--brass);
+  color: #06222f;
+}
+.btn-lime:hover,
+.btn-brass:hover {
+  background: var(--brass-soft);
+  box-shadow: 0 12px 28px -14px rgba(90, 167, 47, 0.8);
 }
 .btn-ghost {
   background: transparent;
-  border: 1.5px solid var(--ink);
-  color: var(--ink);
+  border-color: var(--pine);
+  color: var(--pine);
+}
+.btn-ghost:hover {
+  background: var(--pine);
+  color: #f6f3ea;
+}
+.btn.on-dark.btn-ghost {
+  color: #f0ece0;
+  border-color: rgba(240, 236, 224, 0.45);
+  background: transparent;
+}
+.btn.on-dark.btn-ghost:hover {
+  background: #f0ece0;
+  color: var(--pine);
+}
+.textlink {
+  font-family: var(--font-m);
+  font-size: 12.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pine);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  border-bottom: 1px solid var(--brass);
+  padding-bottom: 3px;
+  transition: gap 0.25s ease, color 0.25s ease;
+}
+.textlink:hover {
+  gap: 0.95em;
+  color: var(--brass);
 }
 .cart-ic {
   position: relative;
@@ -223,20 +307,30 @@ nav {
 .eyebrow {
   font-family: var(--font-m);
   font-size: 12px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--ink-2);
+  color: var(--brass);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  border: 1px solid var(--line);
-  background: #fff;
-  padding: 7px 14px;
-  border-radius: 999px;
-  margin-bottom: 26px;
+  gap: 0.7em;
+  margin: 0 0 22px;
+}
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--brass);
+  display: inline-block;
+  opacity: 0.8;
+}
+.eyebrow.center {
+  justify-content: center;
+}
+.eyebrow.center::before {
+  display: none;
 }
 .eyebrow b {
-  color: var(--lime-deep);
+  color: var(--pine);
 }
 .hero h1 {
   font-size: clamp(40px, 5.4vw, 66px);
@@ -407,34 +501,44 @@ nav {
 
 /* ---------- generic section ---------- */
 section {
-  padding: 88px 0;
+  padding: clamp(72px, 9vw, 128px) 0;
 }
 .sec-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   gap: 30px;
-  margin-bottom: 46px;
+  margin-bottom: clamp(40px, 5vw, 64px);
   flex-wrap: wrap;
 }
 .sec-head h2 {
-  font-size: clamp(28px, 3.4vw, 42px);
-  font-weight: 800;
-  max-width: 560px;
+  font-size: clamp(30px, 4.4vw, 52px);
+  font-weight: 700;
+  max-width: 640px;
 }
 .sec-head .kicker {
   font-family: var(--font-m);
   font-size: 12px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--lime-deep);
-  display: block;
-  margin-bottom: 12px;
+  color: var(--brass);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  margin-bottom: 14px;
+}
+.sec-head .kicker::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--brass);
+  display: inline-block;
+  opacity: 0.8;
 }
 .sec-head p {
-  color: var(--grey);
+  color: var(--muted);
   max-width: 380px;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 /* ---------- concerns ---------- */
@@ -485,17 +589,18 @@ section {
   gap: 20px;
 }
 .prod {
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
+  box-shadow: 0 10px 30px -20px rgba(14, 58, 79, 0.28);
   transition: all 0.22s;
   display: flex;
   flex-direction: column;
 }
 .prod:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 44px rgba(10, 61, 63, 0.12);
+  box-shadow: 0 30px 54px -30px rgba(14, 58, 79, 0.5);
 }
 .prod-link {
   display: block;
@@ -1179,8 +1284,8 @@ section {
 
 /* ---------- footer ---------- */
 footer {
-  background: var(--ink);
-  color: rgba(255, 255, 255, 0.78);
+  background: var(--navy-deep);
+  color: #c4d2da;
   padding: 70px 0 36px;
   margin-top: 60px;
 }
@@ -1190,34 +1295,38 @@ footer {
   gap: 44px;
 }
 .f-grid h4 {
-  color: #fff;
-  font-family: var(--font-d);
-  font-size: 15px;
-  margin-bottom: 16px;
+  color: var(--brass-soft);
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
 }
 .f-grid a {
   display: block;
-  font-size: 14px;
-  margin-bottom: 10px;
-  opacity: 0.8;
+  font-size: 14.5px;
+  margin-bottom: 11px;
+  color: #adbfc8;
+  transition: color 0.2s;
 }
 .f-grid a:hover {
-  opacity: 1;
-  color: var(--lime);
+  color: #fff;
 }
 .f-logo {
   font-family: var(--font-d);
-  font-weight: 800;
+  font-weight: 600;
   font-size: 22px;
-  color: #fff;
+  color: #e8f1f7;
   margin-bottom: 14px;
 }
 .f-grid p {
-  font-size: 13.5px;
+  font-size: 14.5px;
+  color: #8a9fab;
   max-width: 300px;
 }
 .f-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 1px solid var(--line-dark);
   margin-top: 54px;
   padding-top: 26px;
   display: flex;
@@ -1226,9 +1335,8 @@ footer {
   flex-wrap: wrap;
   font-family: var(--font-m);
   font-size: 11.5px;
-  /* 0.8 keeps the fine print subtle while clearing WCAG AA (4.5:1) for this
-     small legal text — the demo's 0.65 measured 4.26:1. */
-  opacity: 0.8;
+  /* #a3b6c0 on navy-deep clears WCAG AA (4.5:1) for this small legal text. */
+  color: #a3b6c0;
 }
 .f-cert {
   display: flex;
@@ -1239,7 +1347,7 @@ footer {
 .f-cert span {
   font-family: var(--font-m);
   font-size: 10.5px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--line-dark);
   padding: 6px 11px;
   border-radius: 999px;
 }
@@ -2198,14 +2306,15 @@ a.rev {
   position: absolute;
   top: -5px;
   right: -7px;
-  background: var(--lime);
-  color: var(--ink);
+  background: var(--brass);
+  color: #fff;
+  border: 2px solid #fff;
   font-family: var(--font-m);
   font-size: 10px;
   font-weight: 600;
   border-radius: 999px;
-  min-width: 17px;
-  height: 17px;
+  min-width: 18px;
+  height: 18px;
   padding: 0 4px;
   display: grid;
   place-items: center;
