@@ -122,7 +122,7 @@ export default async function ConcernPage({ params }: { params: Params }) {
               {page.faqs.map((f, i) => (
                 <div key={i} className="py-5">
                   <dt className="font-medium text-ink">{f.q}</dt>
-                  <dd className="mt-2 text-grey">{f.a}</dd>
+                  <dd className="mt-2 text-muted">{f.a}</dd>
                 </div>
               ))}
             </dl>

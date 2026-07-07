@@ -88,24 +88,24 @@ export default async function AdminLeadsPage({
           Filter
         </button>
         {(sourceType || converted !== undefined) && (
-          <Link href="/admin/leads" className="text-sm text-grey hover:underline">
+          <Link href="/admin/leads" className="text-sm text-muted hover:underline">
             Clear
           </Link>
         )}
       </form>
 
-      <p className="mt-4 text-sm text-grey">
+      <p className="mt-4 text-sm text-muted">
         {leads.length} lead{leads.length === 1 ? "" : "s"}.
       </p>
 
       {leads.length === 0 ? (
-        <p className="mt-4 rounded-card border border-line bg-paper-2 px-5 py-8 text-center text-sm text-grey">
+        <p className="mt-4 rounded-card border border-line bg-parchment-2 px-5 py-8 text-center text-sm text-muted">
           No leads match.
         </p>
       ) : (
         <div className="mt-2 overflow-hidden rounded-card border border-line">
           <table className="w-full text-sm">
-            <thead className="bg-paper-2 text-left font-mono text-xs uppercase tracking-wide text-grey">
+            <thead className="bg-parchment-2 text-left font-mono text-xs uppercase tracking-wide text-muted">
               <tr>
                 <th className="px-4 py-3">Captured</th>
                 <th className="px-4 py-3">Name</th>
@@ -119,24 +119,24 @@ export default async function AdminLeadsPage({
               {leads.map((l) => (
                 <Fragment key={l.id}>
                   <tr className="bg-white">
-                    <td className="px-4 py-3 text-grey">
+                    <td className="px-4 py-3 text-muted">
                       {formatDate(l.createdAt)}
                     </td>
                     <td className="px-4 py-3 text-ink">{l.name ?? "—"}</td>
                     <td className="px-4 py-3">
-                      <div className="font-mono text-xs text-grey">
+                      <div className="font-mono text-xs text-muted">
                         {l.phone ?? "—"}
                       </div>
-                      <div className="text-xs text-grey">{l.email ?? ""}</div>
+                      <div className="text-xs text-muted">{l.email ?? ""}</div>
                     </td>
-                    <td className="px-4 py-3 capitalize text-grey">
+                    <td className="px-4 py-3 capitalize text-muted">
                       {l.sourceType}
                     </td>
                     <td className="px-4 py-3">
                       {l.consentWhatsapp ? (
                         <span className="text-xs text-ink">WhatsApp ✓</span>
                       ) : (
-                        <span className="text-xs text-grey">—</span>
+                        <span className="text-xs text-muted">—</span>
                       )}
                     </td>
                     <td className="px-4 py-3">
@@ -144,24 +144,24 @@ export default async function AdminLeadsPage({
                         l.convertedOrderId ? (
                           <Link
                             href={`/admin/orders/${l.convertedOrderId}`}
-                            className="rounded-full bg-lime/40 px-2.5 py-0.5 text-xs font-medium text-ink hover:bg-lime/60"
+                            className="rounded-full bg-brass/40 px-2.5 py-0.5 text-xs font-medium text-ink hover:bg-brass/60"
                           >
                             Converted
                           </Link>
                         ) : (
-                          <span className="rounded-full bg-lime/40 px-2.5 py-0.5 text-xs font-medium text-ink">
+                          <span className="rounded-full bg-brass/40 px-2.5 py-0.5 text-xs font-medium text-ink">
                             Converted
                           </span>
                         )
                       ) : (
-                        <span className="text-xs text-grey">No</span>
+                        <span className="text-xs text-muted">No</span>
                       )}
                     </td>
                   </tr>
                   {l.b2b && (
-                    <tr className="bg-paper-2/60">
+                    <tr className="bg-parchment-2/60">
                       <td colSpan={6} className="px-4 pb-3 pt-0">
-                        <dl className="grid gap-x-6 gap-y-1 text-xs text-grey sm:grid-cols-[auto_1fr]">
+                        <dl className="grid gap-x-6 gap-y-1 text-xs text-muted sm:grid-cols-[auto_1fr]">
                           {l.b2b.orgType && (
                             <>
                               <dt className="font-mono uppercase tracking-wide">Org</dt>

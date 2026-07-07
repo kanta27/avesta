@@ -11,7 +11,7 @@ export function LeadTriggerButton({
   style,
 }: {
   children: ReactNode;
-  variant?: "primary" | "lime" | "ghost";
+  variant?: "primary" | "brass" | "ghost";
   className?: string;
   style?: CSSProperties;
 }) {

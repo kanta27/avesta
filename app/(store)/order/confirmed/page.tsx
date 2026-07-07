@@ -126,7 +126,7 @@ export default async function OrderConfirmedPage({
           </ul>
         </div>
 
-        <Button variant="lime" href="/shop">
+        <Button variant="brass" href="/shop">
           Continue shopping
         </Button>
 

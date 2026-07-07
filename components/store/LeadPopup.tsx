@@ -217,7 +217,7 @@ export function LeadPopup() {
               >
                 You&apos;re in! 🎉
               </h3>
-              <p style={{ marginTop: 12, color: "var(--grey)", fontSize: 14.5 }}>
+              <p style={{ marginTop: 12, color: "var(--muted)", fontSize: 14.5 }}>
                 Use code{" "}
                 <b style={{ fontFamily: "var(--font-m)", letterSpacing: "0.5px" }}>
                   {code}
@@ -225,13 +225,13 @@ export function LeadPopup() {
                 at checkout for 10% off your first order.
               </p>
               {consent ? (
-                <p style={{ marginTop: 10, color: "var(--grey)", fontSize: 13 }}>
+                <p style={{ marginTop: 10, color: "var(--muted)", fontSize: 13 }}>
                   We&apos;ll also send it to your WhatsApp &amp; email.
                 </p>
               ) : null}
               <button
                 type="button"
-                className="btn btn-lime"
+                className="btn btn-brass"
                 style={{ width: "100%", justifyContent: "center", marginTop: 18 }}
                 onClick={() => setOpen(false)}
               >
@@ -301,7 +301,7 @@ export function LeadPopup() {
               ) : null}
               <button
                 type="submit"
-                className="btn btn-lime"
+                className="btn btn-brass"
                 style={{ width: "100%", justifyContent: "center" }}
                 disabled={submitting}
               >

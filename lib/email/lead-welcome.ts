@@ -117,11 +117,11 @@ export async function sendLeadFollowupEmail(input: {
 /** Minimal, dependency-free welcome email body. */
 function renderWelcomeHtml(name: string | null, code: string): string {
   const greeting = name ? `Hi ${escapeHtml(name)},` : "Hi there,";
-  return `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#0A3D3F">
+  return `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#1F2D38">
   <h2>Welcome to the Avesta Nordic circle</h2>
   <p>${greeting}</p>
   <p>Here's your code for <strong>10% off your first order</strong>:</p>
-  <p style="font-size:22px;font-weight:bold;letter-spacing:1px;color:#0A3D3F">${escapeHtml(code)}</p>
+  <p style="font-size:22px;font-weight:bold;letter-spacing:1px;color:#1F2D38">${escapeHtml(code)}</p>
   <p>Apply it at checkout. Science-backed hydration &amp; nutrition, on its way.</p>
   <p style="color:#5C6B68;font-size:13px">These products are not intended to diagnose, treat, cure or prevent any disease.</p>
   </body></html>`;
@@ -130,11 +130,11 @@ function renderWelcomeHtml(name: string | null, code: string): string {
 /** The 48h reminder body — one nudge, same code. */
 function renderFollowupHtml(name: string | null, code: string): string {
   const greeting = name ? `Hi ${escapeHtml(name)},` : "Hi there,";
-  return `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#0A3D3F">
+  return `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#1F2D38">
   <h2>Your 10% code is still waiting</h2>
   <p>${greeting}</p>
   <p>A quick reminder — your code for <strong>10% off your first order</strong> is ready whenever you are:</p>
-  <p style="font-size:22px;font-weight:bold;letter-spacing:1px;color:#0A3D3F">${escapeHtml(code)}</p>
+  <p style="font-size:22px;font-weight:bold;letter-spacing:1px;color:#1F2D38">${escapeHtml(code)}</p>
   <p>Apply it at checkout. Science-backed hydration &amp; nutrition, on its way.</p>
   <p style="color:#5C6B68;font-size:13px">These products are not intended to diagnose, treat, cure or prevent any disease.</p>
   </body></html>`;

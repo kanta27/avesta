@@ -13,7 +13,7 @@ export default async function AdminConcernPagesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Concern Pages</h1>
-          <p className="mt-1 text-sm text-grey">
+          <p className="mt-1 text-sm text-muted">
             {pages.length} page{pages.length === 1 ? "" : "s"} · each is live at
             its URL the moment it exists.
           </p>
@@ -27,13 +27,13 @@ export default async function AdminConcernPagesPage() {
       </div>
 
       {pages.length === 0 ? (
-        <p className="mt-8 rounded-card border border-line bg-paper-2 px-5 py-8 text-center text-sm text-grey">
+        <p className="mt-8 rounded-card border border-line bg-parchment-2 px-5 py-8 text-center text-sm text-muted">
           No concern pages yet.
         </p>
       ) : (
         <div className="mt-6 overflow-hidden rounded-card border border-line">
           <table className="w-full text-sm">
-            <thead className="bg-paper-2 text-left font-mono text-xs uppercase tracking-wide text-grey">
+            <thead className="bg-parchment-2 text-left font-mono text-xs uppercase tracking-wide text-muted">
               <tr>
                 <th className="px-4 py-3">Concern</th>
                 <th className="px-4 py-3">Products</th>
@@ -51,23 +51,23 @@ export default async function AdminConcernPagesPage() {
                     >
                       {p.concern}
                     </Link>
-                    <span className="block font-mono text-xs text-grey">
+                    <span className="block font-mono text-xs text-muted">
                       /health-concern/{p.slug}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-grey">{p.productCount}</td>
-                  <td className="px-4 py-3 text-grey">{p.faqCount}</td>
+                  <td className="px-4 py-3 text-muted">{p.productCount}</td>
+                  <td className="px-4 py-3 text-muted">{p.faqCount}</td>
                   <td className="px-4 py-3 text-right">
                     <Link
                       href={`/health-concern/${p.slug}`}
-                      className="text-xs text-ink-2 hover:underline"
+                      className="text-xs text-navy hover:underline"
                       target="_blank"
                     >
                       View
                     </Link>
                     <Link
                       href={`/admin/concern-pages/${p.id}/edit`}
-                      className="ml-3 text-xs text-ink-2 hover:underline"
+                      className="ml-3 text-xs text-navy hover:underline"
                     >
                       Edit
                     </Link>

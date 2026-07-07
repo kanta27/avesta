@@ -46,7 +46,7 @@ export default function ForProfessionalsPage() {
   return (
     <section className="policy">
       <div className="wrap" style={{ maxWidth: 980, padding: "44px 0 90px" }}>
-        <p className="mono" style={{ color: "var(--lime-deep)", letterSpacing: "0.04em" }}>
+        <p className="mono" style={{ color: "var(--brass)", letterSpacing: "0.04em" }}>
           WHOLESALE &amp; PARTNERSHIPS
         </p>
         <h1
@@ -55,7 +55,7 @@ export default function ForProfessionalsPage() {
         >
           For doctors &amp; distributors
         </h1>
-        <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-grey">
+        <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-muted">
           Avesta Nordic is Avesthagen&apos;s consumer health brand — clinically
           formulated hydration drinks and nutrient gummies for the Indian market.
           If you&apos;re a healthcare professional, pharmacy or distributor, tell us
@@ -71,7 +71,7 @@ export default function ForProfessionalsPage() {
               <h2 className="font-[family-name:var(--font-d)] text-lg text-ink">
                 {a.title}
               </h2>
-              <p className="mt-2 text-[14px] leading-relaxed text-grey">{a.body}</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-muted">{a.body}</p>
             </div>
           ))}
         </div>
@@ -83,25 +83,25 @@ export default function ForProfessionalsPage() {
             </h2>
             <ul className="mt-5 space-y-3">
               {REASONS.map((r) => (
-                <li key={r} className="flex gap-3 text-[14.5px] text-grey">
-                  <span aria-hidden className="text-lime-deep">
+                <li key={r} className="flex gap-3 text-[14.5px] text-muted">
+                  <span aria-hidden className="text-brass">
                     ✓
                   </span>
                   <span>{r}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-8 text-[13px] leading-relaxed text-grey">
+            <p className="mt-8 text-[13px] leading-relaxed text-muted">
               These products are not intended to diagnose, treat, cure or prevent
               any disease.
             </p>
           </div>
 
-          <div className="rounded-card border border-line bg-paper-2 p-6 sm:p-8">
+          <div className="rounded-card border border-line bg-parchment-2 p-6 sm:p-8">
             <h2 className="font-[family-name:var(--font-d)] text-xl text-ink">
               Bulk &amp; wholesale enquiry
             </h2>
-            <p className="mb-6 mt-2 text-[13.5px] text-grey">
+            <p className="mb-6 mt-2 text-[13.5px] text-muted">
               No account needed — just send us your details.
             </p>
             <B2bInquiryForm />

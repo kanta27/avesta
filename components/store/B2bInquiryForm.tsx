@@ -83,18 +83,18 @@ export function B2bInquiryForm() {
     return (
       <div
         role="status"
-        className="rounded-card border border-line bg-paper-2 px-6 py-10 text-center"
+        className="rounded-card border border-line bg-parchment-2 px-6 py-10 text-center"
       >
         <div
           aria-hidden
-          className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-lime/50 text-2xl"
+          className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brass/50 text-2xl"
         >
           ✓
         </div>
         <h3 className="font-[family-name:var(--font-d)] text-xl text-ink">
           Enquiry received
         </h3>
-        <p className="mx-auto mt-3 max-w-md text-[14.5px] text-grey">{ack}</p>
+        <p className="mx-auto mt-3 max-w-md text-[14.5px] text-muted">{ack}</p>
       </div>
     );
   }
@@ -184,7 +184,7 @@ export function B2bInquiryForm() {
 
       <div className="field">
         <label className="mb-1.5 block text-[13px] font-medium text-ink" htmlFor="b2b-message">
-          Anything else? <span className="text-grey">(optional)</span>
+          Anything else? <span className="text-muted">(optional)</span>
         </label>
         <textarea
           id="b2b-message"

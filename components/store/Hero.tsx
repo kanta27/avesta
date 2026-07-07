@@ -46,17 +46,17 @@ export function Hero() {
           <svg className="helix" viewBox="0 0 400 560" fill="none" aria-hidden>
             <path
               d="M80 0 C 200 70, 200 130, 80 200 C 200 270, 200 330, 80 400 C 200 470, 200 530, 80 600"
-              stroke="#0A3D3F"
+              stroke="#127FB3"
               strokeOpacity=".14"
               strokeWidth="2"
             />
             <path
               d="M320 0 C 200 70, 200 130, 320 200 C 200 270, 200 330, 320 400 C 200 470, 200 530, 320 600"
-              stroke="#9CCB1F"
+              stroke="#5AA72F"
               strokeOpacity=".3"
               strokeWidth="2"
             />
-            <g stroke="#0A3D3F" strokeOpacity=".12">
+            <g stroke="#127FB3" strokeOpacity=".12">
               <line x1="110" y1="60" x2="290" y2="60" />
               <line x1="100" y1="140" x2="300" y2="140" />
               <line x1="110" y1="260" x2="290" y2="260" />

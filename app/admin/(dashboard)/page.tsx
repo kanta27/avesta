@@ -39,11 +39,11 @@ export default async function AdminHomePage() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <p className="font-mono text-xs uppercase tracking-widest text-grey">
+      <p className="font-mono text-xs uppercase tracking-widest text-muted">
         Dashboard
       </p>
       <h1 className="mt-2 text-3xl font-semibold">Welcome back</h1>
-      <p className="mt-2 text-sm text-grey">
+      <p className="mt-2 text-sm text-muted">
         Signed in as <span className="font-medium text-ink">{user.email}</span>.
       </p>
 
@@ -52,10 +52,10 @@ export default async function AdminHomePage() {
           <Link
             key={m.href}
             href={m.href}
-            className="rounded-card border border-line bg-paper-2 px-5 py-4 transition-colors hover:border-ink"
+            className="rounded-card border border-line bg-parchment-2 px-5 py-4 transition-colors hover:border-ink"
           >
             <p className="font-semibold">{m.title}</p>
-            <p className="mt-1 text-sm text-grey">{m.desc}</p>
+            <p className="mt-1 text-sm text-muted">{m.desc}</p>
           </Link>
         ))}
       </div>

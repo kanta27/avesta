@@ -30,7 +30,7 @@ function asCategory(v: string | undefined): GalleryCategory | undefined {
 const pill =
   "rounded-full border px-4 py-1.5 text-sm font-medium transition-colors";
 const pillOn = "border-ink bg-ink text-white";
-const pillOff = "border-line bg-white text-grey hover:border-ink hover:text-ink";
+const pillOff = "border-line bg-white text-muted hover:border-ink hover:text-ink";
 
 export default async function GalleryPage({
   searchParams,
@@ -104,7 +104,7 @@ export default async function GalleryPage({
                       loading="lazy"
                       className="aspect-square w-full object-cover"
                     />
-                    <figcaption className="px-3 py-2 font-mono text-[11px] uppercase tracking-wide text-grey">
+                    <figcaption className="px-3 py-2 font-mono text-[11px] uppercase tracking-wide text-muted">
                       {categoryLabel(img.category)}
                     </figcaption>
                   </figure>

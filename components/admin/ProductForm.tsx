@@ -34,7 +34,7 @@ type ImageItem = { url: string; alt?: string };
 const inputCls =
   "w-full rounded-card border border-line bg-white px-3 py-2 text-sm outline-none focus:border-ink";
 const labelCls = "block text-sm font-medium text-ink";
-const hintCls = "mt-1 text-xs text-grey";
+const hintCls = "mt-1 text-xs text-muted";
 
 const paiseToRupees = (p: number): string => (p ? String(p / 100) : "");
 const rupeesToPaise = (s: string): number => {
@@ -86,7 +86,7 @@ function RepeatableRows<T>({
       {rows.map((row, i) => (
         <div
           key={i}
-          className="rounded-card border border-line bg-paper-2 p-3"
+          className="rounded-card border border-line bg-parchment-2 p-3"
         >
           {renderRow(
             row,
@@ -454,7 +454,7 @@ export function ProductForm({ productId, initial }: ProductFormProps) {
           {images.map((img, i) => (
             <div
               key={i}
-              className="w-40 rounded-card border border-line bg-paper-2 p-2"
+              className="w-40 rounded-card border border-line bg-parchment-2 p-2"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img

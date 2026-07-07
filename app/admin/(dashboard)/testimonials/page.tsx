@@ -42,7 +42,7 @@ function filterHref(next: {
 const pill =
   "rounded-full border px-3 py-1 text-xs font-medium transition-colors";
 const pillOn = "border-ink bg-ink text-white";
-const pillOff = "border-line bg-white text-grey hover:border-ink hover:text-ink";
+const pillOff = "border-line bg-white text-muted hover:border-ink hover:text-ink";
 
 /** Testimonials admin list (feature 17), filterable by source/approval/featured. */
 export default async function AdminTestimonialsPage({
@@ -64,7 +64,7 @@ export default async function AdminTestimonialsPage({
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Testimonials</h1>
-          <p className="mt-1 text-sm text-grey">
+          <p className="mt-1 text-sm text-muted">
             {reviews.length} review{reviews.length === 1 ? "" : "s"}
             {source ? ` · ${sourceLabel(source)}` : ""}
             {approval ? ` · ${approval}` : ""}
@@ -79,7 +79,7 @@ export default async function AdminTestimonialsPage({
       {/* Filters */}
       <div className="mt-5 space-y-2">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-xs uppercase text-grey">Source</span>
+          <span className="font-mono text-xs uppercase text-muted">Source</span>
           <Link
             href={filterHref({ approval, featured })}
             className={`${pill} ${!source ? pillOn : pillOff}`}
@@ -97,7 +97,7 @@ export default async function AdminTestimonialsPage({
           ))}
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-xs uppercase text-grey">Approval</span>
+          <span className="font-mono text-xs uppercase text-muted">Approval</span>
           <Link
             href={filterHref({ source, featured })}
             className={`${pill} ${!approval ? pillOn : pillOff}`}
@@ -113,7 +113,7 @@ export default async function AdminTestimonialsPage({
               {a}
             </Link>
           ))}
-          <span className="ml-3 font-mono text-xs uppercase text-grey">
+          <span className="ml-3 font-mono text-xs uppercase text-muted">
             Featured
           </span>
           <Link
@@ -126,13 +126,13 @@ export default async function AdminTestimonialsPage({
       </div>
 
       {reviews.length === 0 ? (
-        <p className="mt-8 rounded-card border border-line bg-paper-2 px-5 py-8 text-center text-sm text-grey">
+        <p className="mt-8 rounded-card border border-line bg-parchment-2 px-5 py-8 text-center text-sm text-muted">
           No reviews match these filters.
         </p>
       ) : (
         <div className="mt-6 overflow-hidden rounded-card border border-line">
           <table className="w-full text-sm">
-            <thead className="bg-paper-2 text-left font-mono text-xs uppercase tracking-wide text-grey">
+            <thead className="bg-parchment-2 text-left font-mono text-xs uppercase tracking-wide text-muted">
               <tr>
                 <th className="px-4 py-3">Review</th>
                 <th className="px-4 py-3">Source</th>
@@ -151,14 +151,14 @@ export default async function AdminTestimonialsPage({
                         {starString(r.rating)}
                       </div>
                       {thirdParty ? (
-                        <p className="mt-1 text-xs text-grey">
+                        <p className="mt-1 text-xs text-muted">
                           Link-out badge —{" "}
                           {r.reelUrl ? (
                             <a
                               href={r.reelUrl}
                               target="_blank"
                               rel="noreferrer noopener nofollow"
-                              className="text-ink-2 underline"
+                              className="text-navy underline"
                             >
                               {sourceLabel(r.source)} listing ↗
                             </a>
@@ -169,24 +169,24 @@ export default async function AdminTestimonialsPage({
                       ) : (
                         <>
                           {r.body ? (
-                            <p className="mt-1 line-clamp-3 text-grey">{r.body}</p>
+                            <p className="mt-1 line-clamp-3 text-muted">{r.body}</p>
                           ) : (
-                            <p className="mt-1 text-xs italic text-grey">
+                            <p className="mt-1 text-xs italic text-muted">
                               (no text)
                             </p>
                           )}
-                          <p className="mt-1 text-xs text-grey">
+                          <p className="mt-1 text-xs text-muted">
                             {r.authorName ?? "Verified buyer"}
                             {r.location ? ` · ${r.location}` : ""}
                           </p>
                         </>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-grey">{sourceLabel(r.source)}</td>
-                    <td className="px-4 py-3 text-grey">
+                    <td className="px-4 py-3 text-muted">{sourceLabel(r.source)}</td>
+                    <td className="px-4 py-3 text-muted">
                       {r.productName ?? "—"}
                     </td>
-                    <td className="px-4 py-3 text-grey">
+                    <td className="px-4 py-3 text-muted">
                       {r.createdAt ? formatDate(r.createdAt) : "—"}
                     </td>
                     <td className="px-4 py-3">

@@ -56,16 +56,16 @@ function KpiCard({
   muted?: boolean;
 }) {
   return (
-    <div className="rounded-card border border-line bg-paper-2 px-5 py-4">
-      <p className="font-mono text-xs uppercase tracking-widest text-grey">
+    <div className="rounded-card border border-line bg-parchment-2 px-5 py-4">
+      <p className="font-mono text-xs uppercase tracking-widest text-muted">
         {label}
       </p>
       <p
-        className={`mt-2 text-2xl font-semibold ${muted ? "text-grey" : "text-ink"}`}
+        className={`mt-2 text-2xl font-semibold ${muted ? "text-muted" : "text-ink"}`}
       >
         {value}
       </p>
-      {sub ? <p className="mt-1 text-xs text-grey">{sub}</p> : null}
+      {sub ? <p className="mt-1 text-xs text-muted">{sub}</p> : null}
     </div>
   );
 }
@@ -85,11 +85,11 @@ export default async function AdminAnalyticsPage({
 
   return (
     <div className="mx-auto max-w-5xl">
-      <p className="font-mono text-xs uppercase tracking-widest text-grey">
+      <p className="font-mono text-xs uppercase tracking-widest text-muted">
         Analytics
       </p>
       <h1 className="mt-2 text-2xl font-semibold">Store performance</h1>
-      <p className="mt-1 text-sm text-grey">
+      <p className="mt-1 text-sm text-muted">
         {fmtDay(range.fromISO)} – {fmtDay(range.toISO)}
       </p>
 
@@ -128,7 +128,7 @@ export default async function AdminAnalyticsPage({
                 className={`rounded-card px-3 py-2 text-xs font-medium transition-colors ${
                   active
                     ? "bg-ink text-white"
-                    : "border border-line text-grey hover:text-ink"
+                    : "border border-line text-muted hover:text-ink"
                 }`}
               >
                 {days}d
@@ -201,12 +201,12 @@ export default async function AdminAnalyticsPage({
           />
         </div>
 
-        <div className="mt-4 rounded-card border border-line bg-paper-2 px-5 py-4">
-          <p className="font-mono text-xs uppercase tracking-widest text-grey">
+        <div className="mt-4 rounded-card border border-line bg-parchment-2 px-5 py-4">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted">
             Top pages
           </p>
           {traffic.topPages.length === 0 ? (
-            <p className="mt-2 text-sm text-grey">
+            <p className="mt-2 text-sm text-muted">
               Awaiting traffic data (lands with the Phase 2 analytics layer).
             </p>
           ) : (
@@ -219,7 +219,7 @@ export default async function AdminAnalyticsPage({
                   <span className="truncate font-mono text-xs text-ink">
                     {p.path}
                   </span>
-                  <span className="text-grey">{p.views}</span>
+                  <span className="text-muted">{p.views}</span>
                 </li>
               ))}
             </ol>

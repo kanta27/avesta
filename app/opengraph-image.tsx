@@ -2,12 +2,12 @@ import { ImageResponse } from "next/og";
 
 // Site-wide default Open Graph image (spec feature 14). Next's file convention
 // auto-attaches this to OG + Twitter metadata for every route once the root
-// layout sets `metadataBase`. A branded card: deep-teal field, lime accent rule,
+// layout sets `metadataBase`. A branded card: navy field, brass accent rule,
 // wordmark + positioning line.
 //
-// Brand tokens are hardcoded here (satori can't resolve CSS variables): ink
-// #0A3D3F, paper #FAFBF8, lime #C8F04C, grey-on-dark #B8C7C2. No remote font
-// fetch — the built-in sans keeps the build hermetic and fast.
+// Brand tokens are hardcoded here (satori can't resolve CSS variables): navy
+// #0E3A4F, white #FFFFFF, brass-soft #7CC24F, muted-on-dark #A7BCC7. No remote
+// font fetch — the built-in sans keeps the build hermetic and fast.
 
 export const alt = "Avesta Nordic — Pharma-grade science. Nature-derived medicine.";
 export const size = { width: 1200, height: 630 };
@@ -23,16 +23,16 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#0A3D3F",
+          backgroundColor: "#0E3A4F",
           padding: "72px 80px",
         }}
       >
-        {/* Lime accent rule, top-left */}
+        {/* Brass accent rule, top-left */}
         <div
           style={{
             width: 96,
             height: 12,
-            backgroundColor: "#C8F04C",
+            backgroundColor: "#7CC24F",
             borderRadius: 6,
           }}
         />
@@ -44,7 +44,7 @@ export default function OpengraphImage() {
               fontSize: 104,
               fontWeight: 800,
               letterSpacing: "0.04em",
-              color: "#FAFBF8",
+              color: "#FFFFFF",
               lineHeight: 1,
             }}
           >
@@ -55,7 +55,7 @@ export default function OpengraphImage() {
               marginTop: 28,
               fontSize: 40,
               fontWeight: 500,
-              color: "#C8F04C",
+              color: "#7CC24F",
             }}
           >
             Pharma-grade science. Nature-derived medicine.
@@ -67,7 +67,7 @@ export default function OpengraphImage() {
           style={{
             fontSize: 26,
             letterSpacing: "0.18em",
-            color: "#B8C7C2",
+            color: "#A7BCC7",
           }}
         >
           PREVENTION · PRECAUTION · CURE

@@ -46,10 +46,10 @@ export function BlogStatusControl({
         onChange={(e) => onChange(e.target.value as BlogStatus)}
         className={`rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors disabled:opacity-50 ${
           status === "published"
-            ? "border-lime-deep bg-lime/40 text-ink"
+            ? "border-brass bg-brass/40 text-ink"
             : status === "review"
               ? "border-amber bg-amber/20 text-ink"
-              : "border-line bg-line/40 text-grey"
+              : "border-line bg-line/40 text-muted"
         }`}
       >
         {BLOG_STATUSES.map((s) => (

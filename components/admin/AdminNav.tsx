@@ -40,7 +40,7 @@ export function AdminNav() {
             className={`rounded-card px-4 py-2 text-sm font-medium transition-colors ${
               active
                 ? "bg-ink text-white"
-                : "text-grey hover:bg-paper hover:text-ink"
+                : "text-muted hover:bg-parchment hover:text-ink"
             }`}
           >
             {item.label}

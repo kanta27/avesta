@@ -14,7 +14,7 @@ export default async function AdminProductsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Products</h1>
-          <p className="mt-1 text-sm text-grey">
+          <p className="mt-1 text-sm text-muted">
             {products.length} product{products.length === 1 ? "" : "s"}.
           </p>
         </div>
@@ -24,13 +24,13 @@ export default async function AdminProductsPage() {
       </div>
 
       {products.length === 0 ? (
-        <p className="mt-8 rounded-card border border-line bg-paper-2 px-5 py-8 text-center text-sm text-grey">
+        <p className="mt-8 rounded-card border border-line bg-parchment-2 px-5 py-8 text-center text-sm text-muted">
           No products yet. Create your first one.
         </p>
       ) : (
         <div className="mt-6 overflow-hidden rounded-card border border-line">
           <table className="w-full text-sm">
-            <thead className="bg-paper-2 text-left font-mono text-xs uppercase tracking-wide text-grey">
+            <thead className="bg-parchment-2 text-left font-mono text-xs uppercase tracking-wide text-muted">
               <tr>
                 <th className="px-4 py-3">Name</th>
                 <th className="px-4 py-3">Type</th>
@@ -46,14 +46,14 @@ export default async function AdminProductsPage() {
                 <tr key={p.id} className="bg-white">
                   <td className="px-4 py-3">
                     <div className="font-medium text-ink">{p.name}</div>
-                    <div className="font-mono text-xs text-grey">{p.slug}</div>
+                    <div className="font-mono text-xs text-muted">{p.slug}</div>
                   </td>
-                  <td className="px-4 py-3 capitalize text-grey">{p.type}</td>
-                  <td className="px-4 py-3 text-grey">
+                  <td className="px-4 py-3 capitalize text-muted">{p.type}</td>
+                  <td className="px-4 py-3 text-muted">
                     {p.fromPaise != null ? formatPaiseINR(p.fromPaise) : "—"}
                   </td>
-                  <td className="px-4 py-3 text-grey">{p.stockCount}</td>
-                  <td className="px-4 py-3 text-grey">{p.imageCount}</td>
+                  <td className="px-4 py-3 text-muted">{p.stockCount}</td>
+                  <td className="px-4 py-3 text-muted">{p.imageCount}</td>
                   <td className="px-4 py-3">
                     <ProductActiveToggle id={p.id} initialActive={p.isActive} />
                   </td>

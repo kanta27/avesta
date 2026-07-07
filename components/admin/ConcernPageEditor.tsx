@@ -55,7 +55,7 @@ function Section({
   return (
     <section className="rounded-card border border-line bg-white p-5">
       <h2 className="text-base font-semibold">{title}</h2>
-      {hint && <p className="mt-1 text-xs text-grey">{hint}</p>}
+      {hint && <p className="mt-1 text-xs text-muted">{hint}</p>}
       <div className="mt-4 space-y-4">{children}</div>
     </section>
   );
@@ -167,7 +167,7 @@ export function ConcernPageEditor({
             placeholder="Hydration"
             required
           />
-          <p className="mt-1 text-xs text-grey">
+          <p className="mt-1 text-xs text-muted">
             Shown in the breadcrumb and the “Shop all …” link.
           </p>
         </div>
@@ -186,7 +186,7 @@ export function ConcernPageEditor({
             placeholder="hydration"
             required
           />
-          <p className="mt-1 text-xs text-grey">
+          <p className="mt-1 text-xs text-muted">
             URL: /health-concern/{slug || "…"} · lowercase words,
             hyphen-separated. The “Shop all” link points to /shop?concern=
             {slug || "…"}.
@@ -224,7 +224,7 @@ export function ConcernPageEditor({
             {introMd.trim() ? (
               <Markdown source={introMd} />
             ) : (
-              <p className="text-sm text-grey">Nothing to preview yet.</p>
+              <p className="text-sm text-muted">Nothing to preview yet.</p>
             )}
           </div>
         ) : (
@@ -241,7 +241,7 @@ export function ConcernPageEditor({
 
       <Section title="Matched products" hint="Active products only. The grid shows them in the order selected.">
         {productOptions.length === 0 ? (
-          <p className="text-sm text-grey">
+          <p className="text-sm text-muted">
             No active products yet. Add products first.
           </p>
         ) : (
@@ -257,7 +257,7 @@ export function ConcernPageEditor({
                   onChange={() => toggleProduct(opt.id)}
                 />
                 {opt.name}
-                <span className="font-mono text-xs text-grey">
+                <span className="font-mono text-xs text-muted">
                   ({opt.type})
                 </span>
               </label>
@@ -271,7 +271,7 @@ export function ConcernPageEditor({
           {faqs.map((row, i) => (
             <div
               key={i}
-              className="rounded-card border border-line bg-paper-2 p-3"
+              className="rounded-card border border-line bg-parchment-2 p-3"
             >
               <div className="space-y-2">
                 <input

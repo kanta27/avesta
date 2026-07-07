@@ -109,7 +109,7 @@ export function OrderFulfilment({
       </div>
 
       {willShip && (
-        <p className="rounded-card border border-line bg-paper-2 px-3 py-2 text-xs text-grey">
+        <p className="rounded-card border border-line bg-parchment-2 px-3 py-2 text-xs text-muted">
           Marking shipped will notify the customer (WhatsApp) with the tracking
           link.
         </p>
@@ -121,7 +121,7 @@ export function OrderFulfilment({
         </p>
       )}
       {saved && !error && (
-        <p className="rounded-card border border-line bg-lime/20 px-3 py-2 text-sm text-ink">
+        <p className="rounded-card border border-line bg-brass/20 px-3 py-2 text-sm text-ink">
           Saved.
         </p>
       )}

@@ -41,7 +41,7 @@ export function PackPricing({
         <span className="perday">{formatPaiseINR(tier.per_day_paise)}/DAY</span>
       </div>
       <Button
-        variant="lime"
+        variant="brass"
         className="add"
         onClick={() => addProduct(productId, tier.key)}
       >

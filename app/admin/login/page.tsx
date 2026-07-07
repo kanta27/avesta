@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function AdminLoginPage() {
   return (
-    <main className="min-h-screen grid place-items-center bg-paper text-ink px-6">
+    <main className="min-h-screen grid place-items-center bg-parchment text-ink px-6">
       <Suspense fallback={null}>
         <LoginForm />
       </Suspense>

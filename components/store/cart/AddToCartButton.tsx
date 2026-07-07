@@ -26,7 +26,7 @@ export function AddToCartButton(props: Props) {
 
   return (
     <Button
-      variant="lime"
+      variant="brass"
       className={props.className ?? "add"}
       onClick={onClick}
     >

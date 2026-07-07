@@ -35,7 +35,7 @@ export function SciencePipeline() {
     <section id="science">
       <div className="wrap sci-grid">
         <div>
-          <span className="mono uppercase tracking-[0.14em] text-[12px] text-lime-deep">
+          <span className="mono uppercase tracking-[0.14em] text-[12px] text-brass">
             03 — Why us
           </span>
           <h2 className="mt-3 text-[clamp(28px,3.4vw,42px)] font-extrabold">

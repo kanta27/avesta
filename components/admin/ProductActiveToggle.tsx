@@ -34,8 +34,8 @@ export function ProductActiveToggle({
       aria-pressed={active}
       className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors disabled:opacity-50 ${
         active
-          ? "bg-lime/40 text-ink hover:bg-lime/60"
-          : "bg-line/60 text-grey hover:bg-line"
+          ? "bg-brass/40 text-ink hover:bg-brass/60"
+          : "bg-line/60 text-muted hover:bg-line"
       }`}
     >
       {active ? "Active" : "Hidden"}

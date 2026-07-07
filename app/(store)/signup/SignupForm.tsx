@@ -69,7 +69,7 @@ export function SignupForm({ next }: { next: string }) {
 
       <button
         type="submit"
-        className="btn btn-lime auth-submit"
+        className="btn btn-brass auth-submit"
         disabled={pending}
       >
         {pending ? "Creating account…" : "Create account"}

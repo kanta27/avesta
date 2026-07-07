@@ -145,7 +145,7 @@ export function CheckoutForm({ initial }: { initial?: CheckoutInitial }) {
         <p className="checkout-empty-sub">
           Add a product or pack before checking out.
         </p>
-        <Button variant="lime" href="/shop">
+        <Button variant="brass" href="/shop">
           Browse products
         </Button>
       </div>
@@ -420,7 +420,7 @@ export function CheckoutForm({ initial }: { initial?: CheckoutInitial }) {
         ) : null}
 
         <Button
-          variant="lime"
+          variant="brass"
           type="submit"
           className="checkout-pay"
           disabled={busy}

@@ -33,7 +33,7 @@ export default async function AdminDiscountsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Discount codes</h1>
-          <p className="mt-1 text-sm text-grey">
+          <p className="mt-1 text-sm text-muted">
             {codes.length} code{codes.length === 1 ? "" : "s"}.
           </p>
         </div>
@@ -43,13 +43,13 @@ export default async function AdminDiscountsPage() {
       </div>
 
       {codes.length === 0 ? (
-        <p className="mt-8 rounded-card border border-line bg-paper-2 px-5 py-8 text-center text-sm text-grey">
+        <p className="mt-8 rounded-card border border-line bg-parchment-2 px-5 py-8 text-center text-sm text-muted">
           No discount codes yet.
         </p>
       ) : (
         <div className="mt-6 overflow-hidden rounded-card border border-line">
           <table className="w-full text-sm">
-            <thead className="bg-paper-2 text-left font-mono text-xs uppercase tracking-wide text-grey">
+            <thead className="bg-parchment-2 text-left font-mono text-xs uppercase tracking-wide text-muted">
               <tr>
                 <th className="px-4 py-3">Code</th>
                 <th className="px-4 py-3">Value</th>
@@ -65,15 +65,15 @@ export default async function AdminDiscountsPage() {
                   <td className="px-4 py-3 font-mono font-medium text-ink">
                     {c.code}
                   </td>
-                  <td className="px-4 py-3 text-grey">{formatValue(c)}</td>
-                  <td className="px-4 py-3 text-grey">
+                  <td className="px-4 py-3 text-muted">{formatValue(c)}</td>
+                  <td className="px-4 py-3 text-muted">
                     {c.minOrderPaise > 0 ? formatPaiseINR(c.minOrderPaise) : "—"}
                   </td>
-                  <td className="px-4 py-3 text-grey">
+                  <td className="px-4 py-3 text-muted">
                     {c.usedCount}
                     {c.usageLimit != null ? ` / ${c.usageLimit}` : ""}
                   </td>
-                  <td className="px-4 py-3 text-grey">
+                  <td className="px-4 py-3 text-muted">
                     {formatDate(c.expiresAt)}
                   </td>
                   <td className="px-4 py-3">

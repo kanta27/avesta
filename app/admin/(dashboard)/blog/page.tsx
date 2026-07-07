@@ -34,7 +34,7 @@ function filterHref(
 const pill =
   "rounded-full border px-3 py-1 text-xs font-medium transition-colors";
 const pillOn = "border-ink bg-ink text-white";
-const pillOff = "border-line bg-white text-grey hover:border-ink hover:text-ink";
+const pillOff = "border-line bg-white text-muted hover:border-ink hover:text-ink";
 
 /** Blog admin list (feature 16), filterable by status + source. */
 export default async function AdminBlogPage({
@@ -54,7 +54,7 @@ export default async function AdminBlogPage({
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Blog</h1>
-          <p className="mt-1 text-sm text-grey">
+          <p className="mt-1 text-sm text-muted">
             {posts.length} post{posts.length === 1 ? "" : "s"}
             {status ? ` · ${status}` : ""}
             {source ? ` · ${source}` : ""}.
@@ -68,7 +68,7 @@ export default async function AdminBlogPage({
       {/* Filters */}
       <div className="mt-5 space-y-2">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-xs uppercase text-grey">Status</span>
+          <span className="font-mono text-xs uppercase text-muted">Status</span>
           <Link
             href={filterHref({ source })}
             className={`${pill} ${!status ? pillOn : pillOff}`}
@@ -86,7 +86,7 @@ export default async function AdminBlogPage({
           ))}
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-xs uppercase text-grey">Source</span>
+          <span className="font-mono text-xs uppercase text-muted">Source</span>
           <Link
             href={filterHref({ status })}
             className={`${pill} ${!source ? pillOn : pillOff}`}
@@ -106,13 +106,13 @@ export default async function AdminBlogPage({
       </div>
 
       {posts.length === 0 ? (
-        <p className="mt-8 rounded-card border border-line bg-paper-2 px-5 py-8 text-center text-sm text-grey">
+        <p className="mt-8 rounded-card border border-line bg-parchment-2 px-5 py-8 text-center text-sm text-muted">
           No posts match these filters.
         </p>
       ) : (
         <div className="mt-6 overflow-hidden rounded-card border border-line">
           <table className="w-full text-sm">
-            <thead className="bg-paper-2 text-left font-mono text-xs uppercase tracking-wide text-grey">
+            <thead className="bg-parchment-2 text-left font-mono text-xs uppercase tracking-wide text-muted">
               <tr>
                 <th className="px-4 py-3">Title</th>
                 <th className="px-4 py-3">Source</th>
@@ -131,12 +131,12 @@ export default async function AdminBlogPage({
                     >
                       {p.title}
                     </Link>
-                    <span className="block font-mono text-xs text-grey">
+                    <span className="block font-mono text-xs text-muted">
                       /{p.slug}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-grey">{p.source}</td>
-                  <td className="px-4 py-3 text-grey">
+                  <td className="px-4 py-3 text-muted">{p.source}</td>
+                  <td className="px-4 py-3 text-muted">
                     {p.publishedAt ? formatDate(p.publishedAt) : "—"}
                   </td>
                   <td className="px-4 py-3">
@@ -145,7 +145,7 @@ export default async function AdminBlogPage({
                   <td className="px-4 py-3 text-right">
                     <Link
                       href={`/admin/blog/${p.id}/edit`}
-                      className="text-xs text-ink-2 hover:underline"
+                      className="text-xs text-navy hover:underline"
                     >
                       Edit
                     </Link>

@@ -10,11 +10,11 @@ import { formatPaiseINR } from "@/lib/format";
 
 /** Tailwind classes per status badge. */
 const STATUS_BADGE: Record<OrderStatus, string> = {
-  created: "bg-line/60 text-grey",
-  paid: "bg-lime/40 text-ink",
+  created: "bg-line/60 text-muted",
+  paid: "bg-brass/40 text-ink",
   packed: "bg-amber/20 text-ink",
   shipped: "bg-ink text-white",
-  delivered: "bg-ink-2 text-white",
+  delivered: "bg-navy text-white",
   cancelled: "bg-red-100 text-red-800",
   refunded: "bg-red-100 text-red-800",
 };
@@ -75,24 +75,24 @@ export default async function AdminOrdersPage({
           Filter
         </button>
         {(status || search) && (
-          <Link href="/admin/orders" className="text-sm text-grey hover:underline">
+          <Link href="/admin/orders" className="text-sm text-muted hover:underline">
             Clear
           </Link>
         )}
       </form>
 
-      <p className="mt-4 text-sm text-grey">
+      <p className="mt-4 text-sm text-muted">
         {orders.length} order{orders.length === 1 ? "" : "s"}.
       </p>
 
       {orders.length === 0 ? (
-        <p className="mt-4 rounded-card border border-line bg-paper-2 px-5 py-8 text-center text-sm text-grey">
+        <p className="mt-4 rounded-card border border-line bg-parchment-2 px-5 py-8 text-center text-sm text-muted">
           No orders match.
         </p>
       ) : (
         <div className="mt-2 overflow-hidden rounded-card border border-line">
           <table className="w-full text-sm">
-            <thead className="bg-paper-2 text-left font-mono text-xs uppercase tracking-wide text-grey">
+            <thead className="bg-parchment-2 text-left font-mono text-xs uppercase tracking-wide text-muted">
               <tr>
                 <th className="px-4 py-3">Order</th>
                 <th className="px-4 py-3">Customer</th>
@@ -104,7 +104,7 @@ export default async function AdminOrdersPage({
             </thead>
             <tbody className="divide-y divide-line">
               {orders.map((o) => (
-                <tr key={o.id} className="bg-white hover:bg-paper-2">
+                <tr key={o.id} className="bg-white hover:bg-parchment-2">
                   <td className="px-4 py-3">
                     <Link
                       href={`/admin/orders/${o.id}`}
@@ -115,12 +115,12 @@ export default async function AdminOrdersPage({
                   </td>
                   <td className="px-4 py-3">
                     <div className="text-ink">{o.customerName ?? "—"}</div>
-                    <div className="font-mono text-xs text-grey">
+                    <div className="font-mono text-xs text-muted">
                       {o.customerPhone}
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-grey">{o.itemCount}</td>
-                  <td className="px-4 py-3 text-grey">
+                  <td className="px-4 py-3 text-muted">{o.itemCount}</td>
+                  <td className="px-4 py-3 text-muted">
                     {formatPaiseINR(o.totalPaise)}
                   </td>
                   <td className="px-4 py-3">
@@ -130,7 +130,7 @@ export default async function AdminOrdersPage({
                       {o.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-grey">{formatDate(o.createdAt)}</td>
+                  <td className="px-4 py-3 text-muted">{formatDate(o.createdAt)}</td>
                 </tr>
               ))}
             </tbody>

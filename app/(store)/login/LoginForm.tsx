@@ -50,7 +50,7 @@ export function LoginForm({ next }: { next: string }) {
 
       <button
         type="submit"
-        className="btn btn-lime auth-submit"
+        className="btn btn-brass auth-submit"
         disabled={pending}
       >
         {pending ? "Signing in…" : "Sign in"}

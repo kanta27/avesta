@@ -25,10 +25,10 @@ export default async function AdminDashboardLayout({
   const user = await requireAdmin();
 
   return (
-    <div className="min-h-screen bg-paper text-ink md:grid md:grid-cols-[240px_1fr]">
-      <aside className="border-line bg-paper-2 px-4 py-5 md:min-h-screen md:border-r">
+    <div className="min-h-screen bg-parchment text-ink md:grid md:grid-cols-[240px_1fr]">
+      <aside className="border-line bg-parchment-2 px-4 py-5 md:min-h-screen md:border-r">
         <Link href="/admin" className="block">
-          <p className="font-mono text-xs uppercase tracking-widest text-grey">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted">
             Avesta Nordic
           </p>
           <p className="mt-0.5 text-lg font-semibold">Admin</p>
@@ -39,13 +39,13 @@ export default async function AdminDashboardLayout({
         </div>
 
         <div className="mt-6 border-t border-line pt-4 text-sm">
-          <p className="truncate text-grey" title={user.email ?? undefined}>
+          <p className="truncate text-muted" title={user.email ?? undefined}>
             {user.email}
           </p>
           <form action="/admin/auth/signout" method="post" className="mt-2">
             <button
               type="submit"
-              className="font-medium text-grey underline-offset-2 hover:text-ink hover:underline"
+              className="font-medium text-muted underline-offset-2 hover:text-ink hover:underline"
             >
               Sign out
             </button>

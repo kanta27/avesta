@@ -96,7 +96,7 @@ export function DiscountForm() {
           placeholder="WELCOME10"
           required
         />
-        <p className="mt-1 text-xs text-grey">Stored uppercased.</p>
+        <p className="mt-1 text-xs text-muted">Stored uppercased.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -181,7 +181,7 @@ export function DiscountForm() {
             onChange={(e) => setUsageLimit(e.target.value)}
             placeholder="∞"
           />
-          <p className="mt-1 text-xs text-grey">Blank = unlimited.</p>
+          <p className="mt-1 text-xs text-muted">Blank = unlimited.</p>
         </div>
         <div>
           <label htmlFor={fid("per-phone-limit")} className={labelCls}>
@@ -196,7 +196,7 @@ export function DiscountForm() {
             onChange={(e) => setPerPhoneLimit(e.target.value)}
             placeholder="∞"
           />
-          <p className="mt-1 text-xs text-grey">Blank = unlimited.</p>
+          <p className="mt-1 text-xs text-muted">Blank = unlimited.</p>
         </div>
       </div>
 

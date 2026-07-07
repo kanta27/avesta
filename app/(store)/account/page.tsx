@@ -84,7 +84,7 @@ export default async function AccountPage() {
             {orders.length === 0 ? (
               <div className="account-empty">
                 <p>You haven&apos;t placed any orders yet.</p>
-                <Link className="btn btn-lime account-shop" href="/shop">
+                <Link className="btn btn-brass account-shop" href="/shop">
                   Browse products
                 </Link>
               </div>

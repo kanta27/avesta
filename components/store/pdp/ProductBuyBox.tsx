@@ -56,7 +56,7 @@ export function ProductBuyBox({
         ) : null}
       </div>
 
-      <Button variant="lime" className="add" onClick={addToCart}>
+      <Button variant="brass" className="add" onClick={addToCart}>
         Add to cart
       </Button>
 
@@ -79,7 +79,7 @@ export function ProductBuyBox({
             <small> · {tier.label}</small>
           </span>
         </div>
-        <Button variant="lime" onClick={addToCart}>
+        <Button variant="brass" onClick={addToCart}>
           Add to cart
         </Button>
       </div>

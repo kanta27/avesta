@@ -37,13 +37,13 @@ export default async function AdminOrderDetailPage({
 
   return (
     <div className="mx-auto max-w-4xl">
-      <Link href="/admin/orders" className="text-sm text-grey hover:underline">
+      <Link href="/admin/orders" className="text-sm text-muted hover:underline">
         ← Orders
       </Link>
 
       <div className="mt-2 flex flex-wrap items-baseline justify-between gap-2">
         <h1 className="font-mono text-2xl font-semibold">{order.orderNumber}</h1>
-        <span className="text-sm text-grey">
+        <span className="text-sm text-muted">
           Placed {formatDateTime(order.createdAt)}
         </span>
       </div>
@@ -54,7 +54,7 @@ export default async function AdminOrderDetailPage({
           <section className="rounded-card border border-line bg-white p-5">
             <h2 className="text-base font-semibold">Items</h2>
             <table className="mt-3 w-full text-sm">
-              <thead className="text-left font-mono text-xs uppercase tracking-wide text-grey">
+              <thead className="text-left font-mono text-xs uppercase tracking-wide text-muted">
                 <tr>
                   <th className="py-2">Product</th>
                   <th className="py-2">Pack</th>
@@ -66,9 +66,9 @@ export default async function AdminOrderDetailPage({
                 {order.items.map((it, i) => (
                   <tr key={i}>
                     <td className="py-2">{it.name ?? it.product_id ?? "—"}</td>
-                    <td className="py-2 text-grey">{it.pack_key ?? "—"}</td>
-                    <td className="py-2 text-grey">{it.qty ?? "—"}</td>
-                    <td className="py-2 text-right text-grey">
+                    <td className="py-2 text-muted">{it.pack_key ?? "—"}</td>
+                    <td className="py-2 text-muted">{it.qty ?? "—"}</td>
+                    <td className="py-2 text-right text-muted">
                       {it.unit_price_paise != null
                         ? formatPaiseINR(it.unit_price_paise)
                         : "—"}
@@ -80,19 +80,19 @@ export default async function AdminOrderDetailPage({
 
             <dl className="mt-4 space-y-1 border-t border-line pt-3 text-sm">
               <div className="flex justify-between">
-                <dt className="text-grey">Subtotal</dt>
+                <dt className="text-muted">Subtotal</dt>
                 <dd>{formatPaiseINR(order.subtotalPaise)}</dd>
               </div>
               {order.discountPaise > 0 && (
                 <div className="flex justify-between">
-                  <dt className="text-grey">
+                  <dt className="text-muted">
                     Discount{order.discountCode ? ` (${order.discountCode})` : ""}
                   </dt>
                   <dd>−{formatPaiseINR(order.discountPaise)}</dd>
                 </div>
               )}
               <div className="flex justify-between">
-                <dt className="text-grey">Shipping</dt>
+                <dt className="text-muted">Shipping</dt>
                 <dd>{formatPaiseINR(order.shippingPaise)}</dd>
               </div>
               <div className="flex justify-between font-semibold">
@@ -107,11 +107,11 @@ export default async function AdminOrderDetailPage({
             <h2 className="text-base font-semibold">Customer</h2>
             <div className="mt-2 text-sm">
               <p>{order.customerName ?? "—"}</p>
-              <p className="font-mono text-xs text-grey">{order.customerPhone}</p>
-              {order.email && <p className="text-grey">{order.email}</p>}
+              <p className="font-mono text-xs text-muted">{order.customerPhone}</p>
+              {order.email && <p className="text-muted">{order.email}</p>}
             </div>
             <h3 className="mt-4 text-sm font-semibold">Shipping address</h3>
-            <address className="mt-1 text-sm not-italic text-grey">
+            <address className="mt-1 text-sm not-italic text-muted">
               {addrLines.length ? (
                 addrLines.map((l, i) => <div key={i}>{l}</div>)
               ) : (
@@ -122,7 +122,7 @@ export default async function AdminOrderDetailPage({
         </div>
 
         {/* Fulfilment */}
-        <aside className="rounded-card border border-line bg-paper-2 p-5">
+        <aside className="rounded-card border border-line bg-parchment-2 p-5">
           <h2 className="text-base font-semibold">Fulfilment</h2>
           <div className="mt-4">
             <OrderFulfilment

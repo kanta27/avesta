@@ -16,7 +16,7 @@ export default async function AdminAccountPage() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <p className="font-mono text-xs uppercase tracking-widest text-grey">
+      <p className="font-mono text-xs uppercase tracking-widest text-muted">
         Account
       </p>
       <h1 className="mt-2 text-3xl font-semibold">Your account</h1>
@@ -25,11 +25,11 @@ export default async function AdminAccountPage() {
         <h2 className="text-lg font-semibold">Profile</h2>
         <dl className="mt-3 grid gap-2 text-sm">
           <div className="flex gap-2">
-            <dt className="text-grey">Email</dt>
+            <dt className="text-muted">Email</dt>
             <dd className="font-medium text-ink">{user.email}</dd>
           </div>
           <div className="flex gap-2">
-            <dt className="text-grey">Role</dt>
+            <dt className="text-muted">Role</dt>
             <dd className="font-medium text-ink">Administrator</dd>
           </div>
         </dl>
@@ -37,7 +37,7 @@ export default async function AdminAccountPage() {
 
       <section className="mt-10">
         <h2 className="text-lg font-semibold">Change password</h2>
-        <p className="mt-1 text-sm text-grey">
+        <p className="mt-1 text-sm text-muted">
           Set a new password for signing in to the admin area.
         </p>
         <ChangePasswordForm />
@@ -47,7 +47,7 @@ export default async function AdminAccountPage() {
         <form action="/admin/auth/signout" method="post">
           <button
             type="submit"
-            className="font-medium text-grey underline-offset-2 hover:text-ink hover:underline"
+            className="font-medium text-muted underline-offset-2 hover:text-ink hover:underline"
           >
             Sign out
           </button>

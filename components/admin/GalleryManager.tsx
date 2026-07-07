@@ -162,7 +162,7 @@ export function GalleryManager({ initial }: { initial: GalleryImage[] }) {
       {/* Upload */}
       <section className="rounded-card border border-line bg-white p-5">
         <h2 className="text-base font-semibold">Add an image</h2>
-        <p className="mt-1 text-xs text-grey">
+        <p className="mt-1 text-xs text-muted">
           Uploaded to the <code>gallery</code> storage bucket. Pick a category,
           then choose a file — it appears below where you can set alt text and
           reorder.
@@ -204,7 +204,7 @@ export function GalleryManager({ initial }: { initial: GalleryImage[] }) {
 
       {/* Manage */}
       {images.length === 0 ? (
-        <p className="rounded-card border border-line bg-paper-2 px-5 py-8 text-center text-sm text-grey">
+        <p className="rounded-card border border-line bg-parchment-2 px-5 py-8 text-center text-sm text-muted">
           No gallery images yet. Upload one above — it will appear on the public
           gallery immediately.
         </p>
@@ -274,7 +274,7 @@ export function GalleryManager({ initial }: { initial: GalleryImage[] }) {
                     >
                       ↓
                     </button>
-                    <span className="ml-1 font-mono text-xs text-grey">
+                    <span className="ml-1 font-mono text-xs text-muted">
                       #{i + 1}
                     </span>
                   </div>

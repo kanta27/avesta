@@ -41,7 +41,7 @@ export function ProductCard({ product }: { product: Product }) {
           <span className="price">{product.price}</span>
           <span className="perday">{product.perDay}</span>
         </div>
-        <Button variant="lime" className="add">
+        <Button variant="brass" className="add">
           Add to cart
         </Button>
       </div>

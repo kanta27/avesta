@@ -104,7 +104,7 @@ export function ReviewCreateForm({
 
         <div>
           <label htmlFor={fid("product")} className={labelCls}>
-            Product <span className="text-grey">(optional)</span>
+            Product <span className="text-muted">(optional)</span>
           </label>
           <select
             id={fid("product")}
@@ -143,7 +143,7 @@ export function ReviewCreateForm({
         </div>
         <div>
           <label htmlFor={fid("author")} className={labelCls}>
-            Author <span className="text-grey">(optional)</span>
+            Author <span className="text-muted">(optional)</span>
           </label>
           <input
             id={fid("author")}
@@ -155,7 +155,7 @@ export function ReviewCreateForm({
         </div>
         <div>
           <label htmlFor={fid("location")} className={labelCls}>
-            Location <span className="text-grey">(optional)</span>
+            Location <span className="text-muted">(optional)</span>
           </label>
           <input
             id={fid("location")}
@@ -181,13 +181,13 @@ export function ReviewCreateForm({
               placeholder="What did the customer say?"
               required
             />
-            <p className="mt-1 text-xs text-grey">
+            <p className="mt-1 text-xs text-muted">
               First-party only. Stored and shown on-site as plain text.
             </p>
           </div>
           <div>
             <label htmlFor={fid("reel")} className={labelCls}>
-              Reel URL <span className="text-grey">(optional)</span>
+              Reel URL <span className="text-muted">(optional)</span>
             </label>
             <input
               id={fid("reel")}
@@ -213,7 +213,7 @@ export function ReviewCreateForm({
             placeholder="https://www.amazon.in/dp/…"
             required
           />
-          <p className="mt-1 text-xs text-grey">
+          <p className="mt-1 text-xs text-muted">
             {sourceLabel(source)} entries are rating + link-out badges only — no
             review text is stored or shown on-site (compliance).
           </p>

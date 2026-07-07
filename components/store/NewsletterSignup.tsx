@@ -76,7 +76,7 @@ export function NewsletterSignup() {
             />
             <button
               type="submit"
-              className="btn btn-lime"
+              className="btn btn-brass"
               disabled={status === "submitting"}
             >
               {status === "submitting" ? "…" : "Subscribe"}

@@ -46,14 +46,14 @@ function fullDay(iso: string): string {
   });
 }
 
-const AXIS_TICK = { fontSize: 11, fill: "var(--grey)" } as const;
+const AXIS_TICK = { fontSize: 11, fill: "var(--muted)" } as const;
 
 export function AnalyticsCharts({ series }: { series: ChartPoint[] }) {
   const hasData = series.some((p) => p.orders > 0 || p.revenuePaise > 0);
 
   if (!hasData) {
     return (
-      <div className="rounded-card border border-line bg-paper-2 px-5 py-10 text-center text-sm text-grey">
+      <div className="rounded-card border border-line bg-parchment-2 px-5 py-10 text-center text-sm text-muted">
         No paid orders in this range yet.
       </div>
     );
@@ -61,8 +61,8 @@ export function AnalyticsCharts({ series }: { series: ChartPoint[] }) {
 
   return (
     <div className="grid gap-6">
-      <figure className="rounded-card border border-line bg-paper-2 px-4 py-4">
-        <figcaption className="mb-2 px-1 font-mono text-xs uppercase tracking-widest text-grey">
+      <figure className="rounded-card border border-line bg-parchment-2 px-4 py-4">
+        <figcaption className="mb-2 px-1 font-mono text-xs uppercase tracking-widest text-muted">
           Revenue per day
         </figcaption>
         <div className="h-64 w-full">
@@ -111,8 +111,8 @@ export function AnalyticsCharts({ series }: { series: ChartPoint[] }) {
         </div>
       </figure>
 
-      <figure className="rounded-card border border-line bg-paper-2 px-4 py-4">
-        <figcaption className="mb-2 px-1 font-mono text-xs uppercase tracking-widest text-grey">
+      <figure className="rounded-card border border-line bg-parchment-2 px-4 py-4">
+        <figcaption className="mb-2 px-1 font-mono text-xs uppercase tracking-widest text-muted">
           Paid orders per day
         </figcaption>
         <div className="h-56 w-full">
@@ -143,7 +143,7 @@ export function AnalyticsCharts({ series }: { series: ChartPoint[] }) {
                   fontSize: 12,
                 }}
               />
-              <Bar dataKey="orders" fill="var(--lime-deep)" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="orders" fill="var(--brass)" radius={[3, 3, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

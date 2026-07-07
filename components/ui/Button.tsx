@@ -4,7 +4,7 @@ import type {
   ReactNode,
 } from "react";
 
-type Variant = "primary" | "brass" | "lime" | "ghost";
+type Variant = "primary" | "brass" | "ghost";
 
 type CommonProps = {
   variant?: Variant;

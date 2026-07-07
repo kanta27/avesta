@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
 
 /**
- * The lime quiz call-to-action band. `cta` is a slot for an override; by default
+ * The quiz call-to-action band. `cta` is a slot for an override; by default
  * it links to the 60-second health quiz at `/quiz` (feature 20).
  */
 export function QuizBand({ cta }: { cta?: ReactNode }) {

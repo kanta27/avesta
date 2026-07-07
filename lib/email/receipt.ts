@@ -87,13 +87,13 @@ function renderReceiptHtml(order: ConfirmationOrder): string {
     })
     .join("");
 
-  return `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#0A3D3F">
+  return `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#1F2D38">
   <h2>Thank you for your order</h2>
   <p>Your order <strong>${escapeHtml(order.order_number)}</strong> is confirmed and being prepared.</p>
   <table style="width:100%;max-width:480px;border-collapse:collapse">
     ${lines}
-    <tr><td style="padding:10px 0;border-top:1px solid #DDE5DF"><strong>Total</strong></td>
-    <td style="padding:10px 0;border-top:1px solid #DDE5DF;text-align:right"><strong>${formatPaiseINR(order.total_paise)}</strong></td></tr>
+    <tr><td style="padding:10px 0;border-top:1px solid #E2E9EE"><strong>Total</strong></td>
+    <td style="padding:10px 0;border-top:1px solid #E2E9EE;text-align:right"><strong>${formatPaiseINR(order.total_paise)}</strong></td></tr>
   </table>
   <p style="color:#5C6B68;font-size:13px">You'll get WhatsApp updates as your order ships. These products are not intended to diagnose, treat, cure or prevent any disease.</p>
   </body></html>`;

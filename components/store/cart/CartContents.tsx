@@ -61,7 +61,7 @@ export function CartContents({
         <p className="cart-empty-sub">
           Add a product or a pack to get started.
         </p>
-        <Button variant="lime" href="/shop" onClick={onNavigate}>
+        <Button variant="brass" href="/shop" onClick={onNavigate}>
           Browse products
         </Button>
       </div>
@@ -108,7 +108,7 @@ export function CartContents({
 
         {/* Checkout re-prices everything server-side from the DB (feature 5). */}
         <Button
-          variant="lime"
+          variant="brass"
           className="cart-checkout"
           href="/checkout"
           onClick={onNavigate}

@@ -17,11 +17,11 @@ export function LoginForm() {
 
   return (
     <div className="w-full max-w-sm">
-      <p className="font-mono text-xs uppercase tracking-widest text-grey">
+      <p className="font-mono text-xs uppercase tracking-widest text-muted">
         Avesta Nordic
       </p>
       <h1 className="mt-2 text-2xl font-semibold">Admin sign in</h1>
-      <p className="mt-2 text-sm text-grey">
+      <p className="mt-2 text-sm text-muted">
         Sign in with your admin email and password.
       </p>
 

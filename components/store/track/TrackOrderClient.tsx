@@ -112,7 +112,7 @@ export function TrackOrderClient() {
             required
           />
         </div>
-        <Button variant="lime" type="submit" className="track-submit">
+        <Button variant="brass" type="submit" className="track-submit">
           {isLoading ? "Looking up…" : "Track order"}
         </Button>
       </form>
@@ -233,7 +233,7 @@ function FoundOrder({
         </div>
 
         <div className="track-actions">
-          <Button variant="lime" onClick={onReorder} className="track-reorder">
+          <Button variant="brass" onClick={onReorder} className="track-reorder">
             Reorder these items
           </Button>
         </div>

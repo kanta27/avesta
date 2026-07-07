@@ -25,14 +25,5 @@
   --pill: 980px;
   --radius: var(--r); /* card radius */
 
-  /* ---- transitional aliases (old palette names → new tokens) ----
-     Kept so components still referencing the old names keep working
-     mid-migration. Removed in Phase 4 of the redesign sweep. */
-  --ink-2: var(--navy);
-  --paper: var(--parchment);
-  --paper-2: var(--parchment-2);
-  --lime: var(--brass);
-  --lime-deep: var(--brass);
-  --amber: #f0a93b; /* stars */
-  --grey: var(--muted);
+  --amber: #f0a93b; /* star ratings / warm warnings */
 }

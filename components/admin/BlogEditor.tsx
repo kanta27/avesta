@@ -94,7 +94,7 @@ export function BlogEditor({ post }: { post?: AdminBlogPost }) {
           {isEdit ? "Edit post" : "New post"}
         </h1>
         {isEdit && post ? (
-          <span className="font-mono text-xs uppercase tracking-wide text-grey">
+          <span className="font-mono text-xs uppercase tracking-wide text-muted">
             {post.source} · {post.status}
           </span>
         ) : null}
@@ -134,7 +134,7 @@ export function BlogEditor({ post }: { post?: AdminBlogPost }) {
           placeholder="best-supplement-for-hydration"
           required
         />
-        <p className="mt-1 text-xs text-grey">
+        <p className="mt-1 text-xs text-muted">
           URL: /blog/{slug || "…"} · lowercase words, hyphen-separated.
         </p>
       </div>
@@ -171,7 +171,7 @@ export function BlogEditor({ post }: { post?: AdminBlogPost }) {
             {bodyMd.trim() ? (
               <Markdown source={bodyMd} />
             ) : (
-              <p className="text-sm text-grey">Nothing to preview yet.</p>
+              <p className="text-sm text-muted">Nothing to preview yet.</p>
             )}
           </div>
         ) : (
@@ -184,7 +184,7 @@ export function BlogEditor({ post }: { post?: AdminBlogPost }) {
             placeholder={"## Heading\n\nWrite the article in Markdown…"}
           />
         )}
-        <p className="mt-1 text-xs text-grey">
+        <p className="mt-1 text-xs text-muted">
           Rendered through an allowlist sanitizer — raw HTML and unsafe links are
           stripped.
         </p>
@@ -227,7 +227,7 @@ export function BlogEditor({ post }: { post?: AdminBlogPost }) {
           onChange={(e) => setTags(e.target.value)}
           placeholder="hydration, immunity"
         />
-        <p className="mt-1 text-xs text-grey">Comma-separated.</p>
+        <p className="mt-1 text-xs text-muted">Comma-separated.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -275,7 +275,7 @@ export function BlogEditor({ post }: { post?: AdminBlogPost }) {
             </option>
           ))}
         </select>
-        <p className="mt-1 text-xs text-grey">
+        <p className="mt-1 text-xs text-muted">
           Publishing stamps the publish date. Only a human admin can publish.
         </p>
       </div>

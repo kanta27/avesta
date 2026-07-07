@@ -58,8 +58,8 @@ export function ReviewToggles({
         aria-pressed={approved}
         className={`${pill} ${
           approved
-            ? "bg-lime/40 text-ink hover:bg-lime/60"
-            : "bg-line/60 text-grey hover:bg-line"
+            ? "bg-brass/40 text-ink hover:bg-brass/60"
+            : "bg-line/60 text-muted hover:bg-line"
         }`}
       >
         {approved ? "Approved" : "Pending"}
@@ -75,7 +75,7 @@ export function ReviewToggles({
         className={`${pill} ${
           featured
             ? "bg-amber/30 text-ink hover:bg-amber/50"
-            : "bg-line/60 text-grey hover:bg-line"
+            : "bg-line/60 text-muted hover:bg-line"
         }`}
       >
         {featured ? "★ Featured" : "Feature"}

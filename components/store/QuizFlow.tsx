@@ -132,7 +132,7 @@ export function QuizFlow({ products }: { products: ProductListItem[] }) {
         {recommendation?.product ? (
           <Link
             href={`/shop/${recommendation.product.slug}`}
-            className="btn btn-lime"
+            className="btn btn-brass"
             style={{ width: "100%", justifyContent: "center", marginTop: 18 }}
           >
             Shop {recommendation.product.name} →
@@ -140,7 +140,7 @@ export function QuizFlow({ products }: { products: ProductListItem[] }) {
         ) : (
           <Link
             href="/shop"
-            className="btn btn-lime"
+            className="btn btn-brass"
             style={{ width: "100%", justifyContent: "center", marginTop: 18 }}
           >
             Browse the shop →
@@ -241,7 +241,7 @@ export function QuizFlow({ products }: { products: ProductListItem[] }) {
           ) : null}
           <button
             type="submit"
-            className="btn btn-lime"
+            className="btn btn-brass"
             style={{ width: "100%", justifyContent: "center" }}
             disabled={submitting}
           >

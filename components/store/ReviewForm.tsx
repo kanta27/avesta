@@ -58,9 +58,9 @@ export function ReviewForm({
 
   if (done) {
     return (
-      <div className="rounded-card border border-line bg-paper-2 px-6 py-8 text-center">
+      <div className="rounded-card border border-line bg-parchment-2 px-6 py-8 text-center">
         <p className="text-lg font-semibold">Thank you! 🙏</p>
-        <p className="mt-2 text-sm text-grey">
+        <p className="mt-2 text-sm text-muted">
           Your review has been submitted and will appear once our team approves
           it.
         </p>
@@ -104,7 +104,7 @@ export function ReviewForm({
       {products.length > 0 && (
         <div>
           <label htmlFor={fid("product")} className={labelCls}>
-            Which product? <span className="text-grey">(optional)</span>
+            Which product? <span className="text-muted">(optional)</span>
           </label>
           <select
             id={fid("product")}
@@ -141,7 +141,7 @@ export function ReviewForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor={fid("name")} className={labelCls}>
-            Name <span className="text-grey">(optional)</span>
+            Name <span className="text-muted">(optional)</span>
           </label>
           <input
             id={fid("name")}
@@ -154,7 +154,7 @@ export function ReviewForm({
         </div>
         <div>
           <label htmlFor={fid("location")} className={labelCls}>
-            City <span className="text-grey">(optional)</span>
+            City <span className="text-muted">(optional)</span>
           </label>
           <input
             id={fid("location")}

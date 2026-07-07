@@ -18,7 +18,7 @@ export default async function AdminGalleryPage() {
       <div className="mb-1 flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Gallery</h1>
       </div>
-      <p className="mb-6 text-sm text-grey">
+      <p className="mb-6 text-sm text-muted">
         {images.length} image{images.length === 1 ? "" : "s"}
         {images.length > 0
           ? ` · ${counts
@@ -27,7 +27,7 @@ export default async function AdminGalleryPage() {
               .join(", ")}`
           : ""}
         . These appear on the public{" "}
-        <a className="text-ink-2 underline" href="/gallery" target="_blank" rel="noreferrer">
+        <a className="text-navy underline" href="/gallery" target="_blank" rel="noreferrer">
           /gallery
         </a>{" "}
         page in this order.
